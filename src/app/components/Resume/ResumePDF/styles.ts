@@ -119,7 +119,7 @@ export const styles = StyleSheet.create({
     width: "240px",
     height: "80px",
     // border: "1px solid black",
-    // marginRight: "50px"
+    marginRight: "50px"
   },
   userPhotoFake: {
     width: "90px",
