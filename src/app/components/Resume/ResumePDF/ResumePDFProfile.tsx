@@ -65,7 +65,7 @@ export const ResumePDFProfile = ({
       {summary && <ResumePDFText >{summary}</ResumePDFText>}
       <View style={{ ...styles.flexContactsRow }}>
         {photo && (<Image style={styles.userPhoto} src={photo} />)}
-        <img style={styles.userPhoto} src={photo} />
+        <img style={styles.userPhotoFake} src={photo} />
 
 
         <View

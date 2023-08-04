@@ -122,11 +122,9 @@ export const styles = StyleSheet.create({
     // marginRight: "50px"
   },
   userPhotoFake: {
-    width: "240px",
+    width: "90px",
     height: "80px",
-    position: "relative",
-    left: "-120px",
-
+    position: "absolute",
   },
   image: {
     width: "240px",
