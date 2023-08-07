@@ -27,15 +27,20 @@
     padding-top: 141.42%;
     position: relative;
   }
-  .auth-container {
+  /* .auth-container {
     width: 800px;
     height: 100%;
     right: -800px;
     transition: right 0.3s;
-  }
+  } */
   
   .auth-container.open {
     right: 0;
+  }
+
+  .service-card {
+    height: 300px;
+    width: 300px;
   }
 }
 

@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
+import useUser from "lib/useUser";
 
 const ResumeControlBarComponent = ({
   scale,
@@ -26,7 +27,19 @@ const ResumeControlBarComponent = ({
     documentSize,
   });
 
+  const user = useUser()
+
   const [instance, update] = usePDF({ document });
+
+  const downloadPDF = () => {
+    if (user) {
+      let a = window.document.createElement('a')
+      a.href = instance.url || ""
+      a.download = fileName
+      a.click()
+    }
+
+  }
 
   // Hook to update pdf when document changes
   useEffect(() => {
@@ -59,14 +72,18 @@ const ResumeControlBarComponent = ({
           <span className="select-none">Autoscale</span>
         </label>
       </div>
-      <a
+      <button onClick={downloadPDF} className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
+        <ArrowDownTrayIcon className="h-4 w-4" />
+        <span className="whitespace-nowrap">Download Resume</span>
+      </button>
+      {/* <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
         download={fileName}
       >
         <ArrowDownTrayIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">Download Resume</span>
-      </a>
+      </a> */}
     </div>
   );
 };

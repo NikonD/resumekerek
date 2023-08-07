@@ -9,9 +9,12 @@ import { PDFCard } from "components/Profile/PDFCard";
 import { AddPDF } from "components/Profile/AddPdf";
 import moment from 'moment';
 import 'moment/locale/ru';
+import { ServicesPage } from "components/Profile/ServiceSection";
+import { PDFListSection } from "components/Profile/PDFSection";
+import { IResume } from "components/Profile/types";
 
 
-const data = [
+const data: IResume[] = [
   {
     name: 'Резюме 1',
     summary: 'описание Резюме 1',
@@ -45,7 +48,7 @@ const data = [
 ];
 
 
-moment.locale('ru')
+
 
 let arr = new Array(7).fill(1)
 
@@ -55,22 +58,9 @@ export default function Profile() {
   return (
     <Provider store={store}>
       <main className="relative h-full w-full overflow-hidden bg-gray-50">
-        <div className="grid grid-cols-1 max-md:grid-cols-6 ">
+        <ServicesPage />
 
-          <div className="mx-10 my-20 grid grid-cols-6 gap-x-20 gap-y-20 ">
-            <AddPDF/>
-            {data.map((el, i) => {
-              return (
-                <PDFCard key={i}>
-                  <h1 className="text-4xl font-bold">{el.name}</h1>
-                  <p className="text-lg">{el.summary}</p>
-                  <p className="absolute bottom-0 right-0 text-sm">{moment(el.date).format('LL')}</p>
-                </PDFCard>
-              )
-            })}
-          </div>
-
-        </div>
+        <PDFListSection resumes={data}/>
       </main>
     </Provider>
   );

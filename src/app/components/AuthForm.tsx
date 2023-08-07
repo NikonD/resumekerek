@@ -14,7 +14,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onGoogleAuth }) => {
 
   const onSubmit = async () => {
     try {
-      const response = await axios.post('http://193.122.54.25:5000/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
       const { token } = response.data;
 
       // Сохранение JWT в localStorage.
