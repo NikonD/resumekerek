@@ -47,11 +47,11 @@ const ResumeControlBarComponent = ({
             if (typeof reader.result === 'string') {
               const base64Data = reader.result;
               console.log(base64Data);
-              // await axios.post('http://localhost:5000/api/resume/create')
+              // await axios.post('http://193.122.54.25:5000/api/resume/create')
               
               const token = localStorage.getItem('token');
 
-              await axios.post('http://localhost:5000/api/resume/upload/pdf', { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
+              await axios.post('http://193.122.54.25:5000/api/resume/upload/pdf', { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
                 .then(response => {
                   toast.success("Файл сохранен")
                   let a = window.document.createElement('a')

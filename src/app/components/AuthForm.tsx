@@ -24,7 +24,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
   console.log(user)
   const onSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('http://193.122.54.25:5000/api/auth/login', { email, password });
       const token = response.data.data;
       setIsogin(true)
       console.log(response)
@@ -105,7 +105,7 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/registration', { email, password, fullname });
+      const response = await axios.post('http://193.122.54.25:5000/api/auth/registration', { email, password, fullname });
       const token = response.data.data;
 
       console.log(response)

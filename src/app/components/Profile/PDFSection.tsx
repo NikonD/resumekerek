@@ -19,7 +19,7 @@ let PDFListSection = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.post("http://localhost:5000/api/resume/list", {}, { headers: { Authorization: `Bearer ${token}` } })
+    axios.post("http://193.122.54.25:5000/api/resume/list", {}, { headers: { Authorization: `Bearer ${token}` } })
     .then((response)=>{
       let resumes = response.data
       setResumes(resumes)
