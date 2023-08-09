@@ -8,14 +8,18 @@ import {
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
 import useUser from "lib/useUser";
+import { toast } from 'react-toastify';
+import axios from "axios";
 
 const ResumeControlBarComponent = ({
+  resume,
   scale,
   setScale,
   documentSize,
   document,
   fileName,
 }: {
+  resume: any
   scale: number;
   setScale: (scale: number) => void;
   documentSize: string;
@@ -31,12 +35,44 @@ const ResumeControlBarComponent = ({
 
   const [instance, update] = usePDF({ document });
 
+
+  //useUser(): id 
   const downloadPDF = () => {
     if (user) {
-      let a = window.document.createElement('a')
-      a.href = instance.url || ""
-      a.download = fileName
-      a.click()
+      fetch(instance.url || "")
+        .then(response => response.blob())
+        .then(blobData => {
+          const reader = new FileReader();
+          reader.onload = async () => {
+            if (typeof reader.result === 'string') {
+              const base64Data = reader.result;
+              console.log(base64Data);
+              // await axios.post('http://localhost:5000/api/resume/create')
+              
+              const token = localStorage.getItem('token');
+
+              await axios.post('http://localhost:5000/api/resume/upload/pdf', { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
+                .then(response => {
+                  toast.success("Файл сохранен")
+                  let a = window.document.createElement('a')
+                  a.href = instance.url || ""
+                  a.download = fileName
+                  a.click()
+                })
+                .catch(error => {
+                  toast.error("Ошибка сервера")
+                });
+            } else {
+              console.error('File reader result is not a string.');
+            }
+          };
+          reader.readAsDataURL(blobData);
+        })
+        .catch(error => console.error('Error:', error));
+
+    }
+    else {
+      toast.error("Вы не авторизированы или не имеете подписку")
     }
 
   }

@@ -1,17 +1,35 @@
-import React from "react"
+"use client";
+import React, { useEffect, useState } from "react"
 import { IResume } from "./types"
 import { AddPDF } from "./AddPdf"
 import { PDFCard } from "./PDFCard"
 import moment from 'moment';
 import 'moment/locale/ru';
+import axios from "axios";
 
 moment.locale('ru')
 
 interface PDFListSectionProps {
-  resumes: IResume[]
+  resumes: []
 }
 
-let PDFListSection: React.FC<PDFListSectionProps> = ({resumes}) => {
+let PDFListSection = () => {
+  
+  const [resumes, setResumes] = useState([])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.post("http://localhost:5000/api/resume/list", {}, { headers: { Authorization: `Bearer ${token}` } })
+    .then((response)=>{
+      let resumes = response.data
+      setResumes(resumes)
+    }).catch((err)=>{
+      console.error("Failed to getting resumes list", (err as Error).message)
+    })
+  }, [])
+
+  console.log(resumes)
+
   return (
     <div className='bg-white'>
       <h1 className="text-3xl font-bold text-center py-8">Резюме</h1>
@@ -20,12 +38,12 @@ let PDFListSection: React.FC<PDFListSectionProps> = ({resumes}) => {
 
           <div className="mx-10 my-20 grid grid-cols-6 max-sm:grid-cols-1 gap-x-20 gap-y-20 ">
             <AddPDF/>
-            {resumes.map((el, i) => {
+            {resumes.length!=0 && resumes?.map((el: IResume, i: number) => {
               return (
                 <PDFCard key={i}>
-                  <h1 className="text-4xl font-bold">{el.name}</h1>
-                  <p className="text-lg">{el.summary}</p>
-                  <p className="absolute bottom-0 right-0 text-sm">{moment(el.date).format('LL')}</p>
+                  <h1 className="text-4xl font-bold">{el.filename}</h1>
+                  <p className="text-lg">{el.resume.profile.summary}</p>
+                  <p className="absolute bottom-0 right-0 text-sm">{moment(el.created_at).format('LL')}</p>
                 </PDFCard>
               )
             })}

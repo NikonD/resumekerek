@@ -3,6 +3,9 @@ import { Provider } from "react-redux";
 import { store } from "lib/redux/store";
 import { ResumeForm } from "components/ResumeForm";
 import Resume from "components/Resume";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Create() {
   return (
@@ -14,6 +17,20 @@ export default function Create() {
           </div>
           <div className="col-span-3">
             <Resume />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
           </div>
         </div>
       </main>

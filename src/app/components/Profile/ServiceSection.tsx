@@ -6,19 +6,19 @@ const ServicesPage: React.FC = () => {
     {
       title: 'Услуга на месяц',
       description: "описание",
-      price: 10,
+      price: 1000,
       duration: 'месяц'
     },
     {
       title: 'Услуга на полгода',
       description: "описание",
-      price: 50,
+      price: 4000,
       duration: '6 месяцев'
     },
     {
       title: 'Услуга на год',
       description: "описание",
-      price: 90,
+      price: 8000,
       duration: 'год'
     },
   ];

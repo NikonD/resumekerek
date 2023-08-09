@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useState, useRef } from 'react';
+import Cropper from 'react-easy-crop';
+import { Area, Point } from 'react-easy-crop/types';
 
 interface PhotoUploadProps<K extends string, V extends string> {
   name: K,
@@ -15,6 +17,68 @@ const PhotoUpload = <K extends string>({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState<number>(1);
+
+  const onCropChange = (newCrop: Point) => {
+    setCrop(newCrop);
+  };
+
+  const onZoomChange = (newZoom: number) => {
+    setZoom(newZoom);
+  };
+
+  const handleCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
+    if (!selectedFile) {
+      return;
+    }
+
+    const image = new Image();
+    image.src = URL.createObjectURL(selectedFile);
+
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = croppedAreaPixels.width;
+      canvas.height = croppedAreaPixels.height;
+
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(
+          image,
+          croppedAreaPixels.x,
+          croppedAreaPixels.y,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height,
+          0,
+          0,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height
+        );
+
+        const croppedImageUrl = canvas.toDataURL(selectedFile.type);
+        onChange(name, croppedImageUrl as K);
+        setPreviewUrl(croppedImageUrl);
+        // Предотвращаем стандартное поведение перетаскивания
+        canvas.addEventListener('dragstart', (event) => {
+          event.preventDefault();
+        });
+
+        // Прикрепляем обрезанное изображение к событию drop (перетаскивания)
+        canvas.addEventListener('dragover', (event) => {
+          event.preventDefault();
+        });
+
+        canvas.addEventListener('drop', (event) => {
+          event.preventDefault();
+          const droppedFile = new File([selectedFile], 'cropped-image.png', { type: selectedFile.type });
+          setSelectedFile(droppedFile);
+        });
+      }
+    };
+  };
+
+  const [imageObjectURL, setImageObjectURL] = useState<string | null>(null);
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
 
@@ -23,15 +87,16 @@ const PhotoUpload = <K extends string>({
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        // console.log(reader.result)
-        onChange(name, reader.result as K)
-        setPreviewUrl(reader.result as string);
+        // onChange(name, reader.result as K);
+        // setPreviewUrl(reader.result as string);
+
+        if (imageObjectURL) {
+          URL.revokeObjectURL(imageObjectURL); // Освободить ресурсы
+        }
+        setImageObjectURL(URL.createObjectURL(file)); // Создать новую ссылку
       };
 
       reader.readAsDataURL(file);
-      console.log(reader.result)
-      
-
     }
   };
 
@@ -81,6 +146,20 @@ const PhotoUpload = <K extends string>({
           <div className="absolute inset-0 flex items-center justify-center p-5">
             <p className="text-gray-500">Кликните или перетащите файл сюда</p>
           </div>
+        )}
+      </div>
+      <div
+        className="relative w-32 h-32 border-2 border-dashed border-gray-300 rounded cursor-pointer">
+        {selectedFile && (
+          <Cropper
+            image={URL.createObjectURL(selectedFile)}
+            crop={crop}
+            zoom={zoom}
+            aspect={4 / 3}
+            onCropChange={onCropChange}
+            onCropComplete={handleCropComplete}
+            onZoomChange={onZoomChange}
+          />
         )}
       </div>
     </div>

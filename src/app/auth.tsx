@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import AuthForm from './components/AuthForm';
+import { AuthForm, RegForm } from './components/AuthForm';
 
 interface AuthContainerProps {
   open: boolean,
@@ -10,6 +10,7 @@ interface AuthContainerProps {
 
 const AuthContainer: React.FC<AuthContainerProps> = ({ open, setOpen, user }) => {
   // const [open, setOpen] = useState(false)
+  const [page, setPage] = useState("login")
   const handleGoogleAuth = () => {
     console.log('Google Auth');
   };
@@ -22,7 +23,10 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ open, setOpen, user }) =>
         {open ? 'Close' : 'Open'}
       </button>
       <div className="p-6">
-        {user ? user.username : <AuthForm onGoogleAuth={handleGoogleAuth} />}
+        {user ? user.fullname : //user component 
+          page == "login" ? <AuthForm setPage={setPage} onGoogleAuth={handleGoogleAuth} /> :
+            <RegForm setPage={setPage} onGoogleAuth={()=>{}} />
+        }
 
       </div>
     </div>

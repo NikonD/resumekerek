@@ -1,5 +1,5 @@
 export interface IResume {
-  name: string,
-  summary: string,
-  date: Date
+  filename: string,
+  resume: any,
+  created_at: Date
 }

@@ -39,11 +39,12 @@ const Resume = () => {
           </ResumeIFrame>
         </section>
         <ResumeControlBar
+          resume={resume}
           scale={scale}
           setScale={setScale}
           documentSize={settings.documentSize}
           document={document}
-          fileName={resume.profile.name + " - Resume"}
+          fileName={resume.profile.name + ""}
         />
       </div>
       <ResumeControlBarBorder />

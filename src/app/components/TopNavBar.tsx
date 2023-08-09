@@ -5,7 +5,7 @@ import Image from "next/image";
 import logoSrc from "public/logo.svg";
 import { cx } from "lib/cx";
 import { Dispatch } from "@reduxjs/toolkit";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useDebugValue, useEffect, useState } from "react";
 import AuthContainer from "auth";
 import useUser from "lib/useUser";
 import UserDropDown from "./UserDropDown";
@@ -15,6 +15,9 @@ export const TopNavBar: React.FC = () => {
 
   const user = useUser()
 
+  useEffect(()=>{
+
+  },[])
   const [open, setOpen] = useState(false)
 
   const pathName = usePathname();
@@ -57,7 +60,9 @@ export const TopNavBar: React.FC = () => {
               </Link>
             ))}
             {/* {user? */}
-            <button key={"login"} onClick={() => { setOpen(open ? false : true) }} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">Войти</button>
+            <button key={"login"} onClick={() => { setOpen(open ? false : true) }} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
+              {user? "Профиль":"Войти"}
+            </button>
             {/* <UserDropDown/> */}
             {/* <div className="ml-1 mt-1">
             <iframe

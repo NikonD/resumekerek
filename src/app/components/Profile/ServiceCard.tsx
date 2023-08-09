@@ -17,7 +17,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
     <div>
       <h2 className="text-xl font-bold mb-4">{service.title}</h2>
       <p className="text-lg">{service.description}</p>
-      <p className="text-lg font-bold">${service.price} / {service.duration}</p>
+      <p className="text-lg font-bold">{service.price} тг/ {service.duration}</p>
     </div>
 
     <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
