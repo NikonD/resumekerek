@@ -9,12 +9,14 @@ import { SetStateAction, useDebugValue, useEffect, useState } from "react";
 import AuthContainer from "auth";
 import useUser from "lib/useUser";
 import UserDropDown from "./UserDropDown";
+import { useSelector } from "react-redux";
+import { selectUser } from "lib/redux/loginSlice";
 
 
 export const TopNavBar: React.FC = () => {
 
-  const user = useUser()
-
+  const user = useSelector(selectUser)
+  console.log("REDUX USER", user)
   useEffect(()=>{
 
   },[])
@@ -61,7 +63,7 @@ export const TopNavBar: React.FC = () => {
             ))}
             {/* {user? */}
             <button key={"login"} onClick={() => { setOpen(open ? false : true) }} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
-              {user? "Профиль":"Войти"}
+              {user.islogin? "Профиль":"Войти"}
             </button>
             {/* <UserDropDown/> */}
             {/* <div className="ml-1 mt-1">

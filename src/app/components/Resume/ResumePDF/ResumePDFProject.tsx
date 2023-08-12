@@ -8,21 +8,28 @@ import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeProject } from "lib/redux/types";
 
 export const ResumePDFProject = ({
+  theme,
   heading,
   projects,
   themeColor,
 }: {
+  theme: any,
   heading: string;
   projects: ResumeProject[];
   themeColor: string;
 }) => {
+
+  let styleProject = theme.columns.project
+
   return (
-    <ResumePDFSection  themeColor={themeColor} heading={heading}>
+
+
+    <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
       {projects.map(({ project, date, descriptions }, idx) => (
-        <View key={idx}>
+        <View key={idx} style={styleProject.flow}>
           <View
             style={{
-              ...styles.flexRowBetween,
+              ...styleProject.company,
               marginTop: spacing["0.5"],
             }}
           >

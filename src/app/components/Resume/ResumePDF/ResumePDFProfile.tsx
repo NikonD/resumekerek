@@ -20,10 +20,12 @@ export const ResumePDFProfile = ({
   profile,
   themeColor,
   isPDF,
+  style
 }: {
   profile: ResumeProfile;
   themeColor: string;
   isPDF: boolean;
+  style: object
 }) => {
   const { name, email, phone, url, summary, location, photo } = profile;
   const iconProps = { email, phone, location, url };
@@ -53,7 +55,7 @@ export const ResumePDFProfile = ({
   // console.log(photo)
 
   return (
-    <ResumePDFSection style={{ marginTop: spacing["4"] }}>
+    <ResumePDFSection styleSection={{ marginTop: spacing["4"] }}>
       <ResumePDFText
 
         bold={true}
@@ -63,11 +65,9 @@ export const ResumePDFProfile = ({
         {name}
       </ResumePDFText>
       {summary && <ResumePDFText >{summary}</ResumePDFText>}
-      <View style={{ ...styles.flexContactsRow }}>
+      <View style={{ ...style }}>
         {photo && (<Image style={styles.userPhoto} src={photo} />)}
         <img style={styles.userPhotoFake} src={photo} />
-
-
         <View
           style={{
             ...styles.flexRowBetween,

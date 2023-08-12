@@ -6,6 +6,9 @@ import { PDFCard } from "./PDFCard"
 import moment from 'moment';
 import 'moment/locale/ru';
 import axios from "axios";
+import config from '../../../../config/config.json'
+import { useSelector } from "react-redux";
+import { selectUser } from "lib/redux/loginSlice";
 
 moment.locale('ru')
 
@@ -14,19 +17,30 @@ interface PDFListSectionProps {
 }
 
 let PDFListSection = () => {
-  
-  const [resumes, setResumes] = useState([])
+
+  const [resumes, setResumes] = useState<IResume[] | undefined>(undefined)
+
+  const user = useSelector(selectUser)
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    axios.post("http://193.122.54.25:5000/api/resume/list", {}, { headers: { Authorization: `Bearer ${token}` } })
-    .then((response)=>{
-      let resumes = response.data
-      setResumes(resumes)
-    }).catch((err)=>{
-      console.error("Failed to getting resumes list", (err as Error).message)
-    })
-  }, [])
+    if (user.islogin) {
+      const token = localStorage.getItem('token');
+      axios.post(`${config.API_URL}/api/resume/list`, {}, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+          let { status, resumes } = response.data
+          if (status == "ok") {
+            setResumes(resumes)
+          }
+          console.log("??", response.data)
+        }).catch((err) => {
+          console.error("Failed to getting resumes list", (err as Error).message)
+        })
+    }
+    else {
+      setResumes(undefined)
+    }
+
+  }, [user])
 
   console.log(resumes)
 
@@ -37,8 +51,8 @@ let PDFListSection = () => {
         <div className="grid grid-cols-1 max-md:grid-cols-6 ">
 
           <div className="mx-10 my-20 grid grid-cols-6 max-sm:grid-cols-1 gap-x-20 gap-y-20 ">
-            <AddPDF/>
-            {resumes.length!=0 && resumes?.map((el: IResume, i: number) => {
+            <AddPDF />
+            {resumes !== undefined ? resumes.map((el: IResume, i: number) => {
               return (
                 <PDFCard key={i}>
                   <h1 className="text-4xl font-bold">{el.filename}</h1>
@@ -46,7 +60,7 @@ let PDFListSection = () => {
                   <p className="absolute bottom-0 right-0 text-sm">{moment(el.created_at).format('LL')}</p>
                 </PDFCard>
               )
-            })}
+            }) : null}
           </div>
         </div>
       </div>

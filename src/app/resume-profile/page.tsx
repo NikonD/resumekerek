@@ -13,10 +13,7 @@ import { ServicesPage } from "components/Profile/ServiceSection";
 import { PDFListSection } from "components/Profile/PDFSection";
 import { IResume } from "components/Profile/types";
 import axios from "axios";
-
-
-
-
+import { TopNavBar } from "components/TopNavBar";
 
 
 let arr = new Array(7).fill(1)
@@ -28,6 +25,7 @@ export default function Profile() {
 
   return (
     <Provider store={store}>
+      <TopNavBar/>
       <main className="relative h-full w-full overflow-hidden bg-gray-50">
         <ServicesPage />
 

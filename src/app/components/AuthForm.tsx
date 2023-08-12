@@ -3,15 +3,36 @@ import React, { useEffect, useState } from 'react';
 import { INPUT_CLASS_NAME } from './ResumeForm/Form/InputGroup';
 import axios from 'axios';
 import useUser from 'lib/useUser';
-// import { useForm } from 'react-hook-form';
+import moment from 'moment';
+import 'moment/locale/ru';
+moment.locale('ru')
+import config from '../../../config/config.json'
+import { useSelector } from 'react-redux';
+import { selectUser, useLoginDispatch } from 'lib/redux/loginSlice';
 
 interface AuthFormProps {
   onGoogleAuth: () => void;
   setPage: (page: string) => void
 }
 
+interface UserProps {
+  fullname?: string,
+  email?: string,
+  plan?: string
+  active_until?: Date
+}
+
 export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => {
   const [islogin, setIsogin] = useState(false)
+  const [loginData, setLoginData] = useState({
+    fullname: '',
+    email: '',
+    plan: '',
+    active_until: new Date(),
+  });
+
+  const user = useSelector(selectUser)
+  const { changeUser, loginUser, logoutUser } = useLoginDispatch();
 
   useEffect(() => {
 
@@ -20,16 +41,21 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const user = useUser()
+  // const user = useUser()
   console.log(user)
   const onSubmit = async () => {
     try {
-      const response = await axios.post('http://193.122.54.25:5000/api/auth/login', { email, password });
-      const token = response.data.data;
+      const response = await axios.post(`${config.API_URL}/api/auth/login`, { email, password });
+      const { token, user } = response.data;
+      if (user) {
+        localStorage.setItem('token', token);
+        loginUser(user)
+      }
+
       setIsogin(true)
       console.log(response)
       // Сохранение JWT в localStorage.
-      localStorage.setItem('token', token);
+
       // Теперь у вас есть JWT, который вы можете отправить с каждым запросом на защищенные маршруты.
     } catch (err) {
       setIsogin(false)
@@ -42,7 +68,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-            Full Name
+            email
           </label>
         </div>
         <div className="md:w-2/3">
@@ -59,7 +85,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-password">
-            Password
+            Пароль
           </label>
         </div>
         <div className="md:w-2/3">
@@ -75,13 +101,18 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       </div>
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3"></div>
-        <button onClick={() => { setPage("reg") }} >Регистриция</button>
+        <a
+          className='auth-link'
+          href='#'
+          onClick={() => { setPage("reg") }}>
+          Регистриция
+        </a>
       </div>
       <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="md:w-2/3">
           <button onClick={onSubmit} className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-            Sign Up
+            Войти
           </button>
         </div>
       </div>
@@ -105,7 +136,7 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
     }
 
     try {
-      const response = await axios.post('http://193.122.54.25:5000/api/auth/registration', { email, password, fullname });
+      const response = await axios.post(`${config.API_URL}/api/auth/registration`, { email, password, fullname });
       const token = response.data.data;
 
       console.log(response)
@@ -201,6 +232,14 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
           />
         </div>
       </div>
+      <div className="md:flex md:items-center mb-6">
+        <div className="md:w-1/3"></div>
+        <a
+          className='auth-link'
+          onClick={() => { setPage("login") }}>
+          Войти
+        </a>
+      </div>
       <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="md:w-2/3">
@@ -213,17 +252,42 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
           </button>
         </div>
       </div>
-      <div className="md:flex md:items-center mb-6">
-        <div className="md:w-1/3"></div>
-        <button onClick={() => { setPage("login") }} >Войти</button>
-      </div>
     </form>
   );
 
 }
 
+export const UserComponent: React.FC<UserProps> = ({ fullname, email, plan, active_until }) => {
+  const { logoutUser } = useLoginDispatch()
+  const user = useSelector(selectUser)
 
+  function onLogout() {
+    logoutUser()
+    localStorage.removeItem("token")
+  }
 
-
-
-
+  return (
+    <div className="w-full max-w-sm md:flex md:items-center flex-col mb-6">
+      <div className="mb-4">
+        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+          {fullname}
+        </label>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+          {email}
+        </label>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+          {moment(new Date(active_until || new Date())).format('LL')}
+        </label>
+      </div>
+      <div>
+        <button onClick={onLogout} className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+          Выйти
+        </button>
+      </div>
+    </div>
+  )
+}

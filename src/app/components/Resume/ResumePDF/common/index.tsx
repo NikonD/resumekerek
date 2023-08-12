@@ -7,14 +7,15 @@ import { getContrastColor } from "../GetContrastColor";
 
 export const ResumePDFSection = ({
   themeColor,
-   
+  style,
   heading,
-  style = {},
+  styleSection,
   children,
 }: {
+  style?: any,
   themeColor?: string;
   heading?: string;
-  style?: Style;
+  styleSection?: any;
   children: React.ReactNode;
  
 }) => (
@@ -23,11 +24,11 @@ export const ResumePDFSection = ({
       ...styles.flexCol,
       gap: spacing["2"],
       marginTop: spacing["5"],
-      ...style,
+      ...style
     }}
   >
     {heading && (
-      <View style={{ ...styles.flexRow, alignItems: "center" }}>
+      <View style={{ ...styles.flexRow, alignItems: "center",...styleSection.heading }}>
         {themeColor && (
           <View
             style={{

@@ -8,7 +8,7 @@ import { PhotoUpload } from "./Form/PhotoUpload";
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
-  const { name, email, phone, url, summary, location } = profile;
+  const { name, email, phone, url, summary, location, photo } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
@@ -18,6 +18,7 @@ export const ProfileForm = () => {
     <BaseForm>
       <div className="grid grid-cols-6 gap-3 max-sm:grid-cols-1">
         <PhotoUpload
+          src={photo}
           name="photo"
           onChange={handleProfileChange}
         />

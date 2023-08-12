@@ -1,11 +1,12 @@
 import { BaseForm } from "components/ResumeForm/Form";
 import { InputGroupWrapper } from "components/ResumeForm/Form/InputGroup";
-import { THEME_COLORS } from "components/ResumeForm/ThemeForm/constants";
+import { THEME_COLORS, THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
 import { InlineInput } from "components/ResumeForm/ThemeForm/InlineInput";
 import {
   DocumentSizeSelections,
   FontFamilySelections,
   FontSizeSelections,
+  ThemeSelections,
 } from "components/ResumeForm/ThemeForm/Selection";
 import {
   changeSettings,
@@ -35,6 +36,15 @@ export const ThemeForm = () => {
           <h1 className="text-lg font-semibold tracking-wide text-gray-900 ">
             Настройки резюме
           </h1>
+        </div>
+        <div>
+          <InputGroupWrapper label="Выбор темы" />
+          <ThemeSelections
+            selectedTheme={settings.themeResume}
+            themeColor={themeColor}
+            handleSettingsChange={handleSettingsChange}
+          />
+
         </div>
         <div>
           <InlineInput

@@ -22,6 +22,9 @@
   .within-outline-theme-purple {
     @apply focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[color:var(--theme-purple)] hover:opacity-80 hover:outline-[color:var(--theme-purple)];
   }
+  .auth-link {
+    text-decoration: underline;
+  }
   .h-a4 {
     /* A4 aspect ratio (1:1.4142) */
     padding-top: 141.42%;

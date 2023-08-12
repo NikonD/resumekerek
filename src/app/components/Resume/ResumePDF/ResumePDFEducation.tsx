@@ -8,18 +8,23 @@ import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeEducation } from "lib/redux/types";
 
 export const ResumePDFEducation = ({
+  theme,
   heading,
   educations,
   themeColor,
   showBulletPoints,
 }: {
+  theme: any,
   heading: string;
   educations: ResumeEducation[];
   themeColor: string;
   showBulletPoints: boolean;
 }) => {
+
+  let styleEdu = theme.columns.edu
+
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading}>
+    <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
       {educations.map(
         ({ school, degree, date, gpa, descriptions = [] }, idx) => {
           // Hide school name if it is the same as the previous school
@@ -28,10 +33,14 @@ export const ResumePDFEducation = ({
           const showDescriptions = descriptions.join() !== "";
 
           return (
-            <View key={idx}>
-              {!hideSchoolName && (
-                <ResumePDFText bold={true}>{school}</ResumePDFText>
-              )}
+            <View key={idx} style={styleEdu.flow}>
+              <View style={styleEdu.company}>
+                {!hideSchoolName && (
+                  <ResumePDFText bold={true}>{school}</ResumePDFText>
+                )}
+                <ResumePDFText>{date ? `${date}` : ''}</ResumePDFText>
+              </View>
+
               <View
                 style={{
                   ...styles.flexRowBetween,
@@ -40,12 +49,10 @@ export const ResumePDFEducation = ({
                     : spacing["1.5"],
                 }}
               >
-                <ResumePDFText>{`${
-                  gpa
+                <ResumePDFText>{`${gpa
                     ? `${degree} - ${Number(gpa) ? gpa + " GPA" : gpa}`
                     : degree
-                }`}</ResumePDFText>
-                <ResumePDFText>{date?`${date}`:''}</ResumePDFText>
+                  }`}</ResumePDFText>
               </View>
               {showDescriptions && (
                 <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>

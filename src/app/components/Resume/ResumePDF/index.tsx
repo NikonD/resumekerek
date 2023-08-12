@@ -15,6 +15,8 @@ import generateContactQRCode, { ContactData, convertBase64ToBlob } from './QRGen
 import { useEffect, useState } from "react";
 import { getContrastColor } from "./GetContrastColor";
 import { ResumePDFText } from "./common";
+import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
+import { TemplateGenerator } from "./TemplateGenerator";
 
 
 
@@ -54,20 +56,24 @@ export const ResumePDF = ({
     formToShow,
     formsOrder,
     showBulletPoints,
+    themeResume
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
+  const choosenThemeResume = THEME_RESUME.filter((el => el.name === themeResume))[0]
 
   const showFormsOrder = formsOrder.filter((form) => formToShow[form]);
 
   const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
     workExperiences: () => (
       <ResumePDFWorkExperience
+        theme={choosenThemeResume}
         heading={formToHeading["workExperiences"]}
         workExperiences={workExperiences}
         themeColor={themeColor} />
     ),
     educations: () => (
       <ResumePDFEducation
+        theme={choosenThemeResume}
         heading={formToHeading["educations"]}
         educations={educations}
         themeColor={themeColor}
@@ -75,12 +81,14 @@ export const ResumePDF = ({
     ),
     projects: () => (
       <ResumePDFProject
+        theme={choosenThemeResume}
         heading={formToHeading["projects"]}
         projects={projects}
         themeColor={themeColor} />
     ),
     skills: () => (
       <ResumePDFSkills
+        theme={choosenThemeResume}
         heading={formToHeading["skills"]}
         skills={skills}
         themeColor={themeColor}
@@ -88,6 +96,7 @@ export const ResumePDF = ({
     ),
     custom: () => (
       <ResumePDFCustom
+        theme={choosenThemeResume}
         heading={formToHeading["custom"]}
         custom={custom}
         themeColor={themeColor}
@@ -96,27 +105,18 @@ export const ResumePDF = ({
     ),
   };
 
-  // const QRObjectProfile = {
-  //   name: profile.name,
-  //   title: profile.summary,
-  //   phone: profile.phone,
-  //   location: profile.location,
-  //   email: profile.email
-  //}
+  let ProfileComponent = () => {
+    return (
+      <ResumePDFProfile
+        style={styles.flexContactsRow}
+        profile={profile}
+        themeColor={themeColor}
+        isPDF={isPDF}
+      />
+    )
+  }
 
-  // const [qrCodeBase64, setQRCodeBase64] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   generateContactQRCode(QRObjectProfile)
-  //     .then((base64) => {
-  //       setQRCodeBase64(base64);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Ошибка при генерации QR-кода:', error);
-  //     });
-  // }, [QRObjectProfile]);
-
-  // console.log(qrCodeBase64)
   return (
     <>
       <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
@@ -129,36 +129,16 @@ export const ResumePDF = ({
             fontSize: fontSize + "pt",
           }}
         >
-          {Boolean(settings.themeColor) && (
-            <View
-              style={{
-                width: spacing["full"],
-                height: spacing[3.5],
-                backgroundColor: themeColor,
-              }}
-            />
-          )}
-          <View
-            style={{
-              ...styles.flexCol,
-              padding: `${spacing[0]} ${spacing[20]}`,
-            }}
-          >
-            <ResumePDFProfile
-              profile={profile}
-              themeColor={themeColor}
-              isPDF={isPDF}
-            />
-            {showFormsOrder.map((form) => {
-              const Component = formTypeToComponent[form];
-              return <Component key={form} />;
-            })}
-            <View style={{...styles.qrRow}}>
-              {/* {qrCodeBase64 && (
-                <Image style={styles.image} src={qrCodeBase64}  />
-              )} */}
-            </View>
-          </View>
+
+          <TemplateGenerator
+            resume={resume}
+            themeResumeName={settings.themeResume}
+            themeResume={choosenThemeResume}
+            formTypeToComponent={formTypeToComponent}
+            showFormsOrder={showFormsOrder}
+            profile={ProfileComponent}
+            settings={settings}
+          />
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />

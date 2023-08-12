@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
 import type { RootState } from "lib/redux/store";
 
 export interface Settings {
@@ -6,6 +7,7 @@ export interface Settings {
   fontFamily: string;
   fontSize: string;
   documentSize: string;
+  themeResume: string
   formToShow: {
     workExperiences: boolean;
     educations: boolean;
@@ -46,6 +48,7 @@ export const initialSettings: Settings = {
   fontFamily: DEFAULT_FONT_FAMILY,
   fontSize: DEFAULT_FONT_SIZE,
   documentSize: "Letter",
+  themeResume: THEME_RESUME[0].name,
   formToShow: {
     workExperiences: true,
     educations: true,

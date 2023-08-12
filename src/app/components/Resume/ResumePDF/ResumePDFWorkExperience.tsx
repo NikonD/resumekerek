@@ -5,29 +5,40 @@ import {
   ResumePDFText,
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
+import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
 import type { ResumeWorkExperience } from "lib/redux/types";
 
 export const ResumePDFWorkExperience = ({
+  theme,
   heading,
   workExperiences,
   themeColor,
 }: {
+  theme: any,
   heading: string;
   workExperiences: ResumeWorkExperience[];
   themeColor: string;
 }) => {
+
+  let styleWorks = theme.columns.works
+
   return (
-    <ResumePDFSection   themeColor={themeColor} heading={heading}>
+    <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         // Hide company name if it is the same as the previous company
         const hideCompanyName =
           idx > 0 && company === workExperiences[idx - 1].company;
 
         return (
-          <View key={idx} style={idx !== 0 ? { marginTop: spacing["2"] } : {}}>
-            {!hideCompanyName && (
-              <ResumePDFText  bold={true}>{company}</ResumePDFText>
-            )}
+          <View key={idx} style={styleWorks.flow}>
+            <View style={styleWorks.company}>
+              {!hideCompanyName && (
+                <ResumePDFText bold={true}>{company}</ResumePDFText>
+              )}
+
+              <ResumePDFText >{date ? `${date}` : ''}</ResumePDFText>
+            </View>
+
             <View
               style={{
                 ...styles.flexRowBetween,
@@ -37,8 +48,9 @@ export const ResumePDFWorkExperience = ({
               }}
             >
               <ResumePDFText >{jobTitle}</ResumePDFText>
-              <ResumePDFText >{date?`${date}`:''}</ResumePDFText>
+
             </View>
+
             <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
               <ResumePDFBulletList items={descriptions} />
             </View>

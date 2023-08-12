@@ -3,18 +3,20 @@ import Cropper from 'react-easy-crop';
 import { Area, Point } from 'react-easy-crop/types';
 
 interface PhotoUploadProps<K extends string, V extends string> {
+  src?: string,
   name: K,
   value?: V,
   onChange: (name: K, value: V) => void
 }
 
 const PhotoUpload = <K extends string>({
+  src,
   onChange,
   name,
   value
 }: PhotoUploadProps<K, string>) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(src || null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
@@ -141,7 +143,7 @@ const PhotoUpload = <K extends string>({
           ref={inputRef}
         />
         {previewUrl ? (
-          <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+          <img src={previewUrl || src} alt="Preview" className="w-full h-full object-cover" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center p-5">
             <p className="text-gray-500">Кликните или перетащите файл сюда</p>
@@ -155,7 +157,7 @@ const PhotoUpload = <K extends string>({
             image={URL.createObjectURL(selectedFile)}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 3}
+            aspect={4 / 4}
             onCropChange={onCropChange}
             onCropComplete={handleCropComplete}
             onZoomChange={onZoomChange}

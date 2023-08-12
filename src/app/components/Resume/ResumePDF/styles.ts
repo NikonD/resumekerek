@@ -73,7 +73,6 @@ export const styles = StyleSheet.create({
   },
   flexSkills: {
     display:'flex',
-    flexDirection: "row",
     gap: "10px"
   },
 
@@ -116,7 +115,7 @@ export const styles = StyleSheet.create({
     display: "flex"
   },
   userPhoto: {
-    width: "240px",
+    width: "80px",
     height: "80px",
     // border: "1px solid black",
     marginRight: "50px"
@@ -127,7 +126,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
   },
   image: {
-    width: "240px",
+    width: "80px",
     // minWidth: "64px",
     // minHeight: "64px",
     height: "80px",

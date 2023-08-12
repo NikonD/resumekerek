@@ -5,6 +5,7 @@ import {
   FONT_FAMILIES,
   type FontFamily,
 } from "public/fonts/fonts";
+import { THEME_RESUME } from "./constants";
 
 const Selection = ({
   selectedColor,
@@ -147,3 +148,38 @@ export const DocumentSizeSelections = ({
     </SelectionsWrapper>
   );
 };
+
+
+export const ThemeSelections = ({
+  selectedTheme,
+  themeColor,
+  handleSettingsChange
+}:{
+  selectedTheme: string;
+  themeColor: string;
+  handleSettingsChange: (field: GeneralSetting, value: string) => void;
+}) => {
+  return (
+    <SelectionsWrapper>
+      {THEME_RESUME.map((themeResume, idx) => {
+        const isSelected = selectedTheme === themeResume.name;
+        // const standardSizePt = FONT_FAMILY_TO_STANDARD_SIZE_IN_PT[fontFamily];
+        return (
+          <Selection
+            key={idx}
+            selectedColor={themeColor}
+            isSelected={isSelected}
+            style={{
+              // fontFamily,
+              // fontSize: `${standardSizePt * PX_PER_PT}px`,
+            }}
+            onClick={() => handleSettingsChange("themeResume", themeResume.name)}
+          >
+            {themeResume.name}
+          </Selection>
+        );
+      })}
+    </SelectionsWrapper>
+  )
+}
+

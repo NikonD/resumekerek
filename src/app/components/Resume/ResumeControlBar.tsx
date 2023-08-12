@@ -10,6 +10,9 @@ import dynamic from "next/dynamic";
 import useUser from "lib/useUser";
 import { toast } from 'react-toastify';
 import axios from "axios";
+import config from '../../../../config/config.json'
+import { useSelector } from "react-redux";
+import { selectUser } from "lib/redux/loginSlice";
 
 const ResumeControlBarComponent = ({
   resume,
@@ -31,14 +34,14 @@ const ResumeControlBarComponent = ({
     documentSize,
   });
 
-  const user = useUser()
+  const user = useSelector(selectUser)
 
   const [instance, update] = usePDF({ document });
 
 
   //useUser(): id 
   const downloadPDF = () => {
-    if (user) {
+    if (user.islogin) {
       fetch(instance.url || "")
         .then(response => response.blob())
         .then(blobData => {
@@ -51,7 +54,7 @@ const ResumeControlBarComponent = ({
               
               const token = localStorage.getItem('token');
 
-              await axios.post('http://193.122.54.25:5000/api/resume/upload/pdf', { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
+              await axios.post(`${config.API_URL}/api/resume/upload/pdf`, { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
                 .then(response => {
                   toast.success("Файл сохранен")
                   let a = window.document.createElement('a')

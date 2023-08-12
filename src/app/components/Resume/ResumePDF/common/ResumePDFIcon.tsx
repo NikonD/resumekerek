@@ -35,32 +35,38 @@ export type IconType =
   | "url_linkedin";
 
 export const ResumePDFIcon = ({
+  _fill,
   type,
   isPDF,
 }: {
+  _fill?: string,
   type: IconType;
   isPDF: boolean;
 }) => {
   const pathD = TYPE_TO_PATH_D[type];
   if (isPDF) {
-    return <PDFIcon pathD={pathD} />;
+    return <PDFIcon pathD={pathD} _fill={_fill} />;
   }
-  return <SVGIcon pathD={pathD} />;
+  return <SVGIcon pathD={pathD} _fill={_fill} />;
 };
 
 const { width, height, fill } = styles.icon;
 
-const PDFIcon = ({ pathD }: { pathD: string }) => (
+const PDFIcon = ({ pathD, _fill }: { pathD: string, _fill?: string }) => (
   <Svg viewBox="0 0 512 512" style={{ width, height }}>
-    <Path d={pathD} fill={fill} />
+    <Path d={pathD} fill={_fill || fill} />
   </Svg>
 );
 
-const SVGIcon = ({ pathD }: { pathD: string }) => (
+const SVGIcon = ({ pathD, _fill }: { pathD: string, _fill?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
-    style={{ width, height, fill }}
+    style={{ 
+      width:width, 
+      height:height, 
+      fill: _fill || fill
+    }}
   >
     <path d={pathD} />
   </svg>

@@ -12,6 +12,7 @@ import addPdfSrc from "public/assets/add-pdf.svg";
 import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
+import { initialLoginState } from "lib/redux/loginSlice";
 
 const defaultFileState = {
   name: "",
@@ -74,6 +75,7 @@ export const ResumeDropzone = ({
   const onImportClick = async () => {
     const resume = await parseResumeFromPdf(file.fileUrl);
     const settings = deepClone(initialSettings);
+    const login = deepClone(initialLoginState)
 
     // Set formToShow settings based on uploaded resume if users have used the app before
     if (getHasUsedAppBefore()) {
@@ -90,7 +92,7 @@ export const ResumeDropzone = ({
       }
     }
 
-    saveStateToLocalStorage({ resume, settings });
+    saveStateToLocalStorage({ resume, settings, login });
     router.push("/resume-builder");
   };
 
