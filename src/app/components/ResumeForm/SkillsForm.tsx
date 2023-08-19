@@ -12,6 +12,7 @@ import {
   changeShowBulletPoints,
   selectThemeColor,
 } from "lib/redux/settingsSlice";
+import { useTranslation } from "react-i18next";
 
 export const SkillsForm = () => {
   const skills = useAppSelector(selectSkills);
@@ -33,17 +34,19 @@ export const SkillsForm = () => {
   };
   const handleShowBulletPoints = (value: boolean) => {
     dispatch(changeShowBulletPoints({ field: form, value }));
-  };
+  };  
+
+  const {t} = useTranslation()
 
   return (
     <Form form={form}>
       <div className="col-span-full grid grid-cols-6 gap-3 max-sm:grid-cols-1">
         <div className="relative col-span-full">
           <BulletListTextarea
-            label="Список навыков"
+            label={t("List-of-skills")}
             labelClassName="col-span-full"
             name="descriptions"
-            placeholder="Bullet points"
+            placeholder=""
             value={descriptions}
             onChange={handleSkillsChange}
             showBulletPoints={showBulletPoints}
@@ -57,10 +60,11 @@ export const SkillsForm = () => {
         </div>
         <div className="col-span-full mb-4 mt-6 border-t-2 border-dotted border-gray-200" />
         <InputGroupWrapper
-          label="Навыки по уровню владения"
+          label={t("skills-by-skill-level")}
           className="col-span-full"
         >
           <p className="mt-2 text-sm font-normal text-gray-600">
+            {t("featured-skills-form-description")}
           Рекомендуемые навыки не являются обязательными, чтобы выделить лучшие навыки, чем больше кругов, тем выше уровень мастерства.
           </p>
         </InputGroupWrapper>
@@ -74,7 +78,7 @@ export const SkillsForm = () => {
             setSkillRating={(newSkill, newRating) => {
               handleFeaturedSkillsChange(idx, newSkill, newRating);
             }}
-            placeholder={`Навык ${idx + 1}`}
+            placeholder={`${t('skill')} ${idx + 1}`}
             circleColor={themeColor}
           />
         ))}

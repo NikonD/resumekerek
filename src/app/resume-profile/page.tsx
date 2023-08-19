@@ -14,23 +14,26 @@ import { PDFListSection } from "components/Profile/PDFSection";
 import { IResume } from "components/Profile/types";
 import axios from "axios";
 import { TopNavBar } from "components/TopNavBar";
-
-
-let arr = new Array(7).fill(1)
+import { NotificationContainer } from "components/Notifications";
+import { useTranslation } from "react-i18next";
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../../../i18n';
 
 export default function Profile() {
- 
 
   const [activeTab, setActiveTab] = useState<'resume' | 'responses'>('resume');
 
   return (
     <Provider store={store}>
-      <TopNavBar/>
-      <main className="relative h-full w-full overflow-hidden bg-gray-50">
-        <ServicesPage />
+      <I18nextProvider i18n={i18n}>
+        <TopNavBar />
+        <main className="relative h-full w-full overflow-hidden bg-gray-50">
+          <ServicesPage />
 
-        <PDFListSection  />
-      </main>
+          <PDFListSection />
+        </main>
+        <NotificationContainer />
+      </I18nextProvider>
     </Provider>
   );
 }

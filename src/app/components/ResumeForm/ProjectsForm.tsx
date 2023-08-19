@@ -8,14 +8,17 @@ import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeFo
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
+import { useTranslation } from "react-i18next";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
   const dispatch = useAppDispatch();
   const showDelete = projects.length > 1;
 
+  const {t} = useTranslation()
+
   return (
-    <Form form="projects" addButtonText="Добавить запись">
+    <Form form="projects" addButtonText={t("add-a-note")}>
       {projects.map(({ project, date, descriptions }, idx) => {
         const handleProjectChange = (
           ...[
@@ -28,6 +31,8 @@ export const ProjectsForm = () => {
         const showMoveUp = idx !== 0;
         const showMoveDown = idx !== projects.length - 1;
 
+
+
         return (
           <FormSection
             key={idx}
@@ -36,11 +41,11 @@ export const ProjectsForm = () => {
             showMoveUp={showMoveUp}
             showMoveDown={showMoveDown}
             showDelete={showDelete}
-            deleteButtonTooltipText={"Delete project"}
+            deleteButtonTooltipText={t("delete-a-note")}
           >
             <Input
               name="project"
-              label="Название проекта"
+              label={t("project-name-label")}
               placeholder="OpenResume"
               value={project}
               onChange={handleProjectChange}
@@ -48,7 +53,7 @@ export const ProjectsForm = () => {
             />
 
             <InputDate
-              label="Дата окончания"
+              label={t("expiration-date")}
               labelClassName="col-span-2 max-sm:col-span-full"
               name="date"
               placeholder=""
@@ -57,8 +62,8 @@ export const ProjectsForm = () => {
 
             <BulletListTextarea
               name="descriptions"
-              label="Описание проекта"
-              placeholder="Bullet points"
+              label={t("project-description-label")}
+              placeholder=""
               value={descriptions}
               onChange={handleProjectChange}
               labelClassName="col-span-full max-sm:col-span-full"

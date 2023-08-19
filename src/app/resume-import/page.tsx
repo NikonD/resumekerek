@@ -3,6 +3,9 @@ import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from '../../../i18n';
+import { TopNavBar } from "components/TopNavBar";
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
@@ -14,14 +17,14 @@ export default function ImportResume() {
   useEffect(() => {
     setHasUsedAppBefore(getHasUsedAppBefore());
   }, []);
-
+  const { t } = useTranslation()
   return (
     <main>
       <div className="mx-auto mt-14 max-w-3xl rounded-md border border-gray-200 px-10 py-10 text-center shadow-md">
         {!hasUsedAppBefore ? (
           <>
             <h1 className="text-lg font-semibold text-gray-900">
-              Импортировать из PDF
+              {t("Import-from-PDF")}
             </h1>
             <ResumeDropzone
               onFileUrlChange={onFileUrlChange}
@@ -31,8 +34,8 @@ export default function ImportResume() {
               <>
                 <OrDivider />
                 <SectionWithHeadingAndCreateButton
-                  heading="Создать резюме в радакторе"
-                  buttonText="Создать резюме"
+                  heading={t("create-resume-in-editor")}
+                  buttonText={t("create-resume")}
                 />
               </>
             )}
@@ -42,15 +45,15 @@ export default function ImportResume() {
             {!hasAddedResume && (
               <>
                 <SectionWithHeadingAndCreateButton
-                  heading="Данные сохранены с предыдущей сессии"
-                  buttonText="Продолжить"
+                  heading={t("data-saved-from-previous-session")}
+                  buttonText={t("continue")}
                 />
                 <OrDivider />
               </>
             )}
-            <h1 className="font-semibold text-gray-900">
+            {/* <h1 className="font-semibold text-gray-900">
               Override data with a new resume
-            </h1>
+            </h1> */}
             <ResumeDropzone
               onFileUrlChange={onFileUrlChange}
               className="mt-5"
@@ -62,13 +65,18 @@ export default function ImportResume() {
   );
 }
 
-const OrDivider = () => (
-  <div className="mx-[-2.5rem] flex items-center pb-6 pt-8" aria-hidden="true">
-    <div className="flex-grow border-t border-gray-200" />
-    <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400">or</span>
-    <div className="flex-grow border-t border-gray-200" />
-  </div>
-);
+const OrDivider = () => {
+  const { t } = useTranslation()
+
+  return (
+    <div className="mx-[-2.5rem] flex items-center pb-6 pt-8" aria-hidden="true">
+      <div className="flex-grow border-t border-gray-200" />
+      <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400">{t("or")}</span>
+      <div className="flex-grow border-t border-gray-200" />
+    </div>
+  )
+}
+
 
 const SectionWithHeadingAndCreateButton = ({
   heading,

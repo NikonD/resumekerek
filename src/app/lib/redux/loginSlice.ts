@@ -19,6 +19,10 @@ export const loginSlice = createSlice({
   name: "login",
   initialState: initialLoginState,
   reducers: {
+    autoLogin: () => {
+      
+    },
+    
     changeUser: (state, action) => {
       // Реализация редюсера changeUser
       // Мы будем использовать payload, переданный в action, чтобы обновить данные пользователя

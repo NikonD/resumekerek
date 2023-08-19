@@ -22,7 +22,7 @@ export const THEME_RESUME = [
     name: "simple",
     requiredPlan: false,
     columns: {
-      works: {
+      works: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -30,10 +30,10 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
-      edu: {
+      }),
+      edu: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -41,11 +41,11 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
+      }),
 
-      project: {
+      project: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -53,13 +53,13 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
+      }),
 
-      skills: {
+      skills: StyleSheet.create({
         heading: {
-          justifyContent: "start"
+          justifyContent: "flex-start"
         },
         featured: {
           flexDirection: "row",
@@ -70,18 +70,24 @@ export const THEME_RESUME = [
           display: "flex",
           flexDirection: "column",
         }
-      },
-      custom: {
+      }),
+      custom: StyleSheet.create({
         heading: {
-          justifyContent: "start"
+          justifyContent: "flex-start"
         }
-      },
-      block: {
-        display: "flex",
-        flexDirection: "column",
-        // flexFlow: "column wrap",
-        // placeContent: "space-around space-between",
-      }
+      }),
+      block: StyleSheet.create({
+        block: {
+          display: "flex",
+          flexDirection: "column",
+        }
+      })
+      // block: StyleSheet.create({
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   // flexFlow: "column wrap",
+      //   // placeContent: "space-around space-between",
+      // })
     }
   },
   {
@@ -89,7 +95,7 @@ export const THEME_RESUME = [
     name: "strict",
     requiredPlan: false,
     columns: {
-      works: {
+      works: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -97,10 +103,10 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
-      edu: {
+      }),
+      edu: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -108,11 +114,11 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
+      }),
 
-      project: {
+      project: StyleSheet.create({
         flow: {
           display: "flex",
           flexDirection: "column"
@@ -120,39 +126,47 @@ export const THEME_RESUME = [
         company: {
           display: "flex",
           justifyContent: "space-between",
-          fleDirection: "row"
+          flexDirection: "row"
         }
-      },
+      }),
 
-      skills: {
+      skills: StyleSheet.create({
         heading: {
           justifyContent: "center"
         },
         featured: {
           flexDirection: "column",
           display: 'flex',
-          gap: "10px",
-          flexFlow: "column wrap",
-          placeContent: "space-around space-between",
+          marginLeft: "10.5pt"
+          // gap: "10px",
+          // alignContent: "space-around",
+          // flexWrap: "wrap"
+          // placeContent: "space-around space-between",
+        },
+        featuredBlock: {
+          display: "flex",
+          flexDirection:"column",
+          alignItems: "flex-start"
         },
         bullet: {
           display: "flex",
           flexDirection: "column",
-          flexFlow: "column wrap",
-          placeContent: "space-around space-between",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          marginLeft: "10.5pt"
         }
-      },
-      custom: {
+      }),
+      custom: StyleSheet.create({
         heading: {
           justifyContent: "center"
         },
         block: {
           display: "flex",
           flexDirection: "column",
-          flexFlow: "column wrap",
-          placeContent: "space-around space-between",
+          justifyContent:"space-between",
+          alignContent: "center"
         }
-      }
+      })
     }
   }
 ]

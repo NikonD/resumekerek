@@ -1,14 +1,55 @@
-import { View } from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import {
   ResumePDFSection,
   ResumePDFBulletList,
-  ResumeFeaturedSkill,
+  ResumePDFText,
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
 import { useAppSelector } from "lib/redux/hooks";
 import { selectSettings } from "lib/redux/settingsSlice";
-import type { ResumeSkills } from "lib/redux/types";
+import type { FeaturedSkill, ResumeSkills } from "lib/redux/types";
+import type { Style } from "@react-pdf/types";
+
+const ResumeFeaturedSkill = ({
+  skill,
+  style,
+  rating,
+  themeColor
+}: {
+  skill: string,
+  rating: number,
+  themeColor: string,
+  style?: Style
+}) => {
+  const maxRating = 5
+
+  return (
+    <View style={{ ...styles.flexCol, width: "100%", ...style }}>
+      <ResumePDFText style={{ marginRight: spacing[0.5] }}>
+        {skill}
+      </ResumePDFText>
+      <View style={{
+        marginBottom: spacing["4"],
+        display: "flex",
+        flexDirection: "row",
+        height: spacing["2"],
+      }}>
+        {[...Array(maxRating)].map((_, idx) => (
+          <View
+            key={idx}
+            style={{
+              height: spacing["2"],
+              width: "30pt",
+              backgroundColor: rating >= idx ? themeColor : "#d9d9d9",
+            }}
+          />
+        ))}
+
+      </View>
+    </View>
+  )
+}
 
 export const ResumePDFSkills = ({
   theme,
@@ -43,7 +84,7 @@ export const ResumePDFSkills = ({
         <View style={{
           ...styleSkills.featured,
           marginTop: spacing["0.5"],
-          
+
         }}>
           {featuredSkillsPair.map((pair, idx) => (
             <View
@@ -58,9 +99,7 @@ export const ResumePDFSkills = ({
                     skill={featuredSkill.skill}
                     rating={featuredSkill.rating}
                     themeColor={themeColor}
-                    style={{
-                      
-                    }}
+                    style={style}
                   />
                 );
               })}

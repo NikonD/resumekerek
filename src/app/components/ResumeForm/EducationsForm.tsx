@@ -13,6 +13,7 @@ import {
   changeShowBulletPoints,
   selectShowBulletPoints,
 } from "lib/redux/settingsSlice";
+import { useTranslation } from "react-i18next";
 
 export const EducationsForm = () => {
   const educations = useAppSelector(selectEducations);
@@ -21,8 +22,10 @@ export const EducationsForm = () => {
   const form = "educations";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
+  const {t} = useTranslation()
+
   return (
-    <Form form={form} addButtonText="Добавить запись">
+    <Form form={form} addButtonText={t("add-a-note")}>
       {educations.map(({ school, degree, gpa, date, descriptions }, idx) => {
         const handleEducationChange = (
           ...[
@@ -48,10 +51,10 @@ export const EducationsForm = () => {
             showMoveUp={showMoveUp}
             showMoveDown={showMoveDown}
             showDelete={showDelete}
-            deleteButtonTooltipText="Delete school"
+            deleteButtonTooltipText={t("delete-a-not")}
           >
             <Input
-              label="Учебное заведение"
+              label={t("educational-institution")}
               labelClassName="col-span-4 max-sm:col-span-full"
               name="school"
               placeholder=""
@@ -59,7 +62,7 @@ export const EducationsForm = () => {
               onChange={handleEducationChange}
             />
             <InputDate
-              label="Дата окончания"
+              label={t("expiration-date")}
               labelClassName="col-span-2 max-sm:col-span-full"
               name="date"
               placeholder=""
@@ -67,7 +70,7 @@ export const EducationsForm = () => {
               onChange={handleEducationChange}
             />
             <Input
-              label="Степень"
+              label={t("degree")}
               labelClassName="col-span-4 max-sm:col-span-full"
               name="degree"
               placeholder=""
@@ -75,7 +78,7 @@ export const EducationsForm = () => {
               onChange={handleEducationChange}
             />
             <Input
-              label="Специальность"
+              label={t("speciality")}
               labelClassName="col-span-2 max-sm:col-span-full"
               name="gpa"
               placeholder=""
@@ -84,7 +87,7 @@ export const EducationsForm = () => {
             />
             <div className="relative col-span-full">
               <BulletListTextarea
-                label="Дополнительная информация"
+                label={t("additional-information")}
                 labelClassName="col-span-full"
                 name="descriptions"
                 placeholder=""

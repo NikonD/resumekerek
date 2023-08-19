@@ -5,11 +5,17 @@ import axios from 'axios';
 import useUser from 'lib/useUser';
 import moment from 'moment';
 import 'moment/locale/ru';
-moment.locale('ru')
+import i18n from 'i18next';
 import config from '../../../config/config.json'
 import { useSelector } from 'react-redux';
 import { selectUser, useLoginDispatch } from 'lib/redux/loginSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import { ErrorNotification } from './Notifications';
+import { useSaveStateToLocalStorageOnChange, useSetInitialStore } from 'lib/redux/hooks';
+import { useTranslation } from 'react-i18next';
 
+moment.locale('ru')
+// console.log(i18n.language)
 interface AuthFormProps {
   onGoogleAuth: () => void;
   setPage: (page: string) => void
@@ -23,6 +29,12 @@ interface UserProps {
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => {
+  let { t } = useTranslation()
+
+
+  useSetInitialStore();
+  useSaveStateToLocalStorageOnChange()
+
   const [islogin, setIsogin] = useState(false)
   const [loginData, setLoginData] = useState({
     fullname: '',
@@ -36,6 +48,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
 
   useEffect(() => {
 
+    const token = localStorage.getItem('token');
+
+    // if (token) {
+    // Проверка токена на сервере и получение данных пользователя.
+    axios.post(`${config.API_URL}/api/auth/verify`, {}, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        const { user } = response.data;
+        loginUser(user);
+      })
+      .catch((err) => {
+
+      });
+
   }, [])
 
   const [email, setEmail] = useState('');
@@ -46,11 +71,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
   const onSubmit = async () => {
     try {
       const response = await axios.post(`${config.API_URL}/api/auth/login`, { email, password });
-      const { token, user } = response.data;
-      if (user) {
-        localStorage.setItem('token', token);
-        loginUser(user)
+      const { token, user, status } = response.data;
+      if (status == "200") {
+        if (user) {
+          localStorage.setItem('token', token);
+          loginUser(user)
+        }
       }
+      else {
+        toast.error(t("login-or-passord-invalid"))
+      }
+
 
       setIsogin(true)
       console.log(response)
@@ -59,6 +90,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       // Теперь у вас есть JWT, который вы можете отправить с каждым запросом на защищенные маршруты.
     } catch (err) {
       setIsogin(false)
+      console.log("AUTH ERR", err)
+      ErrorNotification({ message: (err as Error).message });
       console.error('Authentication failed:', (err as Error).message);
     }
   };
@@ -68,7 +101,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-            email
+            {t("email-label")}
           </label>
         </div>
         <div className="md:w-2/3">
@@ -85,7 +118,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-password">
-            Пароль
+            {t("password-label")}
           </label>
         </div>
         <div className="md:w-2/3">
@@ -105,14 +138,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
           className='auth-link'
           href='#'
           onClick={() => { setPage("reg") }}>
-          Регистриция
+          {t("signup-link")}
         </a>
       </div>
       <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="md:w-2/3">
-          <button onClick={onSubmit} className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-            Войти
+          <button onClick={onSubmit} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
+            {t("signin-button")}
           </button>
         </div>
       </div>
@@ -126,12 +159,13 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
   const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { t } = useTranslation()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords don't match");
+      toast.error(t("password-mismatch"));
       return;
     }
 
@@ -141,9 +175,18 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
 
       console.log(response)
 
-      localStorage.setItem('token', token);
+      // localStorage.setItem('token', token);
+      toast.success(t("account-created"))
       // Теперь у вас есть JWT, который вы можете отправить с каждым запросом на защищенные маршруты.
-    } catch (err) {
+    } catch (err: any) {
+      switch (err.code) {
+        case "1":
+          toast.error(t("user-already-exists"))
+          break;
+        default:
+          toast.error(t("failed-create-account"))
+          break;
+      }
 
       console.error('Authentication failed:', (err as Error).message);
     }
@@ -163,13 +206,13 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-email">
-            Email
+            {t("email-label")}
           </label>
         </div>
         <div className="md:w-2/3">
           <input
             name="email"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="inline-email"
             type="email"
             value={email}
@@ -181,13 +224,13 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-fullname">
-            Полное имя
+            {t("fullname-label")}
           </label>
         </div>
         <div className="md:w-2/3">
           <input
             name="fullname"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="inline-fullname"
             type="text"
             value={fullname}
@@ -199,13 +242,13 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-password">
-            Пароль
+            {t("password-label")}
           </label>
         </div>
         <div className="md:w-2/3">
           <input
             name="password"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="inline-password"
             type="password"
             value={password}
@@ -217,13 +260,13 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
       <div className="md:flex md:items-center mb-6">
         <div className="md:w-1/3">
           <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-confirm-password">
-            Подтвердите пароль
+            {t("repeat-password-label")}
           </label>
         </div>
         <div className="md:w-2/3">
           <input
             name="confirmPassword"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="inline-confirm-password"
             type="password"
             value={confirmPassword}
@@ -237,7 +280,7 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
         <a
           className='auth-link'
           onClick={() => { setPage("login") }}>
-          Войти
+          {t("signin-link")}
         </a>
       </div>
       <div className="md:flex md:items-center">
@@ -245,10 +288,10 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
         <div className="md:w-2/3">
           <button
             onClick={handleSubmit}
-            className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 "
             type="button"
           >
-            Зарегистрироваться
+            {t("signup-button")}
           </button>
         </div>
       </div>
@@ -261,31 +304,49 @@ export const UserComponent: React.FC<UserProps> = ({ fullname, email, plan, acti
   const { logoutUser } = useLoginDispatch()
   const user = useSelector(selectUser)
 
+  const { t } = useTranslation()
+
   function onLogout() {
     logoutUser()
     localStorage.removeItem("token")
   }
 
+  const currentDate = moment()
+  const isTargetDatePast = moment(active_until).isBefore(currentDate);
+  const remainingDays = moment(new Date(active_until || new Date())).diff(currentDate, "days")
+
+  const getDaysWord = (days: number) => {
+    if (days === 1) return t('day');
+    if (days >= 2 && days <= 4) return t('of-day');
+    return t('days');
+  };
+
   return (
-    <div className="w-full max-w-sm md:flex md:items-center flex-col mb-6">
+    <div className="w-full max-w-sm md:flex flex-col mb-6">
       <div className="mb-4">
-        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+        <label className="block text-gray-500 font-bold   mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
           {fullname}
         </label>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+        <label className="block text-gray-500 font-bold   mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
           {email}
         </label>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-500 font-bold text-center md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-          {moment(new Date(active_until || new Date())).format('LL')}
-        </label>
-      </div>
+      {active_until ?
+        <div className="mb-4">
+          <label className="block text-gray-500   mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+            <a
+              className='auth-link'
+              href='/resume-profile'>
+              {isTargetDatePast ? t("subscription-is-not-active") : `${t("subscription-is-active-for")} ${remainingDays} ${getDaysWord(remainingDays)}`}
+            </a>
+          </label>
+        </div> : null}
+
       <div>
-        <button onClick={onLogout} className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-          Выйти
+        <button onClick={onLogout} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
+          {t("signout-button")}
         </button>
       </div>
     </div>

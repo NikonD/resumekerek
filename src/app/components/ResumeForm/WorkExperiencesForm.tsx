@@ -11,6 +11,7 @@ import {
   selectWorkExperiences,
 } from "lib/redux/resumeSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
+import { useTranslation } from "react-i18next";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
@@ -18,8 +19,11 @@ export const WorkExperiencesForm = () => {
 
   const showDelete = workExperiences.length > 1;
   console.log(workExperiences)
+
+  const { t } = useTranslation()
+
   return (
-    <Form form="workExperiences" addButtonText="Добавить запись">
+    <Form form="workExperiences" addButtonText={t("add-a-note")}>
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         const handleWorkExperienceChange = (
           ...[
@@ -43,10 +47,10 @@ export const WorkExperiencesForm = () => {
             showMoveUp={showMoveUp}
             showMoveDown={showMoveDown}
             showDelete={showDelete}
-            deleteButtonTooltipText="Удалить запись"
+            deleteButtonTooltipText={t("delete-a-note")}
           >
             <Input
-              label="Место работы"
+              label={t("company-name-label")}
               labelClassName="col-span-full max-sm:col-span-full"
               name="company"
               placeholder=""
@@ -54,16 +58,16 @@ export const WorkExperiencesForm = () => {
               onChange={handleWorkExperienceChange}
             />
             <Input
-              label="Должность"
+              label={t("position-label")}
               labelClassName="col-span-4 max-sm:col-span-full"
               name="jobTitle"
               placeholder=""
               value={jobTitle}
               onChange={handleWorkExperienceChange}
             />
-            
+
             <InputDate
-              label="Дата окончания"
+              label={t("expiration-date")}
               labelClassName="col-span-2 max-sm:col-span-full"
               name="date"
               placeholder=""
@@ -71,7 +75,7 @@ export const WorkExperiencesForm = () => {
               onChange={handleWorkExperienceChange}
             />
             <BulletListTextarea
-              label="Описание"
+              label={t("work-description-label")}
               labelClassName="col-span-full max-sm:col-span-full"
               name="descriptions"
               placeholder=""

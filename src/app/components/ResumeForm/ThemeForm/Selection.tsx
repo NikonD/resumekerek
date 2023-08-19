@@ -6,6 +6,7 @@ import {
   type FontFamily,
 } from "public/fonts/fonts";
 import { THEME_RESUME } from "./constants";
+import { useTranslation } from "react-i18next";
 
 const Selection = ({
   selectedColor,
@@ -126,6 +127,9 @@ export const DocumentSizeSelections = ({
   selectedDocumentSize: string;
   handleSettingsChange: (field: GeneralSetting, value: string) => void;
 }) => {
+
+  const {t} = useTranslation()
+
   return (
     <SelectionsWrapper>
       {["Letter", "A4"].map((type, idx) => {
@@ -139,7 +143,7 @@ export const DocumentSizeSelections = ({
             <div className="flex flex-col items-center">
               <div>{type}</div>
               <div className="text-xs">
-                {type === "Letter" ? "(US, Canada)" : "(Другие страны)"}
+                {type === "Letter" ? "(US, Canada)" : t("(other-counties-format-label)")}
               </div>
             </div>
           </Selection>
@@ -175,7 +179,7 @@ export const ThemeSelections = ({
             }}
             onClick={() => handleSettingsChange("themeResume", themeResume.name)}
           >
-            {themeResume.name}
+            {themeResume.title}
           </Selection>
         );
       })}

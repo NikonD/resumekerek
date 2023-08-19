@@ -39,6 +39,8 @@ const Resume = () => {
           </ResumeIFrame>
         </section>
         <ResumeControlBar
+          setting={settings}
+          theme={settings.themeResume}
           resume={resume}
           scale={scale}
           setScale={setScale}

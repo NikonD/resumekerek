@@ -24,7 +24,7 @@ export const TemplateGenerator = ({
   settings: Settings
 }) => {
   return (
-    <>
+    <div>
       {
         themeResumeName == "simple" &&
         <Simple
@@ -41,7 +41,7 @@ export const TemplateGenerator = ({
           formTypeToComponent={formTypeToComponent}
           showFormsOrder={showFormsOrder}
           Profile={profile} />}
-    </>
+    </div>
   )
 }
 

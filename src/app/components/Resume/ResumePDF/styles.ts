@@ -115,26 +115,30 @@ export const styles = StyleSheet.create({
     display: "flex"
   },
   userPhoto: {
-    width: "80px",
-    height: "80px",
+    width: "80pt",
+    display: "flex",
+    height: "80pt",
     // border: "1px solid black",
     marginRight: "50px"
   },
   userPhotoFake: {
-    width: "90px",
-    height: "80px",
+    width: "80pt",
+    height: "80pt",
     position: "absolute",
   },
   image: {
-    width: "80px",
+    display: "flex",
+    width: "80pt",
     // minWidth: "64px",
     // minHeight: "64px",
-    height: "80px",
+    height: "80pt",
     // border: "1px solid black",
   },
   imageFake: {
-    width: "80px",
-    height: "80px"
+    width: "80pt",
+    height: "80pt",
+    position: "absolute",
+    right: "60pt"
   },
   flexColSkills: {
     flex: 1

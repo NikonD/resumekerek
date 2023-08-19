@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { ServiceCard } from './ServiceCard';
+import { useTranslation } from 'react-i18next';
 
 const ServicesPage: React.FC = () => {
+  const {t} = useTranslation()
+
   const services = [
     {
-      title: 'Услуга на месяц',
+      title: t('monthly-subscription'),
       description: "описание",
       price: 1000,
-      duration: 'месяц'
+      duration: t('month')
     },
     {
-      title: 'Услуга на полгода',
+      title: t('half-year-subscription'),
       description: "описание",
       price: 4000,
-      duration: '6 месяцев'
+      duration: t('6-months')
     },
     {
-      title: 'Услуга на год',
+      title: t('yearly subscription'),
       description: "описание",
       price: 8000,
-      duration: 'год'
+      duration: t('year')
     },
   ];
 
@@ -31,7 +34,7 @@ const ServicesPage: React.FC = () => {
 
   return (
     <div className='bg-white mt-10'>
-      <h1 className="text-3xl font-bold text-center py-8">Услуги</h1>
+      <h1 className="text-3xl font-bold text-center py-8">{t("subscription-title")}</h1>
       <div className="flex justify-center items-center  ">
         <div className={`grid grid-cols-3 gap-6 ${isExpanded ? 'max-sm:grid-cols-1 max-md:grid-cols-3' : 'hidden'}`}>
           {services.map((service, index) => (
@@ -45,9 +48,9 @@ const ServicesPage: React.FC = () => {
             className="text-blue-500 underline"
             onClick={toggleExpand}
           >
-            {isExpanded ? 'Свернуть' : 'Подробнее'}
+            {isExpanded ? t('subscription-collapse-link') : t('subscription-moreinfo-link')}
           </button>
-          <p className="text-red-500">Подписка неактивна</p>
+          <p className="text-red-500">{t("subscription-is-not-active")}</p>
         </div>
       </div>
     </div>

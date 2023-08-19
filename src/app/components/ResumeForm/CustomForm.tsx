@@ -7,6 +7,7 @@ import {
   selectShowBulletPoints,
   changeShowBulletPoints,
 } from "lib/redux/settingsSlice";
+import { useTranslation } from "react-i18next";
 
 export const CustomForm = () => {
   const custom = useAppSelector(selectCustom);
@@ -23,15 +24,17 @@ export const CustomForm = () => {
     dispatch(changeShowBulletPoints({ field: form, value }));
   };
 
+  const {t} = useTranslation()
+
   return (
     <Form form={form}>
       <div className="col-span-full grid grid-cols-6 gap-3">
         <div className="relative col-span-full">
           <BulletListTextarea
-            label="Дополнительная информация(например: Хобби)"
+            label={t("additional-information")}
             labelClassName="col-span-full"
             name="descriptions"
-            placeholder="Bullet points"
+            placeholder=""
             value={descriptions}
             onChange={handleCustomChange}
             showBulletPoints={showBulletPoints}

@@ -13,6 +13,7 @@ import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
 import { initialLoginState } from "lib/redux/loginSlice";
+import { useTranslation } from "react-i18next";
 
 const defaultFileState = {
   name: "",
@@ -96,6 +97,8 @@ export const ResumeDropzone = ({
     router.push("/resume-builder");
   };
 
+  const {t} = useTranslation()
+
   return (
     <div
       className={cx(
@@ -134,11 +137,11 @@ export const ResumeDropzone = ({
                 !playgroundView && "text-lg font-semibold"
               )}
             >
-              Browse a pdf file or drop it here
+              {t("browse-pdf-or-drop-here")}
             </p>
             <p className="flex text-sm text-gray-500">
               <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
-              File data is used locally and never leaves your browser
+              {/* File data is used locally and never leaves your browser */}
             </p>
           </>
         ) : (
@@ -165,7 +168,7 @@ export const ResumeDropzone = ({
                   playgroundView ? "border" : "bg-primary"
                 )}
               >
-                Browse file
+                {t("browse-file")}
                 <input
                   type="file"
                   className="sr-only"
@@ -174,7 +177,7 @@ export const ResumeDropzone = ({
                 />
               </label>
               {hasNonPdfFile && (
-                <p className="mt-6 text-red-400">Only pdf file is supported</p>
+                <p className="mt-6 text-red-400">{t("only-pdf-file-supported")}</p>
               )}
             </>
           ) : (
@@ -185,12 +188,12 @@ export const ResumeDropzone = ({
                   className="btn-primary"
                   onClick={onImportClick}
                 >
-                  Import and Continue <span aria-hidden="true">→</span>
+                  {t("import-and-continue")} <span aria-hidden="true">→</span>
                 </button>
               )}
               <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
-                Note: {!playgroundView ? "Import" : "Parser"} works best on
-                single column resume
+                {/* Note: {!playgroundView ? "Import" : "Parser"} works best on
+                single column resume */}
               </p>
             </>
           )}

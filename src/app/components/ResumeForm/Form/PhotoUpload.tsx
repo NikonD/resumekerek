@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area, Point } from 'react-easy-crop/types';
+import { useTranslation } from 'react-i18next';
 
 interface PhotoUploadProps<K extends string, V extends string> {
   src?: string,
@@ -122,10 +123,12 @@ const PhotoUpload = <K extends string>({
     event.preventDefault();
   };
 
+  const {t} = useTranslation()
+
   return (
     <div className='col-span-full'>
       <label htmlFor="photoInput" className="block font-medium text-gray-700 mb-2">
-        Ваше фото
+        {t("your-photo")}
       </label>
       <div
         className="relative w-32 h-32 border-2 border-dashed border-gray-300 rounded cursor-pointer"
@@ -146,7 +149,7 @@ const PhotoUpload = <K extends string>({
           <img src={previewUrl || src} alt="Preview" className="w-full h-full object-cover" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center p-5">
-            <p className="text-gray-500">Кликните или перетащите файл сюда</p>
+            <p className="text-gray-500">{t("click-or-drag-a-file-here")}</p>
           </div>
         )}
       </div>

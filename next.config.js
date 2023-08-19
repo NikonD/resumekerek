@@ -13,6 +13,10 @@ const nextConfig = {
     config.resolve.alias.encoding = false;
     return config;
   },
+  // i18n: {
+  //   locales: ['kz', 'ru', 'ch'], // Список поддерживаемых языков
+  //   defaultLocale: 'ru', // Язык по умолчанию
+  // },
 };
 
 module.exports = nextConfig;

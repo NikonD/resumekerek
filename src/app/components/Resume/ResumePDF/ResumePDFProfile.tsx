@@ -66,8 +66,10 @@ export const ResumePDFProfile = ({
       </ResumePDFText>
       {summary && <ResumePDFText >{summary}</ResumePDFText>}
       <View style={{ ...style }}>
-        {photo && (<Image style={styles.userPhoto} src={photo} />)}
-        <img style={styles.userPhotoFake} src={photo} />
+        <View style={{ display: "flex" }}>
+          {photo && (<Image style={styles.userPhoto} src={photo} />)}
+          {photo && <img style={styles.userPhotoFake} src={photo} />}
+        </View>
         <View
           style={{
             ...styles.flexRowBetween,
@@ -157,10 +159,13 @@ export const ResumePDFProfile = ({
           })}
 
         </View>
-        {qrCodeBase64 && (
-          <Image style={styles.image} src={qrCodeBase64} />
-        )}
-        <img style={styles.imageFake} src={qrCodeBase64 || ""} />
+        <View style={{display:"flex"}}>
+          {qrCodeBase64 && (
+            <Image style={styles.image} src={qrCodeBase64} />
+          )}
+          <img style={styles.imageFake} src={qrCodeBase64 || ""} />
+
+        </View>
 
         {/* <View style={{ ...styles.qrRow }}>
 

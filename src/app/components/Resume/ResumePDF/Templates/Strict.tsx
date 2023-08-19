@@ -6,6 +6,7 @@ import { Resume } from "lib/redux/types"
 import { ResumePDFIcon } from "../common/ResumePDFIcon"
 import { useEffect, useRef, useState } from "react"
 import generateContactQRCode from "../QRGenerator"
+import { ResumePDFSkills } from "./StrictTemplates/ResumePDFSkills"
 
 const styles = StyleSheet.create({
   page: {
@@ -26,13 +27,13 @@ const styles = StyleSheet.create({
     display: "flex",
     width: '80pt',
     height: '80pt',
-    borderRadius: '50%',
+    // borderRadius: '50%',
   },
   fakePhoto: {
     width: "80pt",
     height: "80pt",
     position: "absolute",
-    borderRadius: '50%',
+    // borderRadius: '50%',
   },
   nameAndContacts: {
     display: "flex",
@@ -91,9 +92,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
-    flexWrap: "wrap",
-    alignContent: "space-around"
   }
 });
 
@@ -115,7 +115,12 @@ export const Strict = ({
 
   // themeColor: string
 }) => {
-  const { profile } = resume
+  const {
+    formToHeading,
+    themeColor,
+    showBulletPoints
+  } = settings
+  const { profile, skills } = resume
   const { name, email, phone, url, summary, location, photo } = profile;
 
   const [qrCodeBase64, setQRCodeBase64] = useState<string | null>(null);
@@ -141,6 +146,7 @@ export const Strict = ({
       });
   }, [QRObjectProfile]);
 
+  const choosenThemeResume = THEME_RESUME.filter((el => el.name ===  settings.themeResume))[0]
 
   return (
     <View>
@@ -169,12 +175,18 @@ export const Strict = ({
 
         <View style={styles.rightCol}>
           {showFormsOrder.map((form: any) => {
-            if ((form == "skills") || (form == "custom")) {
+            if (form == "custom") {
               console.log("ONE SKILL", form)
               const Component = formTypeToComponent[form];
               return <Component style={{ flexDirection: "column" }} key={form} />;
             }
           })}
+          <ResumePDFSkills
+            theme={choosenThemeResume}
+            heading={formToHeading["skills"]}
+            skills={skills}
+            themeColor={themeColor}
+            showBulletPoints={showBulletPoints["skills"]} />
           <View style={styles.qrContainer}>
             <Text>QR-код</Text>
             {qrCodeBase64 && (

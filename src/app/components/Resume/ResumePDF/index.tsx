@@ -39,9 +39,11 @@ import { TemplateGenerator } from "./TemplateGenerator";
 export const ResumePDF = ({
   resume,
   settings,
+  _theme,
   isPDF = false,
 }: {
   resume: Resume;
+  _theme?: string,
   settings: Settings;
   isPDF?: boolean;
 }) => {
@@ -59,7 +61,8 @@ export const ResumePDF = ({
     themeResume
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
-  const choosenThemeResume = THEME_RESUME.filter((el => el.name === themeResume))[0]
+
+  const choosenThemeResume = THEME_RESUME.filter((el => el.name ===  themeResume))[0]
 
   const showFormsOrder = formsOrder.filter((form) => formToShow[form]);
 
@@ -119,8 +122,9 @@ export const ResumePDF = ({
 
   return (
     <>
-      <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
+      <Document pageLayout="oneColumn" title={`${name} Resume`} author={name} producer={"OpenResume"}>
         <Page
+          break={true}
           size={documentSize === "A4" ? "A4" : "LETTER"}
           style={{
             ...styles.flexCol,

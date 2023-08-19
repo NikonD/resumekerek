@@ -1,9 +1,7 @@
 import "globals.css";
-import { TopNavBar } from "components/TopNavBar";
 import { Analytics } from "@vercel/analytics/react";
-import AuthContainer from "auth";
-import { Provider } from "react-redux";
-import store from './lib/reduxStoreAuthContainer'
+import { i18n } from "next-i18next";
+
 // import { useEffect, useState } from "react";
 
 export const metadata = {
@@ -25,16 +23,11 @@ export default function RootLayout({
   //     // Пустой эффект для активации прагмы "useClient".
   //   };
   // }, []);
-
   return (
 
     <html lang="en">
       <body>
-        {/* <Provider store={store}> */}
-        
-        {/* </Provider> */}
         {children}
-        {/* <AuthContainer /> */}
         <Analytics />
       </body>
     </html>

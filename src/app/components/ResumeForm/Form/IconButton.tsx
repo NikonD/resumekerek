@@ -7,6 +7,7 @@ import {
   TrashIcon,
   ListBulletIcon,
 } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 
 export const ShowIconButton = ({
   show,
@@ -15,7 +16,9 @@ export const ShowIconButton = ({
   show: boolean;
   setShow: (show: boolean) => void;
 }) => {
-  const tooltipText = show ? "Hide section" : "Show section";
+  const {t} = useTranslation()
+
+  const tooltipText = show ? t("hide-section") : t("show-section");
   const onClick = () => {
     setShow(!show);
   };
@@ -77,9 +80,11 @@ export const BulletListIconButton = ({
   onClick: (newShowBulletPoints: boolean) => void;
   showBulletPoints: boolean;
 }) => {
+  const {t} = useTranslation()
+
   const tooltipText = showBulletPoints
-    ? "Hide bullet points"
-    : "Show bullet points";
+    ? t("hide-bullet-points")
+    : t("show-bullet-points");
 
   return (
     <IconButton

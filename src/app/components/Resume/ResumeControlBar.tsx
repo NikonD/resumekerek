@@ -13,8 +13,12 @@ import axios from "axios";
 import config from '../../../../config/config.json'
 import { useSelector } from "react-redux";
 import { selectUser } from "lib/redux/loginSlice";
+import { useTranslation } from "react-i18next";
+
 
 const ResumeControlBarComponent = ({
+  theme,
+  setting,
   resume,
   scale,
   setScale,
@@ -22,6 +26,8 @@ const ResumeControlBarComponent = ({
   document,
   fileName,
 }: {
+  theme: any,
+  setting: any,
   resume: any
   scale: number;
   setScale: (scale: number) => void;
@@ -29,6 +35,8 @@ const ResumeControlBarComponent = ({
   document: JSX.Element;
   fileName: string;
 }) => {
+  const {t} = useTranslation()
+
   const { scaleOnResize, setScaleOnResize } = useSetDefaultScale({
     setScale,
     documentSize,
@@ -38,6 +46,7 @@ const ResumeControlBarComponent = ({
 
   const [instance, update] = usePDF({ document });
 
+  console.log("settings", setting)
 
   //useUser(): id 
   const downloadPDF = () => {
@@ -51,19 +60,25 @@ const ResumeControlBarComponent = ({
               const base64Data = reader.result;
               console.log(base64Data);
               // await axios.post('http://193.122.54.25:5000/api/resume/create')
-              
+
               const token = localStorage.getItem('token');
 
-              await axios.post(`${config.API_URL}/api/resume/upload/pdf`, { data: base64Data, fileName: fileName, resumeObject: resume }, { headers: { Authorization: `Bearer ${token}` } })//user_id
+              await axios.post(`${config.API_URL}/api/resume/upload/pdf`, {
+                data: base64Data,
+                fileName: fileName,
+                resumeObject: resume,
+                theme: theme,
+                settings: setting
+              }, { headers: { Authorization: `Bearer ${token}` } })//user_id
                 .then(response => {
-                  toast.success("Файл сохранен")
+                  toast.success(t("file-saved-notify"))
                   let a = window.document.createElement('a')
                   a.href = instance.url || ""
                   a.download = fileName
                   a.click()
                 })
                 .catch(error => {
-                  toast.error("Ошибка сервера")
+                  toast.error(t("server-error-notify"))
                 });
             } else {
               console.error('File reader result is not a string.');
@@ -75,7 +90,7 @@ const ResumeControlBarComponent = ({
 
     }
     else {
-      toast.error("Вы не авторизированы или не имеете подписку")
+      toast.error(t("not-logged-in-or-not-have-subscription"))
     }
 
   }
@@ -108,12 +123,12 @@ const ResumeControlBarComponent = ({
             checked={scaleOnResize}
             onChange={() => setScaleOnResize((prev) => !prev)}
           />
-          <span className="select-none">Autoscale</span>
+          <span className="select-none">{t("auto-scale")}</span>
         </label>
       </div>
       <button onClick={downloadPDF} className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
         <ArrowDownTrayIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Download Resume</span>
+        <span className="whitespace-nowrap">{t("download-resume-button")}</span>
       </button>
       {/* <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
