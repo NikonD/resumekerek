@@ -1,7 +1,7 @@
 {
-  "h1-title": "Create a professional",
-  "h1-subtitle": "resume easily",
-  "start": "Начать",
+  "h1-title": "轻松创建专业",
+  "h1-subtitle": "简历",
+  "start": "开始",
   "Import-from-PDF": "从PDF导入",
   "create-resume-in-editor": "在编辑器中创建简历",
   "create-resume": "创建简历",
@@ -81,7 +81,7 @@
   "subscription-title": "订阅",
   "subscription-collapse-link": "折叠",
   "subscription-moreinfo-link": "更多",
-  "account-created": "account-created",
-  "user-already-exists": "user-already-exists",
-  "failed-create-account": "failed-create-account"
+  "account-created": "帐户已创建",
+  "user-already-exists": "具有此电子邮件的用户已存在",
+  "failed-create-account": "创建帐户失败"
   }

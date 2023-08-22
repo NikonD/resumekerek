@@ -1,7 +1,7 @@
 {
-  "h1-title": "Create a professional",
-  "h1-subtitle": "resume easily",
-  "start": "Начать",
+  "h1-title": "Профессионалды жасау",
+  "h1-subtitle": "әрекетті жасау оңай",
+  "start": "Бастау",
   "Import-from-PDF": "PDF файлынан импорттау",
   "create-resume-in-editor": "Редакторда түйіндеме жасаңыз",
   "create-resume": "Түйіндеме жасау",
@@ -81,7 +81,7 @@
   "subscription-title": "Жазылымдар",
   "subscription-collapse-link": "Жасыру",
   "subscription-moreinfo-link": "Толығырақ",
-  "account-created": "account-created",
-  "user-already-exists": "user-already-exists",
-  "failed-create-account": "failed-create-account"
+  "account-created": "Аккаунт жасалды",
+  "user-already-exists": "Мұнда email бар пайдаланушы бар",
+  "failed-create-account": "Аккаунт жасау сәтсіз аяқталды"
 }

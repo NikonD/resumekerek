@@ -6,8 +6,7 @@ import { i18n } from "next-i18next";
 
 export const metadata = {
   title: "ResumeKerek - Конструктор резюме",
-  description:
-    "Создание и импорт резюме для последующей печати на A4 и Letter",
+  description: "Создание и импорт резюме для последующей печати на A4 и Letter",
 };
 
 export default function RootLayout({
