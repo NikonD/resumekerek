@@ -69,7 +69,7 @@ export const TopNavBar: React.FC = () => {
 
               className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
             >
-              {t('language')}
+              {t('lang')}
             </button>
             {isLanguageMenuOpen && (<ul style={{ zIndex: 888 }} className="absolute right-0 w-24 bg-white border border-gray-200 rounded-md shadow-lg divide-y divide-gray-200">
               <li>
