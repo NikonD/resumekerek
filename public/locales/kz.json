@@ -90,5 +90,8 @@
   "payment-failed-text": "Біреуінен кейінді тағы бір рет көріңіз",
   "return-to-main": "Басты бетке қайту",
   "lang": "Тіл",
-  "server-not-response": "Сервер жауап бермейді"
+  "server-not-response": "Сервер жауап бермейді",
+  "login-required": "Авторизация қажет",
+  "buy": "Сатып алу",
+  "subscription-is-active": "Жазылым белсенді"
 }

@@ -90,5 +90,8 @@
   "payment-failed-text": "出了点问题。请再试一次",
   "return-to-main": "返回主页",
   "lang": "语言",
-  "server-not-response": "服务器无响应"
+  "server-not-response": "服务器无响应",
+  "login-required": "需要登录",
+  "buy": "购买",
+  "subscription-is-active": "订阅已激活"
 }

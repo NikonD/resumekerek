@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/loginSlice';
 import { toast } from 'react-toastify';
-
+import moment from 'moment';
 
 const ServicesPage: React.FC = () => {
   const { t } = useTranslation()
@@ -73,13 +73,19 @@ const ServicesPage: React.FC = () => {
     });
   }
 
+  const currentDate = moment()
+  const isTargetDatePast = moment(user.active_until).isBefore(currentDate);
+  const remainingDays = moment(new Date(user.active_until || new Date())).diff(currentDate, "days")
+
   return (
     <div className='bg-white mt-10'>
       <h1 className="text-3xl font-bold text-center py-8">{t("subscription-title")}</h1>
       <div className="flex justify-center items-center  ">
         <div className={`grid grid-cols-3 gap-6 ${isExpanded ? 'max-sm:grid-cols-1 max-md:grid-cols-3' : 'hidden'}`}>
-          {user.islogin && services.map((service, index) => (
+          {services.map((service, index) => (
             <ServiceCard
+              isActive={!isTargetDatePast}
+              isLogin={user.islogin}
               key={index}
               service={service}
               onClick={() => {
