@@ -81,7 +81,7 @@ const ServicesPage: React.FC = () => {
               key={index}
               service={service}
               onClick={() => {
-                onPay(service.price, service.name)
+                onPay(service.price, service.name, service.description)
               }} />
           ))}
         </div>
