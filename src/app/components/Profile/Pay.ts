@@ -66,10 +66,11 @@ const halyk = (() => {
   let paymentPageOrigin = Config().origin;
 
   function pay(params: any) {
-    location.href =
-      pageUrl +
-      "?params=" +
-      LZString.compressToBase64(encodeParams(params)); // Возможно, здесь нужно использовать другую функцию из LZString
+    window.open(`${pageUrl}?params=${LZString.compressToBase64(encodeParams(params))}`, "_blank")
+    // location.href =
+    //   pageUrl +
+    //   "?params=" +
+    //   LZString.compressToBase64(encodeParams(params)); // Возможно, здесь нужно использовать другую функцию из LZString
   }
 
   function onCloseDialog(result: boolean) {
@@ -138,7 +139,7 @@ const halyk = (() => {
       iframeHolder.className = "iframeHolder";
       iframeHolder.appendChild(iframe);
 
-
+      iframeBox.appendChild(iframeHolder);
       window.addEventListener("message", onCommandRecieved, false);
 
       widgetNode.appendChild(iframeBox);

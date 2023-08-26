@@ -3,6 +3,7 @@ import React from "react"
 import { Simple } from "./Templates/Simple"
 import { Resume } from "lib/redux/types"
 import { Strict } from "./Templates/Strict"
+import { Feature } from "./Templates/Feature"
 
 export const TemplateGenerator = ({
   resume,
@@ -41,6 +42,12 @@ export const TemplateGenerator = ({
           formTypeToComponent={formTypeToComponent}
           showFormsOrder={showFormsOrder}
           Profile={profile} />}
+      {
+        themeResumeName == "feature" &&
+          <Feature 
+            resume={resume}
+            settings={settings}/>
+      }
     </div>
   )
 }

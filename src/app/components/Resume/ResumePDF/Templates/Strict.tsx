@@ -150,7 +150,7 @@ export const Strict = ({
 
   return (
     <View>
-      <View style={styles.header}>
+      <View style={{...styles.header, backgroundColor: themeColor}}>
         <img style={styles.fakePhoto} src={profile.photo} />
         <Image src={profile.photo} style={styles.photo} />
         <View style={styles.nameAndContacts}>

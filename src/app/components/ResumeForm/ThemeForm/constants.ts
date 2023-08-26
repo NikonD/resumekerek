@@ -168,5 +168,9 @@ export const THEME_RESUME = [
         }
       })
     }
-  }
+  },
+  // {
+  //   title: "Современный",
+  //   name: "feature"
+  // }
 ]

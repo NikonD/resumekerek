@@ -58,16 +58,15 @@ let PDFListSection = () => {
 
   console.log(resumes)
 
+  
   return (
     <div className='bg-white'>
       <h1 className="text-3xl font-bold text-center py-8">{t('resumes')}</h1>
       <div className="flex justify-center items-center  ">
         <div className="grid grid-cols-1 max-md:grid-cols-6 ">
-
           <div className="mx-10 my-20 grid grid-cols-6 max-sm:grid-cols-1 gap-x-20 gap-y-20 ">
             <AddPDF />
             {resumes !== undefined ? resumes.map((el: IResume, i: number) => {
-
               return (
                 <PDFCard onClick={() => {
 
