@@ -83,5 +83,11 @@
   "subscription-moreinfo-link": "更多",
   "account-created": "帐户已创建",
   "user-already-exists": "具有此电子邮件的用户已存在",
-  "failed-create-account": "创建帐户失败"
-  }
+  "failed-create-account": "创建帐户失败",
+  "payment-success-completed": "付款成功完成",
+  "thanks-for-payment": "感谢您的购买",
+  "payment-failed": "付款失败",
+  "payment-failed-text": "出了点问题。请再试一次",
+  "return-to-main": "返回主页",
+  "lang": "语言"
+}

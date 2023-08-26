@@ -1,6 +1,6 @@
 {
-  "h1-title": "Create a professional",
-  "h1-subtitle": "resume easily",
+  "h1-title": "Кәсіби түйіндемені",
+  "h1-subtitle": "оңай жасаңыз",
   "start": "Начать",
   "Import-from-PDF": "Импортировать из PDF",
   "create-resume-in-editor": "Создать резюме в редакторе",
@@ -83,5 +83,11 @@
   "subscription-moreinfo-link": "Подробнее",
   "account-created": "Аккаунт создан",
   "user-already-exists": "Пользователь с таким email уже существует",
-  "failed-create-account": "Не удалось создать аккаунт"
+  "failed-create-account": "Не удалось создать аккаунт",
+  "payment-success-completed":"Платеж успешно завершен",
+  "thanks-for-payment": "Спасибо за покупку",
+  "payment-failed": "Не удалось совершить платеж",
+  "payment-failed-text": "Что-то пошло не так. Пожалуйста, попробуйте еще раз",
+  "return-to-main": "Вернуться на главную страницу",
+  "lang": "Язык"
 }
