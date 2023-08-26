@@ -6,6 +6,7 @@ import config from '../../../../config/config.json'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/loginSlice';
+import { toast } from 'react-toastify';
 
 
 const ServicesPage: React.FC = () => {
@@ -67,6 +68,7 @@ const ServicesPage: React.FC = () => {
       window.open(redirectUrl)
     })
     .catch(error => {
+      toast.error(t('server-not-response'))
       console.error('Ошибка при отправке запроса:', error);
     });
   }
@@ -76,7 +78,7 @@ const ServicesPage: React.FC = () => {
       <h1 className="text-3xl font-bold text-center py-8">{t("subscription-title")}</h1>
       <div className="flex justify-center items-center  ">
         <div className={`grid grid-cols-3 gap-6 ${isExpanded ? 'max-sm:grid-cols-1 max-md:grid-cols-3' : 'hidden'}`}>
-          {services.map((service, index) => (
+          {user.islogin && services.map((service, index) => (
             <ServiceCard
               key={index}
               service={service}

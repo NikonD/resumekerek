@@ -1,6 +1,6 @@
 {
-  "h1-title": "Кәсіби түйіндемені",
-  "h1-subtitle": "оңай жасаңыз",
+  "h1-title": "Create a professional",
+  "h1-subtitle": "resume easily",
   "start": "Начать",
   "Import-from-PDF": "Импортировать из PDF",
   "create-resume-in-editor": "Создать резюме в редакторе",
@@ -89,5 +89,6 @@
   "payment-failed": "Не удалось совершить платеж",
   "payment-failed-text": "Что-то пошло не так. Пожалуйста, попробуйте еще раз",
   "return-to-main": "Вернуться на главную страницу",
-  "lang": "Язык"
+  "lang": "Язык",
+  "server-not-response": "Сервер не отвечает"
 }

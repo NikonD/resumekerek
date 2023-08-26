@@ -89,5 +89,6 @@
   "payment-failed": "付款失败",
   "payment-failed-text": "出了点问题。请再试一次",
   "return-to-main": "返回主页",
-  "lang": "语言"
+  "lang": "语言",
+  "server-not-response": "服务器无响应"
 }

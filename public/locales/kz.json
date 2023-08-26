@@ -89,5 +89,6 @@
   "payment-failed": "Төлем жасау мүмкін болмады",
   "payment-failed-text": "Біреуінен кейінді тағы бір рет көріңіз",
   "return-to-main": "Басты бетке қайту",
-  "lang": "Тіл"
+  "lang": "Тіл",
+  "server-not-response": "Сервер жауап бермейді"
 }
