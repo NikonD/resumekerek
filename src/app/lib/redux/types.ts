@@ -56,9 +56,14 @@ export type ResumeKey = keyof Resume;
 
 
 export interface IUserData {
+  id?: number,
   islogin: boolean,
-  fullname?: string,
-  email?: string,
-  plan?: string,
+  photo: string,
+  fullname: string,
+  language: string,
+  address: string,
+  phone: string,
+  email: string,
+  plan: string,
   active_until?: Date
 }

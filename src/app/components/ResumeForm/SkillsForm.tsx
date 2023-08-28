@@ -65,7 +65,6 @@ export const SkillsForm = () => {
         >
           <p className="mt-2 text-sm font-normal text-gray-600">
             {t("featured-skills-form-description")}
-          Рекомендуемые навыки не являются обязательными, чтобы выделить лучшие навыки, чем больше кругов, тем выше уровень мастерства.
           </p>
         </InputGroupWrapper>
 

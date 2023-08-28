@@ -4,15 +4,17 @@ import { Area, Point } from 'react-easy-crop/types';
 import { useTranslation } from 'react-i18next';
 
 interface PhotoUploadProps<K extends string, V extends string> {
-  src?: string,
+  src: string,
   name: K,
   value?: V,
   onChange: (name: K, value: V) => void
+  onLoad?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const PhotoUpload = <K extends string>({
   src,
   onChange,
+  onLoad,
   name,
   value
 }: PhotoUploadProps<K, string>) => {
@@ -147,7 +149,7 @@ const PhotoUpload = <K extends string>({
             ref={inputRef}
           />
           {previewUrl ? (
-            <img src={previewUrl || src} alt="Preview" className="w-full h-full object-cover" />
+            <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center p-5">
               <p className="text-gray-500">{t("click-or-drag-a-file-here")}</p>

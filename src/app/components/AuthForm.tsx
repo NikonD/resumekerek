@@ -62,6 +62,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       });
 
   }, [])
+  
+  // i18n.changeLanguage(user.language || 'ru')
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -343,7 +345,6 @@ export const UserComponent: React.FC<UserProps> = ({ fullname, email, plan, acti
             </a>
           </label>
         </div> : null}
-
       <div>
         <button onClick={onLogout} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
           {t("signout-button")}

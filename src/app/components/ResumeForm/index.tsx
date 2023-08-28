@@ -15,6 +15,7 @@ import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
+import { useTranslation } from "react-i18next";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -31,6 +32,7 @@ export const ResumeForm = () => {
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
 
+  const { t } = useTranslation()
   return (
     <div
       className={cx(
@@ -50,6 +52,8 @@ export const ResumeForm = () => {
         <br />
       </section>
       <FlexboxSpacer maxWidth={50} className="hidden md:block" />
+
+
     </div>
   );
 };

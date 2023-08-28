@@ -1,11 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IUserData } from "./types";
 import { useDispatch } from "react-redux";
 import { RootState } from "./store";
 
 export const initialUserData: IUserData = {
+  id: 0,
   islogin: false,
+  photo: "",
   fullname: "",
+  language: "ru",
+  address: "",
+  phone: "",
   email: "",
   plan: "",
   active_until: new Date(),
@@ -20,9 +25,9 @@ export const loginSlice = createSlice({
   initialState: initialLoginState,
   reducers: {
     autoLogin: () => {
-      
+
     },
-    
+
     changeUser: (state, action) => {
       // Реализация редюсера changeUser
       // Мы будем использовать payload, переданный в action, чтобы обновить данные пользователя
@@ -32,12 +37,17 @@ export const loginSlice = createSlice({
     loginUser: (state, action) => {
       // Реализация редюсера loginUser
       // Этот редюсер может устанавливать значения в state для залогиненного пользователя
-      const { fullname, email, plan, active_until } = action.payload;
+      const { id, fullname, email, plan, active_until, address, language, phone, photo } = action.payload;
       state.user = {
+        id,
         islogin: true,
         fullname,
         email,
         plan,
+        phone,
+        address,
+        language,
+        photo,
         active_until,
       };
       // if (fullname && email && plan && active_until) {
@@ -50,11 +60,21 @@ export const loginSlice = createSlice({
 
     },
 
+
     logoutUser: (state) => {
       // Реализация редюсера logoutUser
       // Этот редюсер сбрасывает пользователя в начальное состояние
       state.user = {
+        id: 0,
         islogin: false,
+        photo: "",
+        fullname: "",
+        language: "ru",
+        address: "",
+        phone: "",
+        email: "",
+        plan: "",
+        active_until: new Date(),
       };
       localStorage.removeItem("token")
     }

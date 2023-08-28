@@ -11,9 +11,10 @@ import useUser from "lib/useUser";
 import { toast } from 'react-toastify';
 import axios from "axios";
 import config from '../../../../config/config.json'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "lib/redux/loginSlice";
 import { useTranslation } from "react-i18next";
+import { clearResume } from "lib/redux/resumeSlice";
 
 
 const ResumeControlBarComponent = ({
@@ -35,7 +36,7 @@ const ResumeControlBarComponent = ({
   document: JSX.Element;
   fileName: string;
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const { scaleOnResize, setScaleOnResize } = useSetDefaultScale({
     setScale,
@@ -43,7 +44,7 @@ const ResumeControlBarComponent = ({
   });
 
   const user = useSelector(selectUser)
-
+  const dispath = useDispatch()
   const [instance, update] = usePDF({ document });
 
   console.log("settings", setting)
@@ -126,6 +127,13 @@ const ResumeControlBarComponent = ({
           <span className="select-none">{t("auto-scale")}</span>
         </label>
       </div>
+      <button
+        className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+        onClick={() => {
+          dispath(clearResume(resume))
+        }}>
+        {t('reset')}
+      </button>
       <button onClick={downloadPDF} className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
         <ArrowDownTrayIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">{t("download-resume-button")}</span>

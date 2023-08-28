@@ -6,22 +6,27 @@ import { ResumeProfile } from "lib/redux/types";
 import { PhotoUpload } from "./Form/PhotoUpload";
 import { useTranslation } from "react-i18next";
 import { useIntl } from 'react-intl';
+import { useSelector } from "react-redux";
+import { selectUser } from "lib/redux/loginSlice";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
+
+  const user = useSelector(selectUser)
+
   const { name, email, phone, url, summary, location, photo } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
   };
   const {t} =  useTranslation()
-  
+  console.log()
   return (
     <BaseForm>
       <div className="grid grid-cols-6 gap-3 max-sm:grid-cols-1">
         <PhotoUpload
-          src={photo}
+          src={user.photo}
           name="photo"
           onChange={handleProfileChange}
         />
@@ -30,7 +35,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-full"
           name="name"
           placeholder=""
-          value={name}
+          value={user.fullname}
           onChange={handleProfileChange}
         />
         <Textarea
@@ -46,7 +51,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-4 max-sm:col-span-full"
           name="email"
           placeholder="example@mail.com"
-          value={email}
+          value={user.email}
           onChange={handleProfileChange}
         />
         <Input
@@ -54,7 +59,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-2 max-sm:col-span-full"
           name="phone"
           placeholder="+71234567890"
-          value={phone}
+          value={user.phone}
           onChange={handleProfileChange}
         />
         <Input
@@ -70,7 +75,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-2 max-sm:col-span-full"
           name="location"
           placeholder="NYC, NY"
-          value={location}
+          value={user.address}
           onChange={handleProfileChange}
         />
       </div>

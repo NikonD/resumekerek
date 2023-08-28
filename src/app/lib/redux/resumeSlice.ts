@@ -67,12 +67,12 @@ export const initialResumeState: Resume = {
 export type CreateChangeActionWithDescriptions<T> = {
   idx: number;
 } & (
-  | {
+    | {
       field: Exclude<keyof T, "descriptions">;
       value: string;
     }
-  | { field: "descriptions"; value: string[] }
-);
+    | { field: "descriptions"; value: string[] }
+  );
 
 export const resumeSlice = createSlice({
   name: "resume",
@@ -116,11 +116,11 @@ export const resumeSlice = createSlice({
       action: PayloadAction<
         | { field: "descriptions"; value: string[] }
         | {
-            field: "featuredSkills";
-            idx: number;
-            skill: string;
-            rating: number;
-          }
+          field: "featuredSkills";
+          idx: number;
+          skill: string;
+          rating: number;
+        }
       >
     ) => {
       const { field } = action.payload;
@@ -197,6 +197,13 @@ export const resumeSlice = createSlice({
     setResume: (draft, action: PayloadAction<Resume>) => {
       return action.payload;
     },
+    clearResume: (state) => {
+      state.custom = initialCustom
+      state.educations = [initialEducation]
+      state.projects = [initialProject]
+      state.skills = initialSkills
+      state.workExperiences = [initialWorkExperience]
+    }
   },
 });
 
@@ -211,6 +218,7 @@ export const {
   moveSectionInForm,
   deleteSectionInFormByIdx,
   setResume,
+  clearResume
 } = resumeSlice.actions;
 
 export const selectResume = (state: RootState) => state.resume;

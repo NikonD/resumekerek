@@ -15,6 +15,7 @@ import { DEBUG_RESUME_PDF_FLAG } from "lib/constants";
 const Resume = () => {
   const [scale, setScale] = useState(0.8);
   const resume = useAppSelector(selectResume);
+
   const settings = useAppSelector(selectSettings);
   const document = useMemo(
     () => <ResumePDF resume={resume} settings={settings} isPDF={true} />,
