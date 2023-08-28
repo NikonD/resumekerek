@@ -29,10 +29,10 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ open, setOpen, user }) =>
           </svg>
             : 'Open'}
         </button>
-
-        <button onClick={() => { window.location.href='/profile-settings' }} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
+        {user.islogin && <button onClick={() => { window.location.href = '/profile-settings' }} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
           {t("profile-settings-button")}
-        </button>
+        </button>}
+
 
       </div>
 
