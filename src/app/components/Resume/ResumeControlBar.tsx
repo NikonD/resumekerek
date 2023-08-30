@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "lib/redux/loginSlice";
 import { useTranslation } from "react-i18next";
 import { clearResume } from "lib/redux/resumeSlice";
+import moment from "moment";
 
 
 const ResumeControlBarComponent = ({
@@ -49,9 +50,12 @@ const ResumeControlBarComponent = ({
 
   console.log("settings", setting)
 
+  const currentDate = moment()
+  const isTargetDatePast = moment(user.active_until).isBefore(currentDate);
+
   //useUser(): id 
   const downloadPDF = () => {
-    if (user.islogin) {
+    if (user.islogin && !isTargetDatePast) {
       fetch(instance.url || "")
         .then(response => response.blob())
         .then(blobData => {
