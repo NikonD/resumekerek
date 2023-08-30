@@ -45,6 +45,18 @@
     height: 300px;
     width: 300px;
   }
+  .payment__header {
+    /* background: rgb(220, 218, 218); */
+  }
+
+  .payment__tab-btn {
+    border: 1px solid gray;
+    width: 100%;
+  }
+
+  .payment__block {
+    width: 50%;
+  }
 }
 
 :root {
