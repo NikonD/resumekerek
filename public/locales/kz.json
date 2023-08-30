@@ -115,6 +115,7 @@
   "user-saved-notify": "Деректер сақталды",
   "profile-settings-button": "Профиль параметрлері",
   "current-password-incorrect":"Ағымдағы пароль дұрыс емес.",
-  "reset": "Резюме қайта орнату"
+  "reset": "Резюме қайта орнату",
+  "payment":"Төлем"
 
 }

@@ -115,5 +115,6 @@
   "user-saved-notify": "数据已保存",
   "profile-settings-button": "个人资料设置",
   "current-password-incorrect":"当前密码不正确。",
-  "reset":"重置简历"
+  "reset":"重置简历",
+  "payment": "付款"
 }

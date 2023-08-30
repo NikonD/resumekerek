@@ -103,6 +103,7 @@ export const TopNavBar: React.FC = () => {
 
 
           {[
+            ["/payment", t("payment")],
             ["/resume-builder", t("constructor")],
             ["/resume-profile", t("resumes")],
             // ["/login", "Войти"]

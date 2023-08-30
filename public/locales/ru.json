@@ -115,5 +115,6 @@
   "user-saved-notify": "Данные сохраненны",
   "profile-settings-button": "настройки профиля",
   "current-password-incorrect":"текущий пароль неверный",
-  "reset": "Очистить резюме"
+  "reset": "Очистить резюме",
+  "payment": "Оплата"
 }
