@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import config from '../../../config/config.json'
 export const Footer = () => {
 
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   return (
     <footer style={{width: "100%"}} className="releative bottom-0 bg-gray-800 py-10 text-white">
@@ -16,10 +16,10 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col items-start">
           <p>
-            <a target="_blank" href={`${config.API_URL}/pub/policy_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('private-policy')}</a>
+            <a target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`} className="text-blue-300 hover:text-blue-500">{t('private-policy')}</a>
           </p>
           <p>
-            <a target="_blank" href={`${config.API_URL}/pub/offer_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('offer')}</a>
+            <a target="_blank" href={`${config.API_URL}/pub/offer_${i18n.language}.pdf`} className="text-blue-300 hover:text-blue-500">{t('offer')}</a>
           </p>
         </div>
       </div>
