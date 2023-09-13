@@ -124,7 +124,7 @@ const PaymentFrame: React.FC = () => {
 
       <div style={{ width: "450px" }} className='payment__block'>
         <div className='mb-5 text-base sm:text-10pt'>
-          <p>{t('platformText')}</p>
+          {/* <p>{t('platformText')}</p> */}
         </div>
         <div className="flex flex-row justify-around payment__header">
           <button
