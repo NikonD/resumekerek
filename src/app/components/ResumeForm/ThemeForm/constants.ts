@@ -169,8 +169,8 @@ export const THEME_RESUME = [
       })
     }
   },
-  // {
-  //   title: "Современный",
-  //   name: "feature"
-  // }
+  {
+    title: "Современный",
+    name: "feature"
+  }
 ]

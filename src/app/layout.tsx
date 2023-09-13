@@ -1,6 +1,7 @@
 import "globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { i18n } from "next-i18next";
+import { Footer } from "components/Footer";
 
 // import { useEffect, useState } from "react";
 

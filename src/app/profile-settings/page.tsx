@@ -8,6 +8,7 @@ import { store } from 'lib/redux/store';
 import { selectUser } from 'lib/redux/loginSlice';
 import { EditUser } from './EditUser';
 import { NotificationContainer } from 'components/Notifications';
+import { Footer } from 'components/Footer';
 
 
 const ProfileSettings = () => {
@@ -19,6 +20,7 @@ const ProfileSettings = () => {
         <TopNavBar />
         <EditUser/>
         <NotificationContainer />
+        <Footer/>
       </I18nextProvider>
     </Provider>
   );

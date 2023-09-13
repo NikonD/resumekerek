@@ -26,7 +26,7 @@ export const ProfileForm = () => {
     <BaseForm>
       <div className="grid grid-cols-6 gap-3 max-sm:grid-cols-1">
         <PhotoUpload
-          src={user.photo}
+          src={photo}
           name="photo"
           onChange={handleProfileChange}
         />
@@ -35,7 +35,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-full"
           name="name"
           placeholder=""
-          value={user.fullname}
+          value={name}
           onChange={handleProfileChange}
         />
         <Textarea
@@ -51,7 +51,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-4 max-sm:col-span-full"
           name="email"
           placeholder="example@mail.com"
-          value={user.email}
+          value={email}
           onChange={handleProfileChange}
         />
         <Input
@@ -59,7 +59,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-2 max-sm:col-span-full"
           name="phone"
           placeholder="+71234567890"
-          value={user.phone}
+          value={phone}
           onChange={handleProfileChange}
         />
         <Input
@@ -75,7 +75,7 @@ export const ProfileForm = () => {
           labelClassName="col-span-2 max-sm:col-span-full"
           name="location"
           placeholder="NYC, NY"
-          value={user.address}
+          value={location}
           onChange={handleProfileChange}
         />
       </div>

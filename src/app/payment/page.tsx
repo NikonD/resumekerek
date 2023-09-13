@@ -6,6 +6,7 @@ import i18n from "../../../i18n"
 import { TopNavBar } from "components/TopNavBar"
 import { NotificationContainer } from "components/Notifications"
 import PaymentFrame from "./PaymentFrame";
+import { Footer } from "components/Footer";
 
 export default function Payment() {
   return (
@@ -16,6 +17,7 @@ export default function Payment() {
           <PaymentFrame/>
           <NotificationContainer />
         </main>
+        <Footer />
       </I18nextProvider>
     </Provider>
   )

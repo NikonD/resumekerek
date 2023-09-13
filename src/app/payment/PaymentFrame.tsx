@@ -21,10 +21,10 @@ type Currency = {
 
 const PaymentFrame: React.FC = () => {
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const user = useSelector(selectUser)
   // const [currentPrice, setCurrentPrice] = useState()
-
+  console.log(i18n.language)
   function numberWithSpaces(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
@@ -120,11 +120,11 @@ const PaymentFrame: React.FC = () => {
 
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center  h500">
 
       <div style={{ width: "450px" }} className='payment__block'>
-        <div className='mb-5'>
-          <p>Раскройте все возможности нашей платформы и создайте впечатляющее, без ограниченное по количеству резюме, способное выделить вас среди конкурентов. Откройте для себя мир новых карьерных перспектив с полным доступом.</p>
+        <div className='mb-5 text-base sm:text-10pt'>
+          <p>{t('platformText')}</p>
         </div>
         <div className="flex flex-row justify-around payment__header">
           <button
@@ -168,9 +168,9 @@ const PaymentFrame: React.FC = () => {
           </div>
           <hr />
           <div className='flex flex-col gap-3'>
-            <p>1. Выберите длительность подписки и вылюты для оплаты</p>
-            <p>2. В платежной форме введите данные вашей карты</p>
-            <p>3. Дождитесь проведения платежа</p>
+            <p>1. {t('subscriptionDurationText')}</p>
+            <p>2. {t('enterCardDetailsText')}</p>
+            <p>3. {t('waitPaymentProcessingText')}</p>
           </div>
           {/* <div className='flex flex-row max:w-100'> */}
           <div className='flex flex-row gap-5 justify-center'>
@@ -183,10 +183,13 @@ const PaymentFrame: React.FC = () => {
 
             <div className='flex flex-col gap-2'>
               <div className='flex flex-row gap-2'>
-                <input checked={ofert} type="checkbox" onChange={(e)=>{isOfert(e.currentTarget.checked)}} />
-                <label>соглашаюсь с <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${config.API_URL}/pub/offer.pdf`}>офертой</a></label>
+                <input checked={ofert} type="checkbox" onChange={(e) => { isOfert(e.currentTarget.checked) }} />
+                <label dangerouslySetInnerHTML={{ __html: t('agreementOffer', { a: '<a href="#">' }) }}>
+                  
+                  {/* Ознакомлен и согласен с <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${config.API_URL}/pub/offer.pdf`}>договором оферты</a> */}
+                </label>
               </div>
-              <a className='font-medium text-blue-600 dark:text-blue-500 hover:underline' target="_blank" href={`${config.API_URL}/pub/policy.pdf`}>Политика конфиденциальности</a>
+              <a className='font-medium text-blue-600 dark:text-blue-500 hover:underline' target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}>{t('private-policy')}</a>
             </div>
 
             <button
@@ -194,9 +197,10 @@ const PaymentFrame: React.FC = () => {
               onClick={() => {
                 onPay()
               }}
-              className={`${ofert? ' hover:bg-blue-400 focus:shadow-outline focus:outline-none': 'disabled:opacity-50 disabled:cursor-not-allowed'} shadow bg-blue-500 text-white font-bold py-2 px-4`} type="button">
-              Перейти к оплате
+              className={`${ofert ? ' hover:bg-blue-400 focus:shadow-outline focus:outline-none' : 'disabled:opacity-50 disabled:cursor-not-allowed'} shadow bg-blue-500 text-white font-bold py-2 px-4`} type="button">
+              {t('paymentButton')}
             </button>
+            <p>{t('paymentText')}</p>
           </div>
         </div>
 

@@ -4,6 +4,7 @@ import { Resume } from "lib/redux/types"
 import { ResumePDFLink, ResumePDFText } from "../common"
 import { spacing } from "../styles"
 import { IconType, ResumePDFIcon } from "../common/ResumePDFIcon"
+import { UserIcon } from "@heroicons/react/24/outline"
 
 const styles = StyleSheet.create({
   page: {
@@ -13,16 +14,32 @@ const styles = StyleSheet.create({
     borderLeft: "1px solid grey",
     flexDirection: "column",
     display: "flex",
-    width: "30%"
+    height: "100%",
+    width: "40%",
+    color: "white"
+  },
+  leftColData: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  lefColLabel: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    fontWeight: 600,
+    fontSize: "14pt"
   },
   rightCol: {
     display: "flex",
     flexDirection: "column",
-    width: "70%",
+    width: "60%",
     marginRight: "20pt"
   },
   photoBlock: {
     display: "flex",
+    marginTop: "1.5rem",
+    marginBottom: "1.5rem",
+    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     alignContent: "space-between",
@@ -41,14 +58,17 @@ const styles = StyleSheet.create({
     borderRadius: "50%"
   },
   contactBlock: {
+    fontSize: "14pt",
     gap: "10px",
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
+    marginLeft: "1.5rem",
+    marginTop: "2rem",
     justifyContent: "flex-start",
   },
   flexRow: {
-    display:"flex",
+    display: "flex",
     flexDirection: "row"
   },
   contact: {
@@ -82,64 +102,28 @@ const Feature = ({
           <img style={styles.fakePhoto} src={profile.photo} />
           <Image src={profile.photo} style={styles.photo} />
         </View>
-        <View style={styles.contactBlock}>
-          {/* {Object.entries(iconProps).map(([key, value]) => {
-            if (!value) return null;
+        <View>
+          <View style={{ ...styles.leftColData }}>
+            <View style={styles.lefColLabel}>
+              <Text>Персональные данные</Text>
+            </View>
 
-            let iconType = key as IconType;
-            if (key === "url") {
-              if (value.includes("github")) {
-                iconType = "url_github";
-              } else if (value.includes("linkedin")) {
-                iconType = "url_linkedin";
-              }
-            }
+          </View>
+          <View style={styles.contactBlock}>
+            <View>
+              <UserIcon/>
+              <Text>{name}</Text>
+            </View>
+            <Text>{summary}</Text>
 
-            const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
-            const Wrapper = ({ children }: { children: React.ReactNode }) => {
-              if (!shouldUseLinkWrapper) return <>{children}</>;
 
-              let src = "";
-              switch (key) {
-                case "email": {
-                  src = `mailto:${value}`;
-                  break;
-                }
-                case "phone": {
-                  src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
-                  break;
-                }
-                default: {
-                  src = value.startsWith("http") ? value : `https://${value}`;
-                }
-              }
+            <Text>{email}</Text>
+            <Text>{phone}</Text>
+          </View>
 
-              return (
-                <ResumePDFLink src={src} isPDF={isPDF}>
-                  {children}
-                </ResumePDFLink>
-              );
-            };
-
-            return (
-              <View
-                key={key}
-                style={{
-                  ...styles.flexRow,
-                  alignItems: "center",
-                  gap: spacing["1"],
-                }}
-              >
-                <ResumePDFIcon type={iconType} isPDF={isPDF} />
-                <Wrapper>
-                  <ResumePDFText >{value}</ResumePDFText>
-                </Wrapper>
-              </View>
-            );
-          })} */}
         </View>
-        <Text>{name}</Text>
       </View>
+
       <View style={styles.rightCol}>
 
       </View>

@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import logoSrc from "public/logo.svg";
+import logoSrc from "public/logo.png";
 import { cx } from "lib/cx";
 import { Dispatch } from "@reduxjs/toolkit";
 import { SetStateAction, useDebugValue, useEffect, useState } from "react";
@@ -20,6 +20,7 @@ import i18n from 'i18next';
 
 export const TopNavBar: React.FC = () => {
 
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); // Добавьте это состояние
 
   const user = useSelector(selectUser)
 
@@ -30,14 +31,14 @@ export const TopNavBar: React.FC = () => {
 
   const pathName = usePathname();
   const isHomePage = pathName === "/";
-  
+
   const { t } = useTranslation()
 
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
   };
 
-  
+
   return (
 
     <header
@@ -48,18 +49,19 @@ export const TopNavBar: React.FC = () => {
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
-        <Link href="/">
-          <span className="">CV-resume</span>
-          {/* <Image
+        <Link className="flex flex-row gap-1" href="/">
+          
+          <Image
             src={logoSrc}
-            alt="OpenResume Logo"
-            className="h-8 w-full"
+            alt="ResumeKerek Logo"
+            className="h-8 w-8"
             priority
-          /> */}
+          />
+          <span className="">Resume Kerek</span>
         </Link>
         <nav
           aria-label="Site Nav Bar"
-          className="flex items-center gap-2 text-sm font-medium"
+          className="sm:flex sm:flex-row md:flex md:flex-row lg:flex lg:flex-row lg:items-center gap-2 text-sm font-medium hidden sm:block md:block"
         >
 
           <div className="relative"
@@ -77,7 +79,7 @@ export const TopNavBar: React.FC = () => {
                   className="w-full text-left px-3 py-2 hover:bg-gray-100"
                   onClick={() => changeLanguage('kz')}
                 >
-                  Қазақ
+                  Қазақша
                 </button>
               </li>
 
@@ -94,7 +96,7 @@ export const TopNavBar: React.FC = () => {
                   className="w-full text-left px-3 py-2 hover:bg-gray-100"
                   onClick={() => changeLanguage('ch')}
                 >
-                  中国人
+                  中文
                 </button>
               </li>
             </ul>)}
@@ -130,9 +132,38 @@ export const TopNavBar: React.FC = () => {
               title="GitHub"
             />
           </div> */}
+
         </nav>
+        <button
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden xl:hidden md:hidden sm:hidden rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+        >
+          Меню
+        </button>
       </div>
       <AuthContainer user={user} open={open} setOpen={setOpen} />
+      {isMobileMenuOpen && (
+        <div className=" flex flex-col items-end absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-white border-b-2 border-gray-100">
+          {[
+            ["/payment", t("payment")],
+            ["/resume-builder", t("constructor")],
+            ["/resume-profile", t("resumes")],
+            // ["/login", "Войти"]
+          ].map(([href, text]) => (
+            <Link
+              key={text}
+              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              href={href}
+            >
+              {text}
+            </Link>
+          ))}
+          <button key={"login"} onClick={() => { setOpen(open ? false : true) }} 
+            className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
+            {user.islogin ? t("profile") : t("signin-label")}
+          </button>
+        </div>
+      )}
     </header>
 
   );
