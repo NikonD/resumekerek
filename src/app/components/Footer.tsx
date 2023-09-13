@@ -16,10 +16,10 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col items-start">
           <p>
-            <a href={`${config.API_URL}/pub/policy_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('private-policy')}</a>
+            <a target="_blank" href={`${config.API_URL}/pub/policy_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('private-policy')}</a>
           </p>
           <p>
-            <a href={`${config.API_URL}/pub/offer_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('offer')}</a>
+            <a target="_blank" href={`${config.API_URL}/pub/offer_en.pdf`} className="text-blue-300 hover:text-blue-500">{t('offer')}</a>
           </p>
         </div>
       </div>

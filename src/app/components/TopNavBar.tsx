@@ -54,10 +54,10 @@ export const TopNavBar: React.FC = () => {
           <Image
             src={logoSrc}
             alt="ResumeKerek Logo"
-            className="h-8 w-8"
+            className="h-8 w-full"
             priority
           />
-          <span className="">Resume Kerek</span>
+          {/* <span className="">Resume Kerek</span> */}
         </Link>
         <nav
           aria-label="Site Nav Bar"
