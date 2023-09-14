@@ -7,6 +7,7 @@ import { cx } from "lib/cx";
 import { Dispatch } from "@reduxjs/toolkit";
 import { SetStateAction, useDebugValue, useEffect, useState } from "react";
 import AuthContainer from "auth";
+import {FaBars, FaTimes} from 'react-icons/fa'
 import useUser from "lib/useUser";
 import UserDropDown from "./UserDropDown";
 import { useSelector } from "react-redux";
@@ -138,12 +139,53 @@ export const TopNavBar: React.FC = () => {
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
           className="lg:hidden xl:hidden md:hidden sm:hidden rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
         >
-          Меню
+          <FaBars
+          className="text-2xl cursor-pointer"
+          />
         </button>
       </div>
       <AuthContainer user={user} open={open} setOpen={setOpen} />
       {isMobileMenuOpen && (
         <div className=" flex flex-col items-end absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-white border-b-2 border-gray-100">
+          
+          <div className="relative"
+            onMouseEnter={() => setLanguageMenuOpen(true)}
+            onMouseLeave={() => setLanguageMenuOpen(false)}>
+            <button
+
+              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+            >
+              {t('lang')}
+            </button>
+            {isLanguageMenuOpen && (<ul style={{ zIndex: 888 }} className="absolute right-0 w-24 bg-white border border-gray-200 rounded-md shadow-lg divide-y divide-gray-200">
+              <li>
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100"
+                  onClick={() => changeLanguage('kz')}
+                >
+                  Қазақша
+                </button>
+              </li>
+
+              <li>
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100"
+                  onClick={() => changeLanguage('ru')}
+                >
+                  Русский
+                </button>
+              </li>
+              <li>
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100"
+                  onClick={() => changeLanguage('ch')}
+                >
+                  中文
+                </button>
+              </li>
+            </ul>)}
+          </div>
+
           {[
             ["/payment", t("payment")],
             ["/resume-builder", t("constructor")],
