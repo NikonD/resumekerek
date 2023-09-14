@@ -49,7 +49,7 @@ export const TopNavBar: React.FC = () => {
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
-        <Link className="flex flex-row gap-1" href="/">
+        <Link className="flex flex-row gap-1 w-8" href="/">
           
           <Image
             src={logoSrc}

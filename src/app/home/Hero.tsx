@@ -16,7 +16,7 @@ export const Hero = () => {
         <h1 className="text-primary pb-2 text-4xl mb-20 font-bold lg:text-5xl">
           Resume Kerek
         </h1>
-        <h1 style={{width: "max-content"}} className=" text-primary pb-2 text-4xl lg:pt-15 font-bold lg:text-5xl">
+        <h1  className=" text-primary pb-2 text-4xl lg:pt-15 font-bold lg:text-5xl">
           {t("h1-title")}
           <br />
           {t("h1-subtitle")}
