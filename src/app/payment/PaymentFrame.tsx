@@ -102,10 +102,13 @@ const PaymentFrame: React.FC = () => {
 
     const url = `${config.API_URL}/api/pb/initiate-payment`;
 
+    const token = localStorage.getItem('token');
+
     axios.post(url, requestData, {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        "Authorization": `Bearer ${token}`
       }
     })
       .then(response => {
