@@ -4,7 +4,7 @@ import { Resume } from "lib/redux/types"
 import { ResumePDFLink, ResumePDFText } from "../common"
 import { spacing } from "../styles"
 import { IconType, ResumePDFIcon } from "../common/ResumePDFIcon"
-import { UserIcon } from "@heroicons/react/24/outline"
+import { UserIcon } from "./FeatureTemplates/Icons/User"
 
 const styles = StyleSheet.create({
   page: {
@@ -111,7 +111,7 @@ const Feature = ({
           </View>
           <View style={styles.contactBlock}>
             <View>
-              <UserIcon/>
+              <ResumePDFIcon isPDF={false} type="email" _fill="#fff"/>
               <Text>{name}</Text>
             </View>
             <Text>{summary}</Text>

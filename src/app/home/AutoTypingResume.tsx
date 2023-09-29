@@ -67,6 +67,7 @@ export const AutoTypingResume = () => {
           settings={{
             ...initialSettings,
             fontSize: "12",
+            themeResume: "strict",
             formToHeading: {
               workExperiences: resume.workExperiences[0].company
                 ? "WORK EXPERIENCE"

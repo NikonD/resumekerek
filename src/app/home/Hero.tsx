@@ -2,9 +2,11 @@ import Link from "next/link";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { AutoTypingResume } from "home/AutoTypingResume";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+const PayLib = require('../lib/PayWidget')
 
 export const Hero = () => {
-
+ 
   const { t } = useTranslation()
 
   return (
@@ -16,7 +18,7 @@ export const Hero = () => {
         <h1 className="text-primary pb-2 text-4xl mb-20 font-bold lg:text-5xl">
           Resume Kerek
         </h1>
-        <h1  className=" text-primary pb-2 text-3xl lg:pt-15 font-bold lg:text-4xl">
+        <h1 className=" text-primary pb-2 text-3xl lg:pt-15 font-bold lg:text-4xl">
           {t("h1-title")}
           <br />
           {t("h1-subtitle")}
@@ -30,7 +32,7 @@ export const Hero = () => {
       </div>
       <FlexboxSpacer maxWidth={100} minWidth={50} className="hidden lg:block" />
       <div className="mt-6 flex justify-center lg:mt-4 lg:block lg:grow">
-        {/* <AutoTypingResume /> */}
+        <AutoTypingResume />
       </div>
     </section>
   );

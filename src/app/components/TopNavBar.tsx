@@ -7,7 +7,7 @@ import { cx } from "lib/cx";
 import { Dispatch } from "@reduxjs/toolkit";
 import { SetStateAction, useDebugValue, useEffect, useState } from "react";
 import AuthContainer from "auth";
-import {FaBars, FaTimes} from 'react-icons/fa'
+import { FaBars, FaTimes } from 'react-icons/fa'
 import useUser from "lib/useUser";
 import UserDropDown from "./UserDropDown";
 import { useSelector } from "react-redux";
@@ -51,7 +51,7 @@ export const TopNavBar: React.FC = () => {
     >
       <div className="flex h-10 w-full items-center justify-between">
         <Link className="flex flex-row gap-1 w-8" href="/">
-          
+
           <Image
             src={logoSrc}
             alt="ResumeKerek Logo"
@@ -90,6 +90,14 @@ export const TopNavBar: React.FC = () => {
                   onClick={() => changeLanguage('ru')}
                 >
                   Русский
+                </button>
+              </li>
+              <li>
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100"
+                  onClick={() => changeLanguage('en')}
+                >
+                  English
                 </button>
               </li>
               <li>
@@ -140,20 +148,20 @@ export const TopNavBar: React.FC = () => {
           className="lg:hidden xl:hidden md:hidden sm:hidden rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
         >
           <FaBars
-          className="text-2xl cursor-pointer"
+            className="text-2xl cursor-pointer"
           />
         </button>
       </div>
       <AuthContainer user={user} open={open} setOpen={setOpen} />
       {isMobileMenuOpen && (
-        <div className=" flex flex-col items-end absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-white border-b-2 border-gray-100">
-          
+        <div style={{zIndex:"9999"}} className=" flex flex-col items-center absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-gray-800 border-b-2 border-gray-100">
+
           <div className="relative"
             onMouseEnter={() => setLanguageMenuOpen(true)}
             onMouseLeave={() => setLanguageMenuOpen(false)}>
             <button
 
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-1.5 py-2 text-white text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
             >
               {t('lang')}
             </button>
@@ -194,14 +202,14 @@ export const TopNavBar: React.FC = () => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className=" text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
               href={href}
             >
               {text}
             </Link>
           ))}
-          <button key={"login"} onClick={() => { setOpen(open ? false : true) }} 
-            className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
+          <button key={"login"} onClick={() => { setOpen(open ? false : true) }}
+            className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
             {user.islogin ? t("profile") : t("signin-label")}
           </button>
         </div>

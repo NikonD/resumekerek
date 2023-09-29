@@ -21,6 +21,9 @@ export const Footer = () => {
           <p>
             <a target="_blank" href={`${config.API_URL}/pub/offer_${i18n.language}.pdf`} className="text-blue-300 hover:text-blue-500">{t('offer')}</a>
           </p>
+          <p>
+            <a target="_blank" href={`/about`} className="text-blue-300 hover:text-blue-500">{t('about')}</a>
+          </p>
         </div>
       </div>
       <div className="pt-5 md:flex-row md:justify-between text-center">

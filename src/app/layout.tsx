@@ -2,6 +2,7 @@ import "globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { i18n } from "next-i18next";
 import { Footer } from "components/Footer";
+import Script from "next/script";
 
 // import { useEffect, useState } from "react";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        {/* <Script src={`https://cdn.freedompay.money/widget/pbwidget.js?${new Date().getTime()}`}/> */}
       </body>
     </html>
 

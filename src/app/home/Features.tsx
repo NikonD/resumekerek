@@ -9,30 +9,17 @@ const FEATURES = [
   {
     src: featureFreeSrc,
     title: "Free Forever",
-    text: "OpenResume is created with the belief that everyone should have free and easy access to a modern professional resume design",
+    text: "ResumeKerek is created with the belief that everyone should have free and easy access to a modern professional resume design",
   },
   {
     src: featureUSSrc,
     title: "U.S. Best Practices",
-    text: "OpenResume has built-in best practices for the U.S. job market and works well with top ATS platforms such as Greenhouse and Lever",
+    text: "ResumeKerek has built-in best practices for the U.S. job market and works well with top ATS platforms such as Greenhouse and Lever",
   },
   {
     src: featurePrivacySrc,
     title: "Privacy Focus",
-    text: "OpenResume stores data locally in your browser so only you have access to your data and with complete control",
-  },
-  {
-    src: featureOpenSourceSrc,
-    title: "Open-Source",
-    text: (
-      <>
-        OpenResume is an open-source project, and its source code can be viewed
-        by anyone on its{" "}
-        <Link href="https://github.com/xitanggg/open-resume">
-          GitHub repository
-        </Link>
-      </>
-    ),
+    text: "ResumeKerek stores data locally in your browser so only you have access to your data and with complete control",
   },
 ];
 

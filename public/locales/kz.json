@@ -125,6 +125,6 @@
   "subscriptionDurationText": "Подпискаңыздың мерзімін таңдаңыз және төлем үшін валютаны таңдаңыз",
   "enterCardDetailsText": "Төлем пішімінде қарталарыңыздың деректерін енгізіңіз",
   "waitPaymentProcessingText": "Төлем жасалуын күтіңіз",
-  "paymentButton": "Төлемге өту"
-
+  "paymentButton": "Төлемге өту",
+  "about": "Біз туралы"
 }

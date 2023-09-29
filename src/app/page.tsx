@@ -17,14 +17,14 @@ export default function Home() {
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
 
-        <main className="mx-auto max-w-screen bg-dot px-8  text-gray-900 lg:px-12">
+        <main className="mx-auto max-w-screen bg-dot px-8 text-gray-900 lg:px-12">
           <TopNavBar />
           <Hero />
-          {/* <Steps/> */}
-          {/* <Steps />
-<Features />
-<Testimonials />
-<QuestionsAndAnswers />  */}
+          <Steps />
+          {/* <Steps /> */}
+          <Features />
+          {/* <Testimonials /> */}
+          <QuestionsAndAnswers />
         </main>
         <Footer />
       </I18nextProvider>

@@ -70,7 +70,7 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
         OpenResume
       </h2>
       <div className="mx-auto mt-10 h-[235px] max-w-lg lg:h-[400px] lg:pt-28">
-        <div className="relative lg:ml-[-50px]">
+        {/* <div className="relative lg:ml-[-50px]">
           {TESTIMONIALS.map(({ src, quote, name, title }, idx) => {
             const className = testimonialsClassNames[idx];
             return (
@@ -128,7 +128,7 @@ export const Testimonials = ({ children }: { children?: React.ReactNode }) => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
       {children}
     </section>
