@@ -3,7 +3,7 @@ import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { AutoTypingResume } from "home/AutoTypingResume";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-const PayLib = require('../lib/PayWidget')
+
 
 export const Hero = () => {
  
