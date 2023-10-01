@@ -186,6 +186,14 @@ export const TopNavBar: React.FC = () => {
               <li>
                 <button
                   className="w-full text-left px-3 py-2 hover:bg-gray-100"
+                  onClick={() => changeLanguage('en')}
+                >
+                  English
+                </button>
+              </li>
+              <li>
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100"
                   onClick={() => changeLanguage('ch')}
                 >
                   中文
