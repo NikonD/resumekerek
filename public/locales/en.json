@@ -126,5 +126,6 @@
   "enterCardDetailsText": "Enter your card details in the payment form",
   "waitPaymentProcessingText": "Wait for the payment to be processed",
   "paymentButton": "Proceed to Payment",
-  "about": "About Us"
+  "about": "About Us",
+  "service": "Service" 
 }

@@ -126,5 +126,6 @@
   "enterCardDetailsText": "В платежной форме введите данные вашей карты",
   "waitPaymentProcessingText": "Дождитесь проведения платежа",
   "paymentButton": "Перейти к оплате",
-  "about": "О нас"
+  "about": "О нас",
+  "service": "Услуга" 
 }

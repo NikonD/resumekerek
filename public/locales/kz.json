@@ -126,5 +126,6 @@
   "enterCardDetailsText": "Төлем пішімінде қарталарыңыздың деректерін енгізіңіз",
   "waitPaymentProcessingText": "Төлем жасалуын күтіңіз",
   "paymentButton": "Төлемге өту",
-  "about": "Біз туралы"
+  "about": "Біз туралы",
+  "service": "Қызмет" 
 }

@@ -16,20 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  // const [open, setOpen] = useState(false)
-
-  // useEffect(() => {
-  //   return () => {
-  //     // Пустой эффект для активации прагмы "useClient".
-  //   };
-  // }, []);
+  
   return (
 
     <html lang="en">
       <body>
         {children}
         <Analytics />
-        {/* <Script src={`https://cdn.freedompay.money/widget/pbwidget.js?${new Date().getTime()}`}/> */}
       </body>
     </html>
 

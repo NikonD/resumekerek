@@ -97,7 +97,8 @@ const PaymentFrame: React.FC = () => {
       pg_amount: subscriptionData[currency].plans[plan].price,
       pg_currency: subscriptionData[currency].label,
       pg_description: `${subscriptionData[currency].plans[plan].name};${subscriptionData[currency].plans[plan].type}`,
-      pg_user_contact_email: user.email
+      pg_user_contact_email: user.email,
+      pg_param1: "TEST PARAM"
     };
 
     const url = `${config.API_URL}/api/pb/initiate-payment`;
