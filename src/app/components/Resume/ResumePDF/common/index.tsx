@@ -17,7 +17,6 @@ export const ResumePDFSection = ({
   heading?: string;
   styleSection?: any;
   children: React.ReactNode;
- 
 }) => (
   <View
     style={{
