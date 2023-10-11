@@ -1,6 +1,7 @@
 import { ResumeWorkExperience } from "lib/redux/types";
 import { ResumePDFBulletList, ResumePDFSection, ResumePDFText } from "../../common";
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
+import { spacing } from "../../styles";
 
 
 export const ResumePDFWorkExperience = ({
@@ -18,7 +19,8 @@ export const ResumePDFWorkExperience = ({
   const styles = StyleSheet.create({
     block: {
       display: "flex",
-      flexDirection: 'column'
+      flexDirection: 'column',
+      // marginTop: spacing['1.5']
     },
     row: {
       display: "flex",

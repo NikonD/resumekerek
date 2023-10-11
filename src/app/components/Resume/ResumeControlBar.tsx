@@ -80,6 +80,7 @@ const ResumeControlBarComponent = ({
                   let a = window.document.createElement('a')
                   a.href = instance.url || ""
                   a.download = fileName
+                  console.log("FILE", instance.url)
                   a.click()
                 })
                 .catch(error => {

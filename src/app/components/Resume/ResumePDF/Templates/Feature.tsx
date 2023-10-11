@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     height: "100vh",
     width: "40%",
     color: "white",
-    marginLeft: "1.5rem"
+    // marginLeft: "1.5pt"
   },
   leftColData: {
     display: "flex",
@@ -34,14 +34,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "60%",
     height: "100vh",
-    marginRight: "1.5rem",
-    marginLeft: "1.5rem"
+    marginRight: spacing["1.5"],
+    marginLeft: spacing["1.5"],
+    // padding: "1.5pt"
   },
   summaryBlock: {
     display: "flex",
     flexDirection: "column",
     gap: spacing["2"],
     marginTop: spacing["5"],
+    marginBottom: spacing["5"]
   },
   photoBlock: {
     display: "flex",
@@ -69,8 +71,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    marginLeft: "1.5rem",
-    marginTop: "2rem",
+    marginLeft: "1.5pt",
+    marginTop: "2pt",
     justifyContent: "flex-start",
   },
   flexRow: {
@@ -82,13 +84,15 @@ const styles = StyleSheet.create({
     marginTop: '5pt',
   },
   contactBlock: {
-    marginTop: "0.5rem",
+    marginTop: "0.5pt",
+    marginBottom: spacing["5"],
     width: "100%",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    gap: "0.5rem",
-    flex: 2
+    gap: "0.5pt",
+
+    // flex: 2
   }
 })
 

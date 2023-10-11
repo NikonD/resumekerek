@@ -7,7 +7,7 @@ export interface Settings {
   fontFamily: string;
   fontSize: string;
   documentSize: string;
-  themeResume: string
+  themeResume: string;
   formToShow: {
     workExperiences: boolean;
     educations: boolean;
