@@ -61,25 +61,28 @@ export const AutoTypingResume = () => {
 
   return (
     <>
-      <ResumeIFrame documentSize="Letter" scale={isLg ? 0.7 : 0.5}>
-        <ResumePDF
-          resume={resume}
-          settings={{
-            ...initialSettings,
-            fontSize: "12",
-            themeResume: "strict",
-            formToHeading: {
-              workExperiences: resume.workExperiences[0].company
-                ? "WORK EXPERIENCE"
-                : "",
-              educations: resume.educations[0].school ? "EDUCATION" : "",
-              projects: resume.projects[0].project ? "PROJECT" : "",
-              skills: resume.skills.featuredSkills[0].skill ? "SKILLS" : "",
-              custom: "CUSTOM SECTION",
-            },
-          }}
-        />
-      </ResumeIFrame>
+      <div className="h-[100%] flex flex-col items-center justify-center">
+
+        <ResumeIFrame documentSize="Letter" scale={isLg ? 0.5 : 0.4}>
+          <ResumePDF
+            resume={resume}
+            settings={{
+              ...initialSettings,
+              fontSize: "12",
+              themeResume: "strict",
+              formToHeading: {
+                workExperiences: resume.workExperiences[0].company
+                  ? "WORK EXPERIENCE"
+                  : "",
+                educations: resume.educations[0].school ? "EDUCATION" : "",
+                projects: resume.projects[0].project ? "PROJECT" : "",
+                skills: resume.skills.featuredSkills[0].skill ? "SKILLS" : "",
+                custom: "CUSTOM SECTION",
+              },
+            }}
+          />
+        </ResumeIFrame>
+      </div>
     </>
   );
 };

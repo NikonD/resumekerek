@@ -1,25 +1,20 @@
 const STEPS = [
-  { title: "Add a resume pdf", text: "or create from scratch" },
-  { title: "Preview design", text: "and make edits" },
-  { title: "Download new resume", text: "and apply with confidence" },
+  { title: "Выберите шаблон", text: "10+ шаблонов", icon: "fa-solid fa-images fa-2xl mb-5" },
+  { title: "Введите свои данные", text: "и сохраните изменения", icon: "fa-solid fa-keyboard fa-2xl mb-5" },
+  { title: "Экспортируйте свое резюме", text: "нажмите Сохраниить", icon: "fa-solid fa-download fa-2xl mb-5" },
 ];
-
+import Image from "next/image";
 export const Steps = () => {
   return (
-    <section className="mx-auto mt-8 rounded-2xl bg-sky-50 bg-dot px-8 pb-12 pt-10 lg:mt-2">
-      <h1 className="text-center text-3xl font-bold">3 Simple Steps</h1>
+    <section className="mx-auto mt-10 rounded-2xl bg-sky-50 bg-dot px-8 pb-12 pt-10 ">
+      <h1 className="text-center text-3xl font-bold mb-[3rem]">3 Простых шага</h1>
       <div className="mt-8 flex justify-center">
         <dl className="flex flex-col gap-y-10 lg:flex-row lg:justify-center lg:gap-x-20">
-          {STEPS.map(({ title, text }, idx) => (
-            <div className="relative self-start pl-14" key={idx}>
+          {STEPS.map(({ title, text, icon }, idx) => (
+            <div className="lg:w-[33%]  w-full text-center relative self-start flex flex-col gap-1 justify-items-center items-center" key={idx}>
+              {/* <Image src="https://cdn-blog.novoresume.com/articles/resume-examples/resume-example.webp" alt="image" width="100" height="100" /> */}
+              <i className={icon}></i>
               <dt className="text-lg font-bold">
-                <div className="bg-primary absolute left-0 top-1 flex h-10 w-10 select-none items-center justify-center rounded-full p-[3.5px] opacity-80">
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                    <div className="text-primary -mt-0.5 text-2xl">
-                      {idx + 1}
-                    </div>
-                  </div>
-                </div>
                 {title}
               </dt>
               <dd>{text}</dd>

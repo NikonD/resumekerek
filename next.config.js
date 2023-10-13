@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['cdn-blog.novoresume.com'], // Add the domain that you want to allow
+  },
   // Nextjs has an issue with pdfjs-dist which optionally uses the canvas package
   // for Node.js compatibility. This causes a "Module parse failed" error when
   // building the app. Since pdfjs-dist is only used on client side, we disable
