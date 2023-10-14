@@ -4,8 +4,10 @@ import { Simple } from "./Templates/Simple"
 import { Resume } from "lib/redux/types"
 import { Strict } from "./Templates/Strict"
 import { Feature } from "./Templates/Feature"
+import { Metro } from "./Templates/Metro"
 
 export const TemplateGenerator = ({
+  isPDF,
   resume,
   themeResume,
   themeResumeName,
@@ -15,6 +17,7 @@ export const TemplateGenerator = ({
   // allComponents,
   settings
 }: {
+  isPDF: boolean,
   resume: Resume,
   themeResume: object,
   themeResumeName: string,
@@ -44,7 +47,15 @@ export const TemplateGenerator = ({
           Profile={profile} />}
       {
         themeResumeName == "feature" &&
-          <Feature 
+          <Feature
+            isPDF={isPDF}
+            resume={resume}
+            settings={settings}/>
+      }
+      {
+        themeResumeName == "metro" &&
+          <Metro
+            isPDF={isPDF}
             resume={resume}
             settings={settings}/>
       }

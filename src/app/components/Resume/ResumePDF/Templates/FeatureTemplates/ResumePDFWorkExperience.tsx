@@ -35,7 +35,7 @@ export const ResumePDFWorkExperience = ({
   })
 
   return (
-    <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
+    <ResumePDFSection styleSection={{}}  heading={heading}>
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         return (
           <View style={{...styles.block}} key={idx}>

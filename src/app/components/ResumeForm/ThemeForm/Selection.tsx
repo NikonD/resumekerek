@@ -7,14 +7,17 @@ import {
 } from "public/fonts/fonts";
 import { THEME_RESUME } from "./constants";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const Selection = ({
+  cost,
   selectedColor,
   isSelected,
   style = {},
   onClick,
   children,
 }: {
+  cost?: string,
   selectedColor: string;
   isSelected: boolean;
   style?: React.CSSProperties;
@@ -30,7 +33,7 @@ const Selection = ({
 
   return (
     <div
-      className="flex w-[105px] cursor-pointer items-center justify-center rounded-md border border-gray-300 py-1.5 shadow-sm hover:border-gray-400 hover:bg-gray-100"
+      className="flex flex-col w-[105px] cursor-pointer items-center justify-start rounded-md border border-gray-300 py-1.5 shadow-sm hover:border-gray-400 hover:bg-gray-100"
       onClick={onClick}
       style={isSelected ? selectedStyle : style}
       onKeyDown={(e) => {
@@ -38,7 +41,8 @@ const Selection = ({
       }}
       tabIndex={0}
     >
-      {children}
+      <span>{children}</span>
+      {cost && (<span>{cost}</span>)}
     </div>
   );
 };
@@ -171,6 +175,7 @@ export const ThemeSelections = ({
         return (
           <Selection
             key={idx}
+            cost={themeResume.cost == '0'? t('free-cost') :  themeResume.cost }
             selectedColor={themeColor}
             isSelected={isSelected}
             style={{

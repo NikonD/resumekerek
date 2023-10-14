@@ -4,6 +4,14 @@ import { Resume } from "lib/redux/types"
 import { spacing } from "../styles"
 import { ResumePDFWorkExperience } from "./FeatureTemplates/ResumePDFWorkExperience"
 import { ResumePDFEducation } from "./FeatureTemplates/ResumePDFEducation"
+import { ResumePDFProject } from "./FeatureTemplates/ResumePDFProject"
+import { ResumePDFSkills } from "./FeatureTemplates/ResumePDFSkills"
+import { ResumePDFCustom } from "./FeatureTemplates/ResumePDFCustom"
+import { IconType, ResumePDFIcon } from "../common/ResumePDFIcon"
+import { ResumePDFLink, ResumePDFSection, ResumePDFText } from "../common"
+import { useEffect, useRef, useState } from "react"
+import generateContactQRCode from "../QRGenerator"
+
 
 const styles = StyleSheet.create({
   page: {
@@ -11,12 +19,12 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   leftCol: {
+    fontSize: "9pt",
     flexDirection: "column",
     display: "flex",
     height: "100vh",
-    width: "40%",
-    color: "white",
-    // marginLeft: "1.5pt"
+    width: "30%",
+    color: "white"
   },
   leftColData: {
     display: "flex",
@@ -32,11 +40,11 @@ const styles = StyleSheet.create({
   rightCol: {
     display: "flex",
     flexDirection: "column",
-    width: "60%",
+    width: "70%",
     height: "100vh",
+    marginTop: spacing['3'],
     marginRight: spacing["1.5"],
     marginLeft: spacing["1.5"],
-    // padding: "1.5pt"
   },
   summaryBlock: {
     display: "flex",
@@ -52,18 +60,29 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignContent: "space-between",
     justifyContent: "space-around",
+    // borderColor: "white",
+    marginTop: spacing['5']
   },
   fakePhoto: {
-    width: "120pt",
-    height: "120pt",
+    width: "80pt",
+    height: "80pt",
     position: "absolute",
     // borderRadius: "50%"
   },
   photo: {
     display: "flex",
-    width: '120pt',
-    height: '120pt',
+    width: '80pt',
+    height: '80pt',
     // borderRadius: "50%"
+  },
+  border: {
+    width: "90pt",
+    height: "90pt",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    border: "5pt white solid"
   },
   desc: {
     fontSize: "14pt",
@@ -72,8 +91,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flexWrap: "wrap",
     marginLeft: "1.5pt",
-    marginTop: "2pt",
-    justifyContent: "flex-start",
+    marginTop: spacing['5'],
+    justifyContent: "center",
+    alignContent: "center"
   },
   flexRow: {
     display: "flex",
@@ -90,55 +110,166 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    gap: "0.5pt",
-
-    // flex: 2
+    gap: "5pt",
+  },
+  qrContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  qr: {
+    display: "flex",
+    width: "80pt",
+    height: "80pt"
+  },
+  fakeqr: {
+    display: "flex",
+    position:"relative",
+    top: "-80pt",
+    width: "80pt",
+    height:"80pt"
   }
 })
 
 const Feature = ({
+  isPDF,
   resume,
   settings,
 }: {
+  isPDF: boolean,
   resume: Resume,
   settings: Settings,
 }) => {
-  const isPDF = true
+  // const isPDF = true
   const {
     formToHeading,
     themeColor,
     showBulletPoints
   } = settings
-  const { profile, skills, educations, workExperiences, custom } = resume
+  const { profile, skills, educations, workExperiences, custom, projects } = resume
   const { name, email, phone, url, summary, location, photo } = profile;
   const iconProps = { email, phone, location, url };
+
+  const [qrCodeBase64, setQRCodeBase64] = useState<string | null>(null);
+  const qrCodeRef = useRef(null);
+
+  const QRObjectProfile = {
+    name: profile.name,
+    title: profile.summary,
+    phone: profile.phone,
+    location: profile.location,
+    email: profile.email
+  }
+
+  useEffect(() => {
+    generateContactQRCode(QRObjectProfile)
+      .then((base64) => {
+        setQRCodeBase64(base64);
+      })
+      .catch((error) => {
+        console.error('Ошибка при генерации QR-кода:', error);
+      });
+  }, [QRObjectProfile]);
 
 
   return (
     <View style={{ ...styles.page }}>
       <View style={{ ...styles.leftCol, backgroundColor: themeColor }}>
         <View style={{ ...styles.photoBlock }}>
-          <img style={styles.fakePhoto} src={profile.photo} />
-          <Image src={profile.photo} style={styles.photo} />
+          <View style={{ ...styles.border }}>
+            <img style={styles.fakePhoto} src={profile.photo} />
+            <Image src={profile.photo} style={styles.photo} />
+          </View>
         </View>
         <View>
           <View style={{ ...styles.leftColData }}>
           </View>
           <View style={styles.desc}>
-            <View>
-              <Text>{name}</Text>
-            </View>
+            <Text>{name}</Text>
           </View>
         </View>
+
+        <ResumePDFSkills
+          theme={settings.themeResume}
+          heading={formToHeading["skills"]}
+          skills={skills}
+          themeColor={themeColor}
+          showBulletPoints={showBulletPoints["skills"]} />
+
+        <ResumePDFSection>
+          <View style={{ ...styles.qrContainer }}>
+            {qrCodeBase64 &&
+              (<Image style={{ ...styles.qr }} src={qrCodeBase64} />)
+            }
+            <img style={styles.fakeqr} src={qrCodeBase64 || ""} alt="QR" />
+          </View>
+        </ResumePDFSection>
+
       </View>
       <View style={styles.rightCol}>
         <Text style={{ color: "#0f6043", fontWeight: 700, fontSize: "16pt" }}>{summary}</Text>
         <View style={{ ...styles.summaryBlock }}>
           <View style={{ ...styles.contactBlock }}>
-            <Text>{phone}</Text>
+            {Object.entries(iconProps).map(([key, value]) => {
+              if (!value) return null;
+
+              let iconType = key as IconType;
+              if (key === "url") {
+                if (value.includes("github")) {
+                  iconType = "url_github";
+                } else if (value.includes("linkedin")) {
+                  iconType = "url_linkedin";
+                }
+              }
+
+              const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
+              const Wrapper = ({ children }: { children: React.ReactNode }) => {
+                if (!shouldUseLinkWrapper) return <>{children}</>;
+
+                let src = "";
+                switch (key) {
+                  case "email": {
+                    src = `mailto:${value}`;
+                    break;
+                  }
+                  case "phone": {
+                    src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                    break;
+                  }
+                  default: {
+                    src = value.startsWith("http") ? value : `https://${value}`;
+                  }
+                }
+
+                return (
+                  <ResumePDFLink src={src} isPDF={isPDF}>
+                    {children}
+                  </ResumePDFLink>
+                );
+              };
+
+              return (
+                <View
+                  key={key}
+                  style={{
+                    ...styles.flexRow,
+                    alignItems: "center",
+                    gap: spacing["1"],
+                  }}
+                >
+                  <ResumePDFIcon type={iconType} isPDF={isPDF} _fill={themeColor} />
+                  <Wrapper>
+                    <ResumePDFText >{value}</ResumePDFText>
+                  </Wrapper>
+                </View>
+              );
+            })}
+
+            {/* <Text>{phone}</Text>
             <Text>{email}</Text>
             <Text>{location}</Text>
-            <Text>{url}</Text>
+            <Text>{url}</Text> */}
           </View>
         </View>
 
@@ -146,7 +277,6 @@ const Feature = ({
           themeColor={themeColor}
           theme={settings.themeResume}
           workExperiences={workExperiences}
-
           heading={formToHeading['workExperiences']} />
 
         <ResumePDFEducation
@@ -156,27 +286,21 @@ const Feature = ({
           showBulletPoints={showBulletPoints['educations']}
           heading={formToHeading['educations']} />
 
+        <ResumePDFProject
+          themeColor={themeColor}
+          theme={settings.themeResume}
+          projects={projects}
+          showBulletPoints={showBulletPoints['projects']}
+          heading={formToHeading['projects']}
+        />
 
-        {/* {workExperiences.length!=0 && workExperiences.map((item) => {
-            return (
-              <View>
-                <View>
-                  <Text>{item.company}</Text>
-                  <Text>{item.date}</Text>
-                </View>
-                <View>
-                  <Text>{item.jobTitle}</Text>
-                </View>
-                <View>
-                  {item.descriptions.map((item)=>{
-                    return (
-                      <Text>{item}</Text>
-                    )
-                  })}
-                </View>
-              </View>
-            )
-          })} */}
+        <ResumePDFCustom
+          themeColor={themeColor}
+          custom={custom}
+          theme={settings.themeResume}
+          heading={formToHeading['custom']}
+          showBulletPoints={showBulletPoints['custom']}
+        />
 
       </View>
     </View>

@@ -136,6 +136,7 @@ export const ResumePDF = ({
 
           <TemplateGenerator
             resume={resume}
+            isPDF={isPDF}
             themeResumeName={settings.themeResume}
             themeResume={choosenThemeResume}
             formTypeToComponent={formTypeToComponent}

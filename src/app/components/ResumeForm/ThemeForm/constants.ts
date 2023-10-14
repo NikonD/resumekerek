@@ -20,6 +20,7 @@ export const THEME_RESUME = [
   {
     title: "Простой",
     name: "simple",
+    cost: "0",
     requiredPlan: false,
     columns: {
       works: StyleSheet.create({
@@ -93,6 +94,7 @@ export const THEME_RESUME = [
   {
     title: "Строгий",
     name: "strict",
+    cost: "1500",
     requiredPlan: false,
     columns: {
       works: StyleSheet.create({
@@ -170,7 +172,13 @@ export const THEME_RESUME = [
     }
   },
   {
-    title: "Современный",
-    name: "feature"
+    title: "Feature",
+    name: "feature",
+    cost: '1500'
+  },
+  {
+    title: "Metro",
+    name: "metro",
+    cost: '0'
   }
 ]

@@ -29,14 +29,16 @@ export const ResumePDFEducation = ({
     },
     degree: {
       display: "flex",
+      flexDirection: "row",
+      justifyContent:"space-between",
       textDecoration:"underline"
     }
 
   })
 
   return (
-    <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
-      {education.map(({ date, school, degree, descriptions }, idx) => {
+    <ResumePDFSection styleSection={{}} heading={heading}>
+      {education.map(({ date, school, degree, descriptions, gpa }, idx) => {
         return (
           <View style={{ ...styles.block }} key={idx}>
             <View style={{ ...styles.row }}>
@@ -44,6 +46,7 @@ export const ResumePDFEducation = ({
               <ResumePDFText bold={true}>{date}</ResumePDFText>
             </View>
             <View style={{...styles.degree}}>
+              <ResumePDFText bold={true}>{gpa}</ResumePDFText>
               <ResumePDFText bold={true}>{degree}</ResumePDFText>
             </View>
             <View>

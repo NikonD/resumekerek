@@ -64,7 +64,6 @@ const ResumeControlBarComponent = ({
             if (typeof reader.result === 'string') {
               const base64Data = reader.result;
               console.log(base64Data);
-              // await axios.post('http://193.122.54.25:5000/api/resume/create')
 
               const token = localStorage.getItem('token');
 
@@ -78,7 +77,7 @@ const ResumeControlBarComponent = ({
                 .then(response => {
                   toast.success(t("file-saved-notify"))
                   let a = window.document.createElement('a')
-                  a.href = instance.url || ""
+                  a.href = instance.url || "" 
                   a.download = fileName
                   console.log("FILE", instance.url)
                   a.click()
@@ -93,7 +92,6 @@ const ResumeControlBarComponent = ({
           reader.readAsDataURL(blobData);
         })
         .catch(error => console.error('Error:', error));
-
     }
     else {
       toast.error(t("not-logged-in-or-not-have-subscription"))

@@ -98,7 +98,10 @@ const PaymentFrame: React.FC = () => {
       pg_currency: subscriptionData[currency].label,
       pg_description: `${subscriptionData[currency].plans[plan].name};${subscriptionData[currency].plans[plan].type}`,
       pg_user_contact_email: user.email,
-      pg_param1: "TEST PARAM"
+      pg_param1: "TEST PARAM",
+      pg_result_url: `${config.API_URL}/api/pb/result-payment`,
+      pg_success_url: `https://resumekerek.com/success-payment`,
+      pg_failure_url: `https://resumekerek.com/error-payment`
     };
 
     const url = `${config.API_URL}/api/pb/initiate-payment`;
