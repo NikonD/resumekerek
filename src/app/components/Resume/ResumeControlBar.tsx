@@ -66,7 +66,7 @@ const ResumeControlBarComponent = ({
               console.log(base64Data);
 
               const token = localStorage.getItem('token');
-
+              
               await axios.post(`${config.API_URL}/api/resume/upload/pdf`, {
                 data: base64Data,
                 fileName: fileName,
