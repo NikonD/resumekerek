@@ -48,7 +48,7 @@ const ResumeIFrameComponent = ({
   children,
   enablePDFViewer = false,
 }: {
-  documentSize: string;
+documentSize: string;
   scale: number;
   children: React.ReactNode;
   enablePDFViewer?: boolean;
