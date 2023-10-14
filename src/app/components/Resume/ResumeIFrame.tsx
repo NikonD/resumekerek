@@ -78,11 +78,12 @@ const ResumeIFrameComponent = ({
           width: `${width}px`,
           height: `${height}px`,
           transform: `scale(${scale})`,
+          overflow: "auto"
         }}
         className={`origin-top-left bg-white shadow-lg`}
       >
         <Frame
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "500%", overflow:"auto" }}
           initialContent={IFRAME_INITIAL_CONTENT}
         >
           {children}

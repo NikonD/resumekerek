@@ -5,6 +5,8 @@ import { ResumePDFSection, ResumePDFText } from "../common"
 import { spacing } from "../styles"
 import generateContactQRCode from "../QRGenerator"
 import { useEffect, useRef, useState } from "react"
+import { ResumePDFEducation } from "./MetroTemplates/ResumePDFEducation"
+import { ResumePDFWorkExperience } from "./MetroTemplates/ResumePDFWorkExperience"
 
 export const Metro = ({
   isPDF,
@@ -61,12 +63,12 @@ export const Metro = ({
     summary: {
       display: "flex",
       flexDirection: "row",
-      justifyContent:"space-between"
+      justifyContent: "space-between"
     },
     title: {
       display: "flex",
       flexDirection: "column",
-      justifyContent:"space-around",
+      justifyContent: "space-around",
       height: "80pt"
     },
     headBorder: {
@@ -97,7 +99,7 @@ export const Metro = ({
   return (
     <View style={{ ...styles.page }}>
       <View style={{ ...styles.summary }}>
-        <View style={{...styles.title}}>
+        <View style={{ ...styles.title }}>
           <View style={{ fontSize: "24pt" }}>
             <ResumePDFText bold={true}>РЕЗЮМЕ</ResumePDFText>
           </View>
@@ -105,12 +107,42 @@ export const Metro = ({
             <ResumePDFText bold={true}>{summary}</ResumePDFText>
           </View>
         </View>
-        <View style={{...styles.photoBlock}}>
-          <img style={{...styles.fakePhoto}} src={photo}/>
-          <Image style={{...styles.photo}} src={photo}/>
+        <View style={{ ...styles.photoBlock }}>
+          <img style={{ ...styles.fakePhoto }} src={photo} />
+          <Image style={{ ...styles.photo }} src={photo} />
         </View>
       </View>
-      <View style={{...styles.headBorder}}/>
+
+      <View style={{ ...styles.headBorder }} />
+
+      <ResumePDFEducation
+        heading={formToHeading['educations']}
+        educations={educations}
+        showBulletPoints={showBulletPoints['educations']}
+        theme={settings.themeResume}
+        themeColor={themeColor}
+      />
+      {/* <ResumePDFEducation
+        heading={formToHeading['educations']}
+        educations={educations}
+        showBulletPoints={showBulletPoints['educations']}
+        theme={settings.themeResume}
+        themeColor={themeColor}
+      /> */}
+      <ResumePDFWorkExperience
+        heading={formToHeading['workExperiences']}
+        workExperiences={workExperiences}
+        // showBulletPoints={showBulletPoints['educations']}
+        theme={settings.themeResume}
+        themeColor={themeColor}
+      />
+      <ResumePDFEducation
+        heading={formToHeading['educations']}
+        educations={educations}
+        showBulletPoints={showBulletPoints['educations']}
+        theme={settings.themeResume}
+        themeColor={themeColor}
+      />
     </View>
   )
 }

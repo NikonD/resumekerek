@@ -53,6 +53,53 @@ const ResumeControlBarComponent = ({
   const currentDate = moment()
   const isTargetDatePast = moment(user.active_until).isBefore(currentDate);
 
+  function generateOrderNumber() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const randomPart = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+
+    const orderNumber = `${year}${month}${day}${randomPart}`;
+    return orderNumber;
+  }
+
+  const payFile = () => {
+    // get template
+    let order = generateOrderNumber()
+    const requestData = {
+      script: 'init_payment.php',
+      pg_order_id: `${order}`,
+      pg_amount: 1500,
+      pg_currency: 'KZT',
+      pg_description: `file`,
+      pg_user_contact_email: user.email,
+      pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
+      pg_success_url: `https://resumekerek.com/success-payment?download=${order}`,
+      pg_failure_url: `https://resumekerek.com/error-payment`
+    };
+
+    const url = `${config.API_URL}/api/pb/initiate-payment`;
+
+    const token = localStorage.getItem('token');
+
+    axios.post(url, requestData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        const { redirectUrl } = response.data
+        window.open(redirectUrl)
+      })
+      .catch(error => {
+        toast.error(t('server-not-response'))
+        console.error('Ошибка при отправке запроса:', error);
+      });
+  }
+
   //useUser(): id 
   const downloadPDF = () => {
     if (user.islogin && !isTargetDatePast) {
@@ -94,7 +141,12 @@ const ResumeControlBarComponent = ({
         .catch(error => console.error('Error:', error));
     }
     else {
-      toast.error(t("not-logged-in-or-not-have-subscription"))
+      if (user.islogin) {
+        payFile()
+      }
+      else {
+        toast.error(t("not-logged-in-or-not-have-subscription"))
+      }
     }
 
   }
