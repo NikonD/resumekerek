@@ -67,7 +67,7 @@ const ResumeControlBarComponent = ({
               // await axios.post('http://193.122.54.25:5000/api/resume/create')
 
               const token = localStorage.getItem('token');
-
+              
               await axios.post(`${config.API_URL}/api/resume/upload/pdf`, {
                 data: base64Data,
                 fileName: fileName,
@@ -79,6 +79,7 @@ const ResumeControlBarComponent = ({
                   toast.success(t("file-saved-notify"))
                   let a = window.document.createElement('a')
                   a.href = instance.url || ""
+                  console.log(a.href)
                   a.download = fileName
                   console.log("FILE", instance.url)
                   a.click()
