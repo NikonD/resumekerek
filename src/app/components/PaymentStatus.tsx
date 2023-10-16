@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/loginSlice';
 import axios from 'axios';
 import config from '../../../config/config.json'
+import { usePDF } from '@react-pdf/renderer';
 
 interface PaymentStatusProps {
   isSuccess: boolean;
@@ -24,7 +25,11 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
   const settings = useAppSelector(selectSettings);
 
 
-
+  const document = useMemo(
+    () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
+    [resume, settings]
+  )
+  const [instance, update] = usePDF({document})
   const findOrder = (id: string, token: string) => {
     setTimeout(() => {
       let orderResponse = axios.post(
@@ -40,15 +45,14 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
         })
       orderResponse.then(({ data }) => {
         console.log("ISPAID", data)
+        let a = window.document.createElement('a')
+        a.href = instance.url || ""
+        a.download = `resume-${new Date().getTime()}`
+        a.click()
       })
     }, 5000)
 
   }
-
-  const document = useMemo(
-    () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
-    [resume, settings]
-  )
 
   useEffect(() => {
     const token = localStorage.getItem('token');
