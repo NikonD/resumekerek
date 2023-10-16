@@ -29,7 +29,7 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
     () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
     [resume, settings]
   )
-  const [instance, update] = usePDF({document})
+  
   const findOrder = (id: string, token: string) => {
     setTimeout(() => {
       let orderResponse = axios.post(
@@ -44,6 +44,7 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
           }
         })
       orderResponse.then(({ data }) => {
+        const [instance, update] = usePDF({document})
         console.log("ISPAID", data)
         let a = window.document.createElement('a')
         a.href = instance.url || ""
