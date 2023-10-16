@@ -1,3 +1,4 @@
+"use client";
 import Link from 'next/link';
 import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,9 +23,9 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
   const resume = useAppSelector(selectResume)
   const settings = useAppSelector(selectSettings);
 
-  const token = localStorage.getItem('token');
 
-  const findOrder = (id: string) => {
+
+  const findOrder = (id: string, token: string) => {
     let orderResponse = axios.post(
       `${config.API_URL}/api/pb/findorder`,
       {
@@ -36,7 +37,7 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
           Authorization: `Bearer ${token}`
         }
       })
-    orderResponse.then(({data}) => {
+    orderResponse.then(({ data }) => {
       console.log("ISPAID", data)
     })
   }
@@ -45,12 +46,14 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
     () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
     [resume, settings]
   )
-  const url = new URLSearchParams(window.location.search);
-  const download_order_id = url.get("download");
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const url = new URLSearchParams(window.location.search);
+    const download_order_id = url.get("download");
+
     if (user.islogin && download_order_id) {
-      findOrder(download_order_id)
+      findOrder(download_order_id, token || "")
     }
   }, [user])
 
