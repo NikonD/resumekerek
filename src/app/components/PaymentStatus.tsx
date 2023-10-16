@@ -26,20 +26,23 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
 
 
   const findOrder = (id: string, token: string) => {
-    let orderResponse = axios.post(
-      `${config.API_URL}/api/pb/findorder`,
-      {
-        order_id: id
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
+    setTimeout(() => {
+      let orderResponse = axios.post(
+        `${config.API_URL}/api/pb/findorder`,
+        {
+          order_id: id
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        })
+      orderResponse.then(({ data }) => {
+        console.log("ISPAID", data)
       })
-    orderResponse.then(({ data }) => {
-      console.log("ISPAID", data)
-    })
+    }, 5000)
+
   }
 
   const document = useMemo(
