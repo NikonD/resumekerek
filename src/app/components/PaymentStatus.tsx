@@ -1,6 +1,15 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ResumePDF } from './Resume/ResumePDF';
+import { useAppSelector } from 'lib/redux/hooks';
+import { selectResume } from 'lib/redux/resumeSlice';
+import { selectSettings } from 'lib/redux/settingsSlice';
+import { DEBUG_RESUME_PDF_FLAG } from 'lib/constants';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'lib/redux/loginSlice';
+import axios from 'axios';
+import config from '../../../config/config.json'
 
 interface PaymentStatusProps {
   isSuccess: boolean;
@@ -8,9 +17,46 @@ interface PaymentStatusProps {
 
 const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
+  const user = useSelector(selectUser)
+  const resume = useAppSelector(selectResume)
+  const settings = useAppSelector(selectSettings);
+
+  const token = localStorage.getItem('token');
+
+  const findOrder = (id: string) => {
+    let orderResponse = axios.post(
+      `${config.API_URL}/api/pb/findorder`,
+      {
+        order_id: id
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      })
+    orderResponse.then(({data}) => {
+      console.log("ISPAID", data)
+    })
+  }
+
+  const document = useMemo(
+    () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
+    [resume, settings]
+  )
+  const url = new URLSearchParams(window.location.search);
+  const download_order_id = url.get("download");
+
+  useEffect(() => {
+    if (user.islogin && download_order_id) {
+      findOrder(download_order_id)
+    }
+  }, [user])
 
   return (
+
+
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md">
         {isSuccess ? (
