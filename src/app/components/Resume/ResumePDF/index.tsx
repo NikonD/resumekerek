@@ -122,7 +122,7 @@ export const ResumePDF = ({
 
   return (
     <>
-      <Document pageLayout="oneColumn" title={`${name} Resume`} author={name} producer={"OpenResume"}>
+      <Document pageMode="fullScreen" pageLayout="twoPageRight" title={`${name} Resume`} author={name} producer={"OpenResume"}>
         <Page
           break={true}
           size={documentSize === "A4" ? "A4" : "LETTER"}

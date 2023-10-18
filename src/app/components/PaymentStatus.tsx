@@ -1,6 +1,17 @@
+"use client";
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ResumePDF } from './Resume/ResumePDF';
+import { useAppSelector } from 'lib/redux/hooks';
+import { selectResume } from 'lib/redux/resumeSlice';
+import { selectSettings } from 'lib/redux/settingsSlice';
+import { DEBUG_RESUME_PDF_FLAG } from 'lib/constants';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'lib/redux/loginSlice';
+import axios from 'axios';
+import config from '../../../config/config.json'
+import { usePDF } from '@react-pdf/renderer';
 
 interface PaymentStatusProps {
   isSuccess: boolean;
@@ -8,9 +19,55 @@ interface PaymentStatusProps {
 
 const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
+  const user = useSelector(selectUser)
+  const resume = useAppSelector(selectResume)
+  const settings = useAppSelector(selectSettings);
+
+
+  const document = useMemo(
+    () => <ResumePDF resume={resume} settings={settings} isPDF={DEBUG_RESUME_PDF_FLAG} />,
+    [resume, settings]
+  )
+  
+  const findOrder = (id: string, token: string) => {
+    setTimeout(() => {
+      let orderResponse = axios.post(
+        `${config.API_URL}/api/pb/findorder`,
+        {
+          order_id: id
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        })
+      orderResponse.then(({ data }) => {
+        const [instance, update] = usePDF({document})
+        console.log("ISPAID", data)
+        let a = window.document.createElement('a')
+        a.href = instance.url || ""
+        a.download = `resume-${new Date().getTime()}`
+        a.click()
+      })
+    }, 5000)
+
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const url = new URLSearchParams(window.location.search);
+    const download_order_id = url.get("download");
+
+    if (user.islogin && download_order_id) {
+      findOrder(download_order_id, token || "")
+    }
+  }, [user])
 
   return (
+
+
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md">
         {isSuccess ? (
