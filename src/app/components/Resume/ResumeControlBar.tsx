@@ -53,6 +53,53 @@ const ResumeControlBarComponent = ({
   const currentDate = moment()
   const isTargetDatePast = moment(user.active_until).isBefore(currentDate);
 
+  function generateOrderNumber() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const randomPart = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+
+    const orderNumber = `${year}${month}${day}${randomPart}`;
+    return orderNumber;
+  }
+
+  const payFile = () => {
+    // get template
+    let order = generateOrderNumber()
+    const requestData = {
+      script: 'init_payment.php',
+      pg_order_id: `${order}`,
+      pg_amount: 1500,
+      pg_currency: 'KZT',
+      pg_description: `file`,
+      pg_user_contact_email: user.email,
+      pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
+      pg_success_url: `https://resumekerek.com/success-payment?download=${order}`,
+      pg_failure_url: `https://resumekerek.com/error-payment`
+    };
+
+    const url = `${config.API_URL}/api/pb/initiate-payment`;
+
+    const token = localStorage.getItem('token');
+
+    axios.post(url, requestData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        const { redirectUrl } = response.data
+        window.open(redirectUrl)
+      })
+      .catch(error => {
+        toast.error(t('server-not-response'))
+        console.error('Ошибка при отправке запроса:', error);
+      });
+  }
+
   //useUser(): id 
   const downloadPDF = () => {
     if (user.islogin && !isTargetDatePast) {
@@ -94,7 +141,12 @@ const ResumeControlBarComponent = ({
         .catch(error => console.error('Error:', error));
     }
     else {
-      toast.error(t("not-logged-in-or-not-have-subscription"))
+      if (user.islogin) {
+        payFile()
+      }
+      else {
+        toast.error(t("not-logged-in-or-not-have-subscription"))
+      }
     }
 
   }
@@ -105,7 +157,7 @@ const ResumeControlBarComponent = ({
   }, [update, document]);
 
   return (
-    <div className="sticky bottom-0 left-0 right-0 flex lg:flex-row flex-col lg:py-[0px] my-[50px] h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
+    <div className="sticky lg:flex-row flex-col bottom-[20px] lg:bottom-0 left-0 right-0 flex  lg:py-[0px] h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
       <div className="flex items-center gap-2">
         <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
         <input
@@ -130,17 +182,20 @@ const ResumeControlBarComponent = ({
           <span className="select-none">{t("auto-scale")}</span>
         </label>
       </div>
+      <div className="flex flex-row gap-1">
+
       <button
-        className="w-full flex justify-center items-center lg:text-unset text-[1.3rem] ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+        className="flex justify-center items-center lg:text-unset text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         onClick={() => {
           dispath(clearResume(resume))
         }}>
         {t('reset')}
       </button>
-      <button onClick={downloadPDF} className="w-full flex justify-center items-center text-[1.3rem] ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
+      <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
         <ArrowDownTrayIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">{t("download-resume-button")}</span>
       </button>
+        </div>
       {/* <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
