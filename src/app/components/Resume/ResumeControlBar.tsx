@@ -65,32 +65,32 @@ const ResumeControlBarComponent = ({
   }
 
   const payFile = () => {
-    fetch(instance.url || "")
-      .then(response => response.blob())
-      .then(blobData => {
-        const reader = new FileReader()
-        reader.onload = async () => {
-          if (typeof reader.result === "string") {
-            const base64Data = reader.result;
-            const token = localStorage.getItem('token');
+    // fetch(instance.url || "")
+    //   .then(response => response.blob())
+    //   .then(blobData => {
+    //     const reader = new FileReader()
+    //     reader.onload = async () => {
+    //       if (typeof reader.result === "string") {
+    //         const base64Data = reader.result;
+    //         const token = localStorage.getItem('token');
 
-            await axios.post(`${config.API_URL}/api/resume/onefile`, {
-              data: base64Data,
-              fileName: fileName,
-              resumeObject: resume,
-              theme: theme,
-              settings: setting
-            }, {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            }).then((response) => {
+    //         await axios.post(`${config.API_URL}/api/resume/onefile`, {
+    //           data: base64Data,
+    //           fileName: fileName,
+    //           resumeObject: resume,
+    //           theme: theme,
+    //           settings: setting
+    //         }, {
+    //           headers: {
+    //             Authorization: `Bearer ${token}`
+    //           }
+    //         }).then((response) => {
               let order = generateOrderNumber()
               const requestData = {
-                filename: response.data.filename,
+                filename: "resume.pdf",
                 script: 'init_payment.php',
                 pg_order_id: `${order}`,
-                pg_amount: 1500,
+                pg_amount: "1500",
                 pg_currency: 'KZT',
                 pg_description: `file`,
                 pg_user_contact_email: user.email,
@@ -118,10 +118,10 @@ const ResumeControlBarComponent = ({
                   toast.error(t('server-not-response'))
                   console.error('Ошибка при отправке запроса:', error);
                 });
-            })
-          }
-        }
-      })
+      //       })
+      //     }
+      //   }
+      // })
   }
 
   //useUser(): id 

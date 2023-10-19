@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "100vh",
     marginTop: spacing['3'],
-    marginRight: spacing["1.5"],
+    paddingRight: spacing["10"],
     marginLeft: spacing["1.5"],
   },
   summaryBlock: {

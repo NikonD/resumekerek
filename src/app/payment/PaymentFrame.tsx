@@ -191,14 +191,10 @@ const PaymentFrame: React.FC = () => {
             <div className='flex flex-col gap-2'>
               <div className='flex flex-row gap-2'>
                 <input checked={ofert} type="checkbox" onChange={(e) => { isOfert(e.currentTarget.checked) }} />
-                <label dangerouslySetInnerHTML={{ __html: t('agreementOffer', { a: '<a href="#">' }) }}>
-                  
-                  {/* Ознакомлен и согласен с <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${config.API_URL}/pub/offer.pdf`}>договором оферты</a> */}
-                </label>
+                <label dangerouslySetInnerHTML={{ __html: t('agreementOffer', { a: '<a href="#">' }) }}></label>
               </div>
               <a className='font-medium text-blue-600 dark:text-blue-500 hover:underline' target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}>{t('private-policy')}</a>
             </div>
-
             <button
               disabled={!ofert}
               onClick={() => {
