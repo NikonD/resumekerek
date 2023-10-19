@@ -127,5 +127,6 @@
   "waitPaymentProcessingText": "Дождитесь проведения платежа",
   "paymentButton": "Перейти к оплате",
   "about": "О нас",
-  "service": "Услуга" 
+  "service": "Услуга",
+  "paymentNotAuth": "Авторизация"
 }

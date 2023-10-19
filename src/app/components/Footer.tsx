@@ -6,7 +6,7 @@ export const Footer = () => {
   const {t, i18n} = useTranslation()
 
   return (
-    <footer style={{width: "100%"}} className="releative bottom-0 bg-gray-800 py-10 text-white">
+    <footer style={{width: "100%"}} className="releative bottom-0 bg-gray-800 py-10 text-white mt-auto">
       <div className="container mx-auto max-sm:pl-15 max-sm:pr-15 text-center flex flex-col md:flex-row  justify-around  ">
 
         <div className="flex flex-col lg:items-start items-center">
