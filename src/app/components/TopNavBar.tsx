@@ -148,7 +148,9 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
 
         </nav>
         <button
-          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          onClick={() => {
+            setMobileMenuOpen(!isMobileMenuOpen)
+          }}
           className="lg:hidden xl:hidden md:hidden sm:hidden rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
         >
           <FaBars
@@ -156,9 +158,9 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
           />
         </button>
       </div>
-      <AuthContainer user={user} open={open || isAuthOpen} setOpen={setOpen} />
-      {isMobileMenuOpen? (
-        <div style={{zIndex:"9999"}} className=" flex flex-col items-center absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-gray-800 border-b-2 border-gray-100">
+      <AuthContainer user={user} open={open} setOpen={setOpen} />
+      {isMobileMenuOpen && (
+        <div style={{zIndex:"900"}} className=" flex flex-col items-center absolute top-[var(--top-nav-bar-height)] left-0 right-0 bg-gray-800 border-b-2 border-gray-100">
 
           <div className="relative"
             onMouseEnter={() => setLanguageMenuOpen(true)}
@@ -221,12 +223,12 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
               {text}
             </Link>
           ))}
-          <button key={"login"} onClick={() => { setOpen(open ? false : true); isAuthOpen=true }}
+          <button key={"login"} onClick={() => { setOpen(!open); setMobileMenuOpen(false) }}
             className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
             {user.islogin ? t("profile") : t("signin-label")}
           </button>
         </div>
-      ): null}
+      )}
     </header>
 
   );
