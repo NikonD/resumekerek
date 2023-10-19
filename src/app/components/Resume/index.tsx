@@ -31,6 +31,7 @@ const Resume = () => {
             documentSize={settings.documentSize}
             scale={scale}
             enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
+            overflow="auto"
           >
             <ResumePDF
               resume={resume}
