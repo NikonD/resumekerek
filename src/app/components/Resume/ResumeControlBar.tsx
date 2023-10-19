@@ -95,7 +95,7 @@ const ResumeControlBarComponent = ({
                 pg_description: `file`,
                 pg_user_contact_email: user.email,
                 pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
-                pg_success_url: `https://resumekerek.com/success-payment?download=${order}&filename=${fileName}`,
+                pg_success_url: `https://resumekerek.com/resume-builder?download=${order}&filename=${fileName}`,
                 pg_failure_url: `https://resumekerek.com/error-payment`
               };
 
