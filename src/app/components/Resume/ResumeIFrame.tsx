@@ -47,11 +47,14 @@ const ResumeIFrameComponent = ({
   scale,
   children,
   enablePDFViewer = false,
+  overflow = "auto",
 }: {
-documentSize: string;
+  overflow: string;
+  documentSize: string;
   scale: number;
   children: React.ReactNode;
   enablePDFViewer?: boolean;
+  
 }) => {
   if (enablePDFViewer) {
     return (
@@ -78,12 +81,12 @@ documentSize: string;
           width: `${width}px`,
           height: `${height}px`,
           transform: `scale(${scale})`,
-          overflow: "auto"
+          overflow: overflow || "auto"
         }}
         className={`origin-top-left bg-white shadow-lg`}
       >
         <Frame
-          style={{ width: "100%", height: "500%", overflow:"auto" }}
+          style={{ width: "100%", height: "500%", overflow: "auto" }}
           initialContent={IFRAME_INITIAL_CONTENT}
         >
           {children}

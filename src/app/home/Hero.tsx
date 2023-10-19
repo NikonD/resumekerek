@@ -31,7 +31,7 @@ export const Hero = () => {
       <div className=" flex justify-center lg:block flex-col items-center mt-[2rem] lg:mr-[3vw] relative " style={{transform: 'scale3d(1.3, 1.1, 1) rotateX(8deg) rotateY(-33deg) rotateZ(8deg) skew(0deg, 0deg); '}}>
         
         <AutoTypingResume />
-        <Image src="/pen.png" width="200" height="600" alt="pen" className=" absolute lg:top-[50%] top-[38%] lg:right-[-60px]  w-[60%] right-[-25%] md:w-[10%] lg:w-[70%]"/>
+        <Image src="/pen.png" width="200" height="600" alt="pen" className=" absolute lg:block hidden lg:top-[50%] top-[38%] lg:right-[-60px]  w-[60%] right-[-25%] md:w-[10%] lg:w-[70%]"/>
       </div>
     </section>
   );

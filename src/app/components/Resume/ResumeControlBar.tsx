@@ -181,7 +181,7 @@ const ResumeControlBarComponent = ({
   }, [update, document]);
 
   return (
-    <div className="sticky bottom-0 left-0 right-0 flex lg:flex-row flex-col lg:py-[0px] my-[50px] h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
+    <div className="sticky lg:flex-row flex-col bottom-[20px] lg:bottom-0 left-0 right-0 flex  lg:py-[0px] h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
       <div className="flex items-center gap-2">
         <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
         <input
@@ -206,17 +206,20 @@ const ResumeControlBarComponent = ({
           <span className="select-none">{t("auto-scale")}</span>
         </label>
       </div>
+      <div className="flex flex-row gap-1">
+
       <button
-        className="w-full flex justify-center items-center lg:text-unset text-[1.3rem] ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+        className="flex justify-center items-center lg:text-unset text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         onClick={() => {
           dispath(clearResume(resume))
         }}>
         {t('reset')}
       </button>
-      <button onClick={downloadPDF} className="w-full flex justify-center items-center text-[1.3rem] ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
+      <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
         <ArrowDownTrayIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">{t("download-resume-button")}</span>
       </button>
+        </div>
       {/* <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
