@@ -87,7 +87,6 @@ const ResumeControlBarComponent = ({
     //         }).then((response) => {
               let order = generateOrderNumber()
               const requestData = {
-                filename: "resume.pdf",
                 script: 'init_payment.php',
                 pg_order_id: `${order}`,
                 pg_amount: "1500",
