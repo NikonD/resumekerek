@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSetDefaultScale } from "components/Resume/hooks";
 import {
   MagnifyingGlassIcon,
@@ -38,7 +38,7 @@ const ResumeControlBarComponent = ({
   fileName: string,
 }) => {
   const { t } = useTranslation()
-
+  const [isDownload, setDownload] = useState(false)
   const { scaleOnResize, setScaleOnResize } = useSetDefaultScale({
     setScale,
     documentSize,
@@ -47,6 +47,29 @@ const ResumeControlBarComponent = ({
   const user = useSelector(selectUser)
   const dispath = useDispatch()
   const [instance, update] = usePDF({ document });
+
+  let location_url = window.location.search
+  const params = new URLSearchParams(location_url)
+
+  const download = params.get("download");
+
+
+  if (download && user.islogin && !isDownload) {
+    const token = localStorage.getItem('token')
+    console.log(token)
+    axios.post(`${config.API_URL}/api/pb/findorder`, { order_id: download }, { headers: { Authorization: `Bearer ${token}` } }).
+      then((response) => {
+        if (response.data.isPaid) {
+          let a = window.document.createElement('a')
+          a.href = instance.url || ""
+          a.download = "resume.pdf"
+          a.click()
+          setDownload(true)
+        }
+      })
+
+
+  }
 
   console.log("settings", setting)
 
@@ -85,42 +108,42 @@ const ResumeControlBarComponent = ({
     //             Authorization: `Bearer ${token}`
     //           }
     //         }).then((response) => {
-              let order = generateOrderNumber()
-              const requestData = {
-                script: 'init_payment.php',
-                pg_order_id: `${order}`,
-                pg_amount: "1500",
-                pg_currency: 'KZT',
-                pg_description: `file`,
-                pg_user_contact_email: user.email,
-                pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
-                pg_success_url: `https://resumekerek.com/resume-builder?download=${order}&filename=${fileName}`,
-                pg_failure_url: `https://resumekerek.com/error-payment`
-              };
+    let order = generateOrderNumber()
+    const requestData = {
+      script: 'init_payment.php',
+      pg_order_id: `${order}`,
+      pg_amount: "1500",
+      pg_currency: 'KZT',
+      pg_description: `file`,
+      pg_user_contact_email: user.email,
+      pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
+      pg_success_url: `https://resumekerek.com/resume-builder?download=${order}&filename=${fileName}`,
+      pg_failure_url: `https://resumekerek.com/error-payment`
+    };
 
-              const url = `${config.API_URL}/api/pb/initiate-payment`;
+    const url = `${config.API_URL}/api/pb/initiate-payment`;
 
-              const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-              axios.post(url, requestData, {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json',
-                  "Authorization": `Bearer ${token}`
-                }
-              })
-                .then(response => {
-                  const { redirectUrl } = response.data
-                  window.open(redirectUrl)
-                })
-                .catch(error => {
-                  toast.error(t('server-not-response'))
-                  console.error('Ошибка при отправке запроса:', error);
-                });
-      //       })
-      //     }
-      //   }
-      // })
+    axios.post(url, requestData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        const { redirectUrl } = response.data
+        window.open(redirectUrl)
+      })
+      .catch(error => {
+        toast.error(t('server-not-response'))
+        console.error('Ошибка при отправке запроса:', error);
+      });
+    //       })
+    //     }
+    //   }
+    // })
   }
 
   //useUser(): id 
@@ -207,18 +230,18 @@ const ResumeControlBarComponent = ({
       </div>
       <div className="flex flex-row gap-1">
 
-      <button
-        className="flex justify-center items-center lg:text-unset text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
-        onClick={() => {
-          dispath(clearResume(resume))
-        }}>
-        {t('reset')}
-      </button>
-      <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
-        <ArrowDownTrayIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">{t("download-resume-button")}</span>
-      </button>
-        </div>
+        <button
+          className="flex justify-center items-center lg:text-unset text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+          onClick={() => {
+            dispath(clearResume(resume))
+          }}>
+          {t('reset')}
+        </button>
+        <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
+          <ArrowDownTrayIcon className="h-4 w-4" />
+          <span className="whitespace-nowrap">{t("download-resume-button")}</span>
+        </button>
+      </div>
       {/* <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
