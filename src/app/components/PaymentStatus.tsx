@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/loginSlice';
 import axios from 'axios';
 import config from '../../../config/config.json'
-import { usePDF } from '@react-pdf/renderer';
+
 
 interface PaymentStatusProps {
   isSuccess: boolean;
@@ -31,27 +31,7 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
   )
   
   const findOrder = (id: string, token: string) => {
-    setTimeout(() => {
-      let orderResponse = axios.post(
-        `${config.API_URL}/api/pb/findorder`,
-        {
-          order_id: id
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          }
-        })
-      orderResponse.then(({ data }) => {
-        const [instance, update] = usePDF({document})
-        console.log("ISPAID", data)
-        let a = window.document.createElement('a')
-        a.href = instance.url || ""
-        a.download = `resume-${new Date().getTime()}`
-        a.click()
-      })
-    }, 5000)
+    
   }
 
   useEffect(() => {

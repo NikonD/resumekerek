@@ -28,7 +28,7 @@ const PaymentFrame: React.FC = () => {
   function numberWithSpaces(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
-
+  console.log("TESTTESTTEST")
   function generateOrderNumber() {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
