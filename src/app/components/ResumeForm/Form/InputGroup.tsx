@@ -73,6 +73,28 @@ export const InputDate = <K extends string>({
   labelClassName,
 }: InputProps<K, string>) => {
 
+  const YearPicker = ({
+
+  }:{
+    
+  }) => {
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const startYear = 1920;
+    const endYear = new Date().getFullYear();
+    const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+
+    return (
+      <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.currentTarget.value))}>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
+
   const [selectedDate, setSelectedDate] = useState<Date>();
   console.log("INPUT", value)
   return (
@@ -83,12 +105,13 @@ export const InputDate = <K extends string>({
             name={name}
             className={INPUT_CLASS_NAME}
             selected={selectedDate}
-            onChange={(date) => { 
-              onChange(name, format(date||new Date(), 'dd MMM yyyy', { locale: ru }))
+            onChange={(date) => {
+              onChange(name, format(date || new Date(), 'yyyy', { locale: ru }))
               setSelectedDate(date || new Date())
             }}
-            dateFormat="dd-MM-yyyy"
-            locale={"ru"} />
+            dateFormat="yyyy"
+            locale={"ru"}
+          />
         </div>
       </div>
     </InputGroupWrapper>

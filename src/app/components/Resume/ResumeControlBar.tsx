@@ -30,12 +30,12 @@ const ResumeControlBarComponent = ({
 }: {
   theme: any,
   setting: any,
-  resume: any
-  scale: number;
-  setScale: (scale: number) => void;
-  documentSize: string;
-  document: JSX.Element;
-  fileName: string;
+  resume: any,
+  scale: number,
+  setScale: (scale: number) => void,
+  documentSize: string,
+  document: JSX.Element,
+  fileName: string,
 }) => {
   const { t } = useTranslation()
 
@@ -65,39 +65,63 @@ const ResumeControlBarComponent = ({
   }
 
   const payFile = () => {
-    // get template
-    let order = generateOrderNumber()
-    const requestData = {
-      script: 'init_payment.php',
-      pg_order_id: `${order}`,
-      pg_amount: 1500,
-      pg_currency: 'KZT',
-      pg_description: `file`,
-      pg_user_contact_email: user.email,
-      pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
-      pg_success_url: `https://resumekerek.com/success-payment?download=${order}`,
-      pg_failure_url: `https://resumekerek.com/error-payment`
-    };
+    fetch(instance.url || "")
+      .then(response => response.blob())
+      .then(blobData => {
+        const reader = new FileReader()
+        reader.onload = async () => {
+          if (typeof reader.result === "string") {
+            const base64Data = reader.result;
+            const token = localStorage.getItem('token');
 
-    const url = `${config.API_URL}/api/pb/initiate-payment`;
+            await axios.post(`${config.API_URL}/api/resume/onefile`, {
+              data: base64Data,
+              fileName: fileName,
+              resumeObject: resume,
+              theme: theme,
+              settings: setting
+            }, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }).then((response) => {
+              let order = generateOrderNumber()
+              const requestData = {
+                filename: response.data.filename,
+                script: 'init_payment.php',
+                pg_order_id: `${order}`,
+                pg_amount: 1500,
+                pg_currency: 'KZT',
+                pg_description: `file`,
+                pg_user_contact_email: user.email,
+                pg_result_url: `${config.API_URL}/api/pb/result-payment-file`,
+                pg_success_url: `https://resumekerek.com/success-payment?download=${order}&filename=${fileName}`,
+                pg_failure_url: `https://resumekerek.com/error-payment`
+              };
 
-    const token = localStorage.getItem('token');
+              const url = `${config.API_URL}/api/pb/initiate-payment`;
 
-    axios.post(url, requestData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        const { redirectUrl } = response.data
-        window.open(redirectUrl)
+              const token = localStorage.getItem('token');
+
+              axios.post(url, requestData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  "Authorization": `Bearer ${token}`
+                }
+              })
+                .then(response => {
+                  const { redirectUrl } = response.data
+                  window.open(redirectUrl)
+                })
+                .catch(error => {
+                  toast.error(t('server-not-response'))
+                  console.error('Ошибка при отправке запроса:', error);
+                });
+            })
+          }
+        }
       })
-      .catch(error => {
-        toast.error(t('server-not-response'))
-        console.error('Ошибка при отправке запроса:', error);
-      });
   }
 
   //useUser(): id 
@@ -113,7 +137,7 @@ const ResumeControlBarComponent = ({
               console.log(base64Data);
 
               const token = localStorage.getItem('token');
-              
+
               await axios.post(`${config.API_URL}/api/resume/upload/pdf`, {
                 data: base64Data,
                 fileName: fileName,
@@ -124,7 +148,7 @@ const ResumeControlBarComponent = ({
                 .then(response => {
                   toast.success(t("file-saved-notify"))
                   let a = window.document.createElement('a')
-                  a.href = instance.url || "" 
+                  a.href = instance.url || ""
                   a.download = fileName
                   console.log("FILE", instance.url)
                   a.click()

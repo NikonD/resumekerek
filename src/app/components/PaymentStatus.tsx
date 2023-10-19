@@ -52,7 +52,6 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
         a.click()
       })
     }, 5000)
-
   }
 
   useEffect(() => {

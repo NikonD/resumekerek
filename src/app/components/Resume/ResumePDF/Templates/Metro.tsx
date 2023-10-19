@@ -1,12 +1,18 @@
-import { Image, StyleSheet, View } from "@react-pdf/renderer"
+import { Image, StyleSheet, Text, View } from "@react-pdf/renderer"
 import { Settings } from "lib/redux/settingsSlice"
 import { Resume } from "lib/redux/types"
-import { ResumePDFSection, ResumePDFText } from "../common"
+import { ResumePDFLink, ResumePDFText } from "../common"
 import { spacing } from "../styles"
 import generateContactQRCode from "../QRGenerator"
 import { useEffect, useRef, useState } from "react"
 import { ResumePDFEducation } from "./MetroTemplates/ResumePDFEducation"
 import { ResumePDFWorkExperience } from "./MetroTemplates/ResumePDFWorkExperience"
+import { ResumePDFProject } from "./MetroTemplates/ResumePDFProjects"
+import { ResumePDFSkills } from "./MetroTemplates/ResumePDFSkills"
+import { ResumePDFCustom } from "./MetroTemplates/ResumePDFCustom"
+import { ResumePDFSection } from "./MetroTemplates/ResumePDFSection"
+
+import { IconType, ResumePDFIcon } from "../common/ResumePDFIcon"
 
 export const Metro = ({
   isPDF,
@@ -48,14 +54,11 @@ export const Metro = ({
       });
   }, [QRObjectProfile]);
 
-
-
-
   const styles = StyleSheet.create({
     page: {
       display: "flex",
       flexDirection: 'column',
-      paddingTop: spacing["14"],
+      paddingTop: spacing["8"],
       paddingLeft: spacing["8"],
       paddingRight: spacing["8"],
       paddingBottom: spacing["8"]
@@ -93,18 +96,53 @@ export const Metro = ({
       height: "80pt",
       position: "absolute",
       // right: "80pt"
+    },
+    row: {
+      display: "flex",
+      flexDirection: "row"
+    },
+    qrContainer: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    qr: {
+      display: "flex",
+      width: "80pt",
+      height: "80pt"
+    },
+    qrFake: {
+      display: "flex",
+      width: "80pt",
+      height: "80pt",
+      position: "relative",
+      left: "-80pt"
+    },
+    contact: {
+      display: "flex",
+      flexWrap: "wrap"
+    },
+    contactRow: {
+      
+      width: "50%",
+      
     }
   })
 
   return (
     <View style={{ ...styles.page }}>
       <View style={{ ...styles.summary }}>
-        <View style={{ ...styles.title }}>
-          <View style={{ fontSize: "24pt" }}>
-            <ResumePDFText bold={true}>РЕЗЮМЕ</ResumePDFText>
+        <View style={{ ...styles.row }}>
+          <View style={{ ...styles.title }}>
+            <View style={{ fontSize: "24pt" }}>
+              <ResumePDFText bold={true}>РЕЗЮМЕ</ResumePDFText>
+            </View>
+            <View style={{ fontSize: "16pt" }}>
+              <ResumePDFText bold={true}>{summary}</ResumePDFText>
+            </View>
           </View>
-          <View style={{ fontSize: "16pt" }}>
-            <ResumePDFText bold={true}>{summary}</ResumePDFText>
+          <View style={{ ...styles.qrContainer }}>
+            <Image style={{ ...styles.qr }} src={qrCodeBase64 || ""} />
+            <img style={{ ...styles.qrFake }} src={qrCodeBase64 || ""} />
           </View>
         </View>
         <View style={{ ...styles.photoBlock }}>
@@ -115,6 +153,67 @@ export const Metro = ({
 
       <View style={{ ...styles.headBorder }} />
 
+      <ResumePDFSection style={{}} styleSection={{}} heading="Персональные данные">
+        <View style={{ ...styles.contact }}>
+        {Object.entries(iconProps).map(([key, value]) => {
+              if (!value) return null;
+
+              let iconType = key as IconType;
+              if (key === "url") {
+                if (value.includes("github")) {
+                  iconType = "url_github";
+                } else if (value.includes("linkedin")) {
+                  iconType = "url_linkedin";
+                }
+              }
+
+              const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
+              const Wrapper = ({ children }: { children: React.ReactNode }) => {
+                if (!shouldUseLinkWrapper) return <>{children}</>;
+
+                let src = "";
+                switch (key) {
+                  case "email": {
+                    src = `mailto:${value}`;
+                    break;
+                  }
+                  case "phone": {
+                    src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                    break;
+                  }
+                  default: {
+                    src = value.startsWith("http") ? value : `https://${value}`;
+                  }
+                }
+
+                return (
+                  <ResumePDFLink src={src} isPDF={isPDF}>
+                    {children}
+                  </ResumePDFLink>
+                );
+              };
+
+              return (
+                <View
+                  key={key}
+                  style={{
+                    display:"flex",
+                    flexDirection:"row",
+                    width: "50%",
+                    alignItems: "center",
+                    gap: spacing["1"],
+                  }}
+                >
+                  <ResumePDFIcon type={iconType} isPDF={isPDF} _fill={themeColor} />
+                  <Wrapper>
+                    <ResumePDFText >{value}</ResumePDFText>
+                  </Wrapper>
+                </View>
+              );
+            })}
+          </View>
+      </ResumePDFSection>
+
       <ResumePDFEducation
         heading={formToHeading['educations']}
         educations={educations}
@@ -122,27 +221,36 @@ export const Metro = ({
         theme={settings.themeResume}
         themeColor={themeColor}
       />
-      {/* <ResumePDFEducation
-        heading={formToHeading['educations']}
-        educations={educations}
-        showBulletPoints={showBulletPoints['educations']}
-        theme={settings.themeResume}
-        themeColor={themeColor}
-      /> */}
+
       <ResumePDFWorkExperience
         heading={formToHeading['workExperiences']}
         workExperiences={workExperiences}
-        // showBulletPoints={showBulletPoints['educations']}
         theme={settings.themeResume}
         themeColor={themeColor}
       />
-      <ResumePDFEducation
-        heading={formToHeading['educations']}
-        educations={educations}
-        showBulletPoints={showBulletPoints['educations']}
+
+      <ResumePDFProject
+        heading={formToHeading['projects']}
+        projects={projects}
         theme={settings.themeResume}
         themeColor={themeColor}
       />
+
+      <ResumePDFSkills
+        heading={formToHeading['skills']}
+        skills={skills}
+        themeColor={themeColor}
+        theme={settings.themeResume}
+        showBulletPoints={showBulletPoints['skills']} />
+
+      <ResumePDFCustom
+        heading={formToHeading['custom']}
+        custom={custom}
+        showBulletPoints={showBulletPoints['custom']}
+        theme={settings.themeResume}
+        themeColor={themeColor}
+      />
+
     </View>
   )
 }
