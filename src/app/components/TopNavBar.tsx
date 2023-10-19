@@ -18,15 +18,18 @@ import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
 // import { i18n } from "next-i18next";
 
+interface TopNavBarProps {
+  isAuthOpen?: any
+}
 
-export const TopNavBar: React.FC = () => {
+export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); // Добавьте это состояние
 
   const user = useSelector(selectUser)
-
   const [open, setOpen] = useState(false)
   const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
+  
 
 
 
@@ -40,7 +43,6 @@ export const TopNavBar: React.FC = () => {
   };
 
   
-
   return (
 
     <header
@@ -130,7 +132,7 @@ export const TopNavBar: React.FC = () => {
             </Link>
           ))}
           {/* {user? */}
-          <button key={"login"} onClick={() => { setOpen(open ? false : true) }} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
+          <button key={"login"} onClick={() => { setOpen(!open) }} className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
             {user.islogin ? t("profile") : t("signin-label")}
           </button>
           {/* <UserDropDown/> */}
@@ -231,3 +233,4 @@ export const TopNavBar: React.FC = () => {
 
   );
 };
+

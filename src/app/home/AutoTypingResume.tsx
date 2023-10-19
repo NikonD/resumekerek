@@ -63,7 +63,7 @@ export const AutoTypingResume = () => {
     <>
       <div className="h-[100%] flex flex-col items-center justify-center">
 
-        <ResumeIFrame overflow="none" documentSize="Letter" scale={isLg ? 0.5 : 0.4}>
+        <ResumeIFrame overflow="hidden" documentSize="Letter" scale={isLg ? 0.5 : 0.4}>
           <ResumePDF
             resume={resume}
             settings={{

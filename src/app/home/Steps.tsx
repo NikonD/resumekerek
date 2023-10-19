@@ -1,10 +1,12 @@
-const STEPS = [
-  { title: "Выберите шаблон", text: "10+ шаблонов", icon: "fa-solid fa-images fa-2xl mb-5" },
-  { title: "Введите свои данные", text: "и сохраните изменения", icon: "fa-solid fa-keyboard fa-2xl mb-5" },
-  { title: "Экспортируйте свое резюме", text: "нажмите Сохраниить", icon: "fa-solid fa-download fa-2xl mb-5" },
-];
+import { useTranslation } from "react-i18next";
 import Image from "next/image";
 export const Steps = () => {
+  const { t } = useTranslation()
+  const STEPS = [
+    { title: "Выберите шаблон", text: "10+ шаблонов", icon: "fa-solid fa-images fa-2xl mb-5" },
+    { title: "Введите свои данные", text: "и сохраните изменения", icon: "fa-solid fa-keyboard fa-2xl mb-5" },
+    { title: "Экспортируйте свое резюме", text: "нажмите Сохраниить", icon: "fa-solid fa-download fa-2xl mb-5" },
+  ];
   return (
     <section className="mx-auto mt-10 rounded-2xl bg-sky-50 bg-dot px-8 pb-12 pt-10 ">
       <h1 className="text-center text-3xl font-bold mb-[3rem]">3 Простых шага</h1>

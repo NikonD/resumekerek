@@ -19,7 +19,7 @@ type Currency = {
   symbol: string;
 };
 
-const PaymentFrame: React.FC = () => {
+const PaymentFrame = ({openAuth}: {openAuth: (t: boolean)=>void}) => {
 
   const { t, i18n } = useTranslation()
   const user = useSelector(selectUser)
@@ -127,6 +127,7 @@ const PaymentFrame: React.FC = () => {
 
 
   return (
+    
     <div className="flex items-center justify-center  h500">
 
       <div style={{ width: "450px" }} className='payment__block'>
@@ -195,14 +196,18 @@ const PaymentFrame: React.FC = () => {
               </div>
               <a className='font-medium text-blue-600 dark:text-blue-500 hover:underline' target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}>{t('private-policy')}</a>
             </div>
-            <button
+            {user.islogin? <button
               disabled={!ofert}
               onClick={() => {
                 onPay()
               }}
               className={`${ofert ? ' hover:bg-blue-400 focus:shadow-outline focus:outline-none' : 'disabled:opacity-50 disabled:cursor-not-allowed'} shadow bg-blue-500 text-white font-bold py-2 px-4`} type="button">
               {t('paymentButton')}
-            </button>
+            </button> : <button onClick={() => {
+                // openAuth(true)
+              }}
+              className='hover:bg-blue-400 focus:shadow-outline focus:outline-none shadow bg-blue-500 text-white font-bold py-2 px-4'>{t('login-required')}</button> }
+            
             <p>{t('paymentText')}</p>
           </div>
         </div>
