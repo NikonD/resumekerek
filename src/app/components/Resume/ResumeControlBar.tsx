@@ -67,8 +67,6 @@ const ResumeControlBarComponent = ({
           setDownload(true)
         }
       })
-
-
   }
 
   console.log("settings", setting)
@@ -88,26 +86,6 @@ const ResumeControlBarComponent = ({
   }
 
   const payFile = () => {
-    // fetch(instance.url || "")
-    //   .then(response => response.blob())
-    //   .then(blobData => {
-    //     const reader = new FileReader()
-    //     reader.onload = async () => {
-    //       if (typeof reader.result === "string") {
-    //         const base64Data = reader.result;
-    //         const token = localStorage.getItem('token');
-
-    //         await axios.post(`${config.API_URL}/api/resume/onefile`, {
-    //           data: base64Data,
-    //           fileName: fileName,
-    //           resumeObject: resume,
-    //           theme: theme,
-    //           settings: setting
-    //         }, {
-    //           headers: {
-    //             Authorization: `Bearer ${token}`
-    //           }
-    //         }).then((response) => {
     let order = generateOrderNumber()
     const requestData = {
       script: 'init_payment.php',
@@ -140,10 +118,6 @@ const ResumeControlBarComponent = ({
         toast.error(t('server-not-response'))
         console.error('Ошибка при отправке запроса:', error);
       });
-    //       })
-    //     }
-    //   }
-    // })
   }
 
   //useUser(): id 

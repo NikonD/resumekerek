@@ -176,12 +176,18 @@ export const resumeSlice = createSlice({
         }
 
         const section = draft[form][idx];
+        console.log(draft[form][idx])
+        console.log(draft[form][idx - 1])
         if (direction === "up") {
           draft[form][idx] = draft[form][idx - 1];
           draft[form][idx - 1] = section;
+          console.log(draft[form][idx])
+          console.log(draft[form][idx - 1])
         } else {
           draft[form][idx] = draft[form][idx + 1];
           draft[form][idx + 1] = section;
+          console.log(draft[form][idx])
+          console.log(draft[form][idx+1])
         }
       }
     },

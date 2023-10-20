@@ -5,6 +5,7 @@ import ReactDatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru'; // Импортируем локализацию для русского языка
 import { format } from 'date-fns';
+import { t } from "i18next";
 
 interface InputProps<K extends string, V extends string | string[]> {
   label: string;
@@ -73,23 +74,30 @@ export const InputDate = <K extends string>({
   labelClassName,
 }: InputProps<K, string>) => {
 
-  const YearPicker = ({
-
-  }:{
-    
-  }) => {
-    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    const startYear = 1920;
+  const YearPicker = () => {
+    const startYear = 1940;
     const endYear = new Date().getFullYear();
     const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
+    const groupedYears: Record<string, number[]> = years.reduce((acc: any, year: any) => {
+      const decade = Math.floor(year / 10) * 10;
+      acc[decade] = acc[decade] || [];
+      acc[decade].push(year);
+      return acc;
+    }, {});
+
     return (
-      <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.currentTarget.value))}>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
+      <select className={INPUT_CLASS_NAME} value={value} onChange={(e) => onChange(name, e.currentTarget.value)}>
+        {Object.entries(groupedYears).map(([decade, years]) => (
+          <optgroup label={`${decade}`} key={decade}>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </optgroup>
         ))}
+        <option value={t("in-current-time")}>По настоящее время</option>
       </select>
     );
   };
@@ -101,7 +109,25 @@ export const InputDate = <K extends string>({
     <InputGroupWrapper label={label} className={labelClassName}>
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ zIndex: 2 }}>
-          <ReactDatePicker
+
+          {/* <input
+            name={name}
+            className={INPUT_CLASS_NAME}
+
+            onChange={(date) => {
+              const enteredYear = Number(date.currentTarget.value);
+              if (enteredYear >= 1940 && enteredYear <= new Date().getFullYear()) {
+                onChange(name, enteredYear.toString());
+              }
+            }}
+            placeholder={placeholder}
+            type={"number"}
+            min={1940}
+            max={`${new Date().getFullYear()}`}
+            value={value} /> */}
+          <YearPicker />
+
+          {/* <ReactDatePicker
             name={name}
             className={INPUT_CLASS_NAME}
             selected={selectedDate}
@@ -111,7 +137,7 @@ export const InputDate = <K extends string>({
             }}
             dateFormat="yyyy"
             locale={"ru"}
-          />
+          /> */}
         </div>
       </div>
     </InputGroupWrapper>
