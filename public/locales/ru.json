@@ -37,6 +37,7 @@
   "company-name-label": "Наименование компании",
   "position-label": "Должность",
   "expiration-date": "Дата окончания",
+  "start-date": "Дата начала",
   "work-description-label": "Описание",
   "List-of-skills": "Список навыков",
   "skills-by-skill-level": "Навыки по уровню владения",
@@ -55,7 +56,7 @@
   "degree": "Степень",
   "speciality": "Специальность",
   "additional-information": "Дополнительная информация",
-  "settings-resume-title": "Настроки резюме",
+  "settings-resume-title": "Настройки резюме",
   "choose-theme-label": "Выбор темы",
   "color-theme-label": "Выбор цвета",
   "font-family-label": "Выбор типа шрифта",
@@ -128,5 +129,8 @@
   "paymentButton": "Перейти к оплате",
   "about": "О нас",
   "service": "Услуга",
-  "paymentNotAuth": "Авторизация"
+  "paymentNotAuth": "Авторизация",
+  "in-current-time": "По настоящее время",
+  "start-date-pdf-label": "c",
+  "end-date-pdf-label": "по"
 }

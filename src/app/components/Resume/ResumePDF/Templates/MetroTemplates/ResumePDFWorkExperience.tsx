@@ -3,6 +3,8 @@ import { ResumePDFBulletList, ResumePDFText } from "../../common";
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 import { spacing } from "../../styles";
 import { ResumePDFSection } from "./ResumePDFSection";
+import { formatDateRange } from "lib/formatDateRange";
+import { useTranslation } from "react-i18next";
 
 
 export const ResumePDFWorkExperience = ({
@@ -34,15 +36,15 @@ export const ResumePDFWorkExperience = ({
     }
 
   })
-
+  const {t} = useTranslation()
   return (
     <ResumePDFSection styleSection={{}} themeColor={themeColor}  heading={heading}>
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+      {workExperiences.map(({ company, jobTitle, start_date, end_date, descriptions }, idx) => {
         return (
           <View style={{...styles.block}} key={idx}>
             <View style={{...styles.row}}>
               <ResumePDFText bold={true}>{company}</ResumePDFText>
-              <ResumePDFText bold={true}>{date}</ResumePDFText>
+              <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
             </View>
             <View style={{...styles.position}}>
               <ResumePDFText>{jobTitle}</ResumePDFText>

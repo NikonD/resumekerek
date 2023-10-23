@@ -24,7 +24,7 @@ export const WorkExperiencesForm = () => {
 
   return (
     <Form form="workExperiences" addButtonText={t("add-a-note")}>
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+      {workExperiences.map(({ company, jobTitle, end_date, start_date, descriptions }, idx) => {
         const handleWorkExperienceChange = (
           ...[
             field,
@@ -59,21 +59,34 @@ export const WorkExperiencesForm = () => {
             />
             <Input
               label={t("position-label")}
-              labelClassName="col-span-4 max-sm:col-span-full"
+              labelClassName="col-span-full max-sm:col-span-full"
               name="jobTitle"
               placeholder=""
               value={jobTitle}
               onChange={handleWorkExperienceChange}
             />
-
-            <InputDate
-              label={t("expiration-date")}
-              labelClassName="col-span-2 max-sm:col-span-full"
-              name="date"
-              placeholder=""
-              value={date}
-              onChange={handleWorkExperienceChange}
-            />
+            <div className="col-span-full max-sm:col-span-full flex flex-row justify-between">
+              <div className="">
+                <InputDate
+                  label={t("start-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="start_date"
+                  placeholder=""
+                  value={start_date}
+                  onChange={handleWorkExperienceChange}
+                />
+              </div>
+              <div className="">
+                <InputDate
+                  label={t("expiration-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="end_date"
+                  placeholder=""
+                  value={end_date}
+                  onChange={handleWorkExperienceChange}
+                />
+              </div>
+            </div>
             <BulletListTextarea
               label={t("work-description-label")}
               labelClassName="col-span-full max-sm:col-span-full"

@@ -37,6 +37,7 @@
   "company-name-label": "公司名称",
   "position-label": "职位",
   "expiration-date": "截止日期",
+  "start-date": "开始日期",
   "work-description-label": "工作描述",
   "List-of-skills": "技能列表",
   "skills-by-skill-level": "按熟练程度划分的技能",
@@ -114,8 +115,8 @@
   "emailAndLanguageLabel": "电子邮件和语言",
   "user-saved-notify": "数据已保存",
   "profile-settings-button": "个人资料设置",
-  "current-password-incorrect":"当前密码不正确。",
-  "reset":"重置简历",
+  "current-password-incorrect": "当前密码不正确。",
+  "reset": "重置简历",
   "payment": "付款",
   "private-policy": "隐私政策",
   "offer": "要约协议",
@@ -127,5 +128,6 @@
   "waitPaymentProcessingText": "等待付款处理",
   "paymentButton": "前往支付",
   "about": "关于我们",
-  "service": "服务" 
+  "service": "服务",
+  "in-current-time": "到目前为止"
 }

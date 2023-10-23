@@ -11,21 +11,24 @@ export interface ResumeProfile {
 export interface ResumeWorkExperience {
   company: string;
   jobTitle: string;
-  date: string;
+  start_date: string;
+  end_date: string;
   descriptions: string[];
 }
 
 export interface ResumeEducation {
   school: string;
   degree: string;
-  date: string;
+  start_date: string;
+  end_date: string;
   gpa: string;
   descriptions: string[];
 }
 
 export interface ResumeProject {
   project: string;
-  date: string;
+  start_date: string;
+  end_date: string;
   descriptions: string[];
 }
 
