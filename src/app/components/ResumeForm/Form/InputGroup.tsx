@@ -4,8 +4,13 @@ import { useAutosizeTextareaHeight } from "lib/hooks/useAutosizeTextareaHeight";
 import ReactDatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru'; // Импортируем локализацию для русского языка
+import kz from 'date-fns/locale/kk'; // Импортируем локализацию для русского языка
+import en from 'date-fns/locale/en-US'; // Импортируем локализацию для русского языка
+import ch from 'date-fns/locale/zh-CN'; // Импортируем локализацию для русского языка
 import { format } from 'date-fns';
-import { t } from "i18next";
+import i18next, { t } from "i18next";
+import { cx } from "lib/cx";
+import { i18n } from "next-i18next";
 
 interface InputProps<K extends string, V extends string | string[]> {
   label: string;
@@ -73,6 +78,17 @@ export const InputDate = <K extends string>({
   label,
   labelClassName,
 }: InputProps<K, string>) => {
+  const locales = {
+    "ru": ru,
+    "en": en,
+    "kz": kz,
+    "ch": ch
+  }
+  const locale = locales[i18next.language as keyof typeof locales];
+  const [currentLocale, setCurrentLocale] = useState(locale)
+
+
+  // setCurrentLocale(locale)
 
   const YearPicker = () => {
     const startYear = 1940;
@@ -87,7 +103,7 @@ export const InputDate = <K extends string>({
     }, {});
 
     return (
-      <select className={INPUT_CLASS_NAME} value={value} onChange={(e) => onChange(name, e.currentTarget.value)}>
+      <select className={INPUT_CLASS_NAME} value={value} defaultValue={undefined} onChange={(e) => onChange(name, e.currentTarget.value)}>
         {Object.entries(groupedYears).map(([decade, years]) => (
           <optgroup label={`${decade}`} key={decade}>
             {years.map((year) => (
@@ -97,7 +113,7 @@ export const InputDate = <K extends string>({
             ))}
           </optgroup>
         ))}
-        <option value={t("in-current-time")}>По настоящее время</option>
+        <option value={t("in-current-time")}>{t('in-current-time')}</option>
       </select>
     );
   };
@@ -110,34 +126,25 @@ export const InputDate = <K extends string>({
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ zIndex: 2 }}>
 
-          {/* <input
-            name={name}
-            className={INPUT_CLASS_NAME}
-
-            onChange={(date) => {
-              const enteredYear = Number(date.currentTarget.value);
-              if (enteredYear >= 1940 && enteredYear <= new Date().getFullYear()) {
-                onChange(name, enteredYear.toString());
-              }
-            }}
-            placeholder={placeholder}
-            type={"number"}
-            min={1940}
-            max={`${new Date().getFullYear()}`}
-            value={value} /> */}
           <YearPicker />
 
-          {/* <ReactDatePicker
+          <ReactDatePicker
             name={name}
             className={INPUT_CLASS_NAME}
             selected={selectedDate}
+            value={value}
             onChange={(date) => {
-              onChange(name, format(date || new Date(), 'yyyy', { locale: ru }))
-              setSelectedDate(date || new Date())
+              onChange(
+                name,
+                date? format(new Date(date), 'dd MMM yyyy', { locale: locale }): ""
+              )
+              setSelectedDate(date || undefined)
             }}
-            dateFormat="yyyy"
-            locale={"ru"}
-          /> */}
+            dateFormat="dd MMM yyyy"
+            locale={locale}
+            isClearable
+          // clearButtonTitle="X"
+          />
         </div>
       </div>
     </InputGroupWrapper>

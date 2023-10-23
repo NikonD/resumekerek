@@ -59,7 +59,7 @@ const ResumeFeaturedSkill = ({
               borderColor:"#d9d9d9",
               borderBottom: "1px",
               borderTop: "1px",
-              backgroundColor: rating >= idx ? themeColor:  "#d9d9d9",
+              backgroundColor: rating >= idx ? "#d9d9d9": themeColor,
             }}
           />
         ))}

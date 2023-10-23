@@ -23,7 +23,8 @@ export const initialProfile: ResumeProfile = {
 export const initialWorkExperience: ResumeWorkExperience = {
   company: "",
   jobTitle: "",
-  date: "",
+  end_date: "",
+  start_date: "",
   descriptions: [],
 };
 
@@ -31,13 +32,15 @@ export const initialEducation: ResumeEducation = {
   school: "",
   degree: "",
   gpa: "",
-  date: "",
+  end_date: "",
+  start_date: "",
   descriptions: [],
 };
 
 export const initialProject: ResumeProject = {
   project: "",
-  date: "",
+  end_date: "",
+  start_date: "",
   descriptions: [],
 };
 

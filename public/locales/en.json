@@ -36,7 +36,8 @@
   "delete-a-note": "Delete a Note",
   "company-name-label": "Company Name",
   "position-label": "Position",
-  "expiration-date": "Expiration Date",
+  "expiration-date": "Expiration date",
+  "start-date":"Start date",
   "work-description-label": "Work Description",
   "List-of-skills": "List of Skills",
   "skills-by-skill-level": "Skills by Skill Level",
@@ -127,5 +128,6 @@
   "waitPaymentProcessingText": "Wait for the payment to be processed",
   "paymentButton": "Proceed to Payment",
   "about": "About Us",
-  "service": "Service" 
+  "service": "Service",
+  "in-current-time": "Until now"
 }

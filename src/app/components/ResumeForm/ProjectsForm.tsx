@@ -15,11 +15,11 @@ export const ProjectsForm = () => {
   const dispatch = useAppDispatch();
   const showDelete = projects.length > 1;
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <Form form="projects" addButtonText={t("add-a-note")}>
-      {projects.map(({ project, date, descriptions }, idx) => {
+      {projects.map(({ project, start_date, end_date, descriptions }, idx) => {
         const handleProjectChange = (
           ...[
             field,
@@ -52,14 +52,28 @@ export const ProjectsForm = () => {
               labelClassName="col-span-4 max-sm:col-span-full"
             />
 
-            <InputDate
-              label={t("expiration-date")}
-              labelClassName="col-span-2 max-sm:col-span-full"
-              name="date"
-              placeholder=""
-              value={date}
-              onChange={handleProjectChange}/>
-
+            <div className="col-span-full max-sm:col-span-full flex flex-row justify-between">
+              <div className="">
+                <InputDate
+                  label={t("start-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="start_date"
+                  placeholder=""
+                  value={start_date}
+                  onChange={handleProjectChange}
+                />
+              </div>
+              <div className="">
+                <InputDate
+                  label={t("expiration-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="end_date"
+                  placeholder=""
+                  value={end_date}
+                  onChange={handleProjectChange}
+                />
+              </div>
+            </div>
             <BulletListTextarea
               name="descriptions"
               label={t("project-description-label")}

@@ -26,7 +26,7 @@ export const EducationsForm = () => {
 
   return (
     <Form form={form} addButtonText={t("add-a-note")}>
-      {educations.map(({ school, degree, gpa, date, descriptions }, idx) => {
+      {educations.map(({ school, degree, gpa, start_date, end_date, descriptions }, idx) => {
         const handleEducationChange = (
           ...[
             field,
@@ -61,14 +61,28 @@ export const EducationsForm = () => {
               value={school}
               onChange={handleEducationChange}
             />
-            <InputDate
-              label={t("expiration-date")}
-              labelClassName="col-span-2 max-sm:col-span-full"
-              name="date"
-              placeholder=""
-              value={date}
-              onChange={handleEducationChange}
-            />
+            <div className="col-span-full max-sm:col-span-full flex flex-row justify-between">
+              <div className="">
+                <InputDate
+                  label={t("start-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="start_date"
+                  placeholder=""
+                  value={start_date}
+                  onChange={handleEducationChange}
+                />
+              </div>
+              <div className="">
+                <InputDate
+                  label={t("expiration-date")}
+                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  name="end_date"
+                  placeholder=""
+                  value={end_date}
+                  onChange={handleEducationChange}
+                />
+              </div>
+            </div>
             <Input
               label={t("degree")}
               labelClassName="col-span-4 max-sm:col-span-full"
