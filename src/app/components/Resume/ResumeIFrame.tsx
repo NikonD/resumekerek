@@ -33,7 +33,7 @@ const IFRAME_INITIAL_CONTENT = `<!DOCTYPE html>
           ${IFRAME_INITIAL_CONTENT_FONT_FAMILIES_FONT_FACE}
         </style>
       </head>
-      <body style='overflow: hidden; width: ${LETTER_WIDTH_PT}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
+      <body style='overflow: scroll; width: ${LETTER_WIDTH_PT}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
         <div></div>
       </body>
     </html>`;
@@ -69,8 +69,12 @@ const ResumeIFrameComponent = ({
   return (
     <div
       style={{
-        maxWidth: `${width * scale}px`,
+        // maxWidth: `${width * scale}px`,
+        // width: '100%',
         maxHeight: `${height * scale}px`,
+        transform: `scale(1)`,
+        overscrollBehaviorX: 'contain',
+          // transformOrigin: 'top left',
       }}
     >
       {/* There is an outer div and an inner div here. The inner div sets the iframe width and uses transform scale to zoom in/out the resume iframe.
@@ -78,15 +82,16 @@ const ResumeIFrameComponent = ({
         outer div to restrict the max width & height proportionally */}
       <div
         style={{
-          width: `${width}px`,
+          width: `100%`,
           height: `${height}px`,
-          transform: `scale(${scale})`,
+          // transform: 'scale()',
+          
           overflow: overflow || "auto"
         }}
         className={`origin-top-left bg-white shadow-lg`}
       >
         <Frame
-          style={{ width: "100%", height: "500%", overflow: "auto" }}
+          style={{ width: "100%", height: "100%", overflow: "auto" }}
           initialContent={IFRAME_INITIAL_CONTENT}
         >
           {children}
