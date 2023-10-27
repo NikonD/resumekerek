@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "@react-pdf/renderer"
-import { Settings } from "lib/redux/settingsSlice"
+import { Settings, ShowForm } from "lib/redux/settingsSlice"
 import { Resume } from "lib/redux/types"
 import { spacing } from "../styles"
 import { ResumePDFWorkExperience } from "./FeatureTemplates/ResumePDFWorkExperience"
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "100vh",
     marginTop: spacing['3'],
-    paddingRight: spacing["10"],
     marginLeft: spacing["1.5"],
   },
   summaryBlock: {
@@ -125,10 +124,10 @@ const styles = StyleSheet.create({
   },
   fakeqr: {
     display: "flex",
-    position:"relative",
+    position: "relative",
     top: "-80pt",
     width: "80pt",
-    height:"80pt"
+    height: "80pt"
   }
 })
 
@@ -136,10 +135,12 @@ const Feature = ({
   isPDF,
   resume,
   settings,
+  showFormsOrder
 }: {
   isPDF: boolean,
   resume: Resume,
   settings: Settings,
+  showFormsOrder: any
 }) => {
   // const isPDF = true
   const {
@@ -155,11 +156,11 @@ const Feature = ({
   const qrCodeRef = useRef(null);
 
   const QRObjectProfile = {
-    name: profile.name,
-    title: profile.summary,
-    phone: profile.phone,
-    location: profile.location,
-    email: profile.email
+    name: profile.name || "",
+    title: profile.summary || "",
+    phone: profile.phone || "",
+    location: profile.location || "",
+    email: profile.email || ""
   }
 
   useEffect(() => {
@@ -173,14 +174,59 @@ const Feature = ({
   }, [QRObjectProfile]);
 
 
+  const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
+    workExperiences: () => (
+      <ResumePDFWorkExperience
+        theme={settings.themeResume}
+        heading={formToHeading["workExperiences"]}
+        workExperiences={workExperiences}
+        themeColor={themeColor} />
+    ),
+    educations: () => (
+      <ResumePDFEducation
+        theme={settings.themeResume}
+        heading={formToHeading["educations"]}
+        education={educations}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["educations"]} />
+    ),
+    projects: () => (
+      <ResumePDFProject
+        theme={settings.themeResume}
+        heading={formToHeading["projects"]}
+        projects={projects}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints['projects']} />
+    ),
+    skills: () => (
+      <ResumePDFSkills
+        theme={settings.themeResume}
+        heading={formToHeading["skills"]}
+        skills={skills}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["skills"]} />
+    ),
+    custom: () => (
+      <ResumePDFCustom
+        theme={settings.themeResume}
+        heading={formToHeading["custom"]}
+        custom={custom}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["custom"]}
+      />
+    ),
+  };
+
   return (
     <View style={{ ...styles.page }}>
       <View style={{ ...styles.leftCol, backgroundColor: themeColor }}>
         <View style={{ ...styles.photoBlock }}>
-          <View style={{ ...styles.border }}>
-            <img style={styles.fakePhoto} src={profile.photo} />
-            <Image src={profile.photo} style={styles.photo} />
-          </View>
+          {profile.photo &&
+            <View style={{ ...styles.border }}>
+              <img style={styles.fakePhoto} src={profile.photo} />
+              <Image src={profile.photo} style={styles.photo} />
+            </View>
+          }
         </View>
         <View>
           <View style={{ ...styles.leftColData }}>
@@ -273,7 +319,19 @@ const Feature = ({
           </View>
         </View>
 
-        <ResumePDFWorkExperience
+        {showFormsOrder.map((form: ShowForm) => {
+          if (
+              (form=='workExperiences') ||
+              (form=='educations') ||
+              (form=='projects') ||
+              (form=='custom') 
+            ) {
+            const Component = formTypeToComponent[form];
+            return <Component />;
+          }
+        })}
+
+        {/* <ResumePDFWorkExperience
           themeColor={themeColor}
           theme={settings.themeResume}
           workExperiences={workExperiences}
@@ -300,7 +358,7 @@ const Feature = ({
           theme={settings.themeResume}
           heading={formToHeading['custom']}
           showBulletPoints={showBulletPoints['custom']}
-        />
+        /> */}
 
       </View>
     </View>

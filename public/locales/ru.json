@@ -132,5 +132,6 @@
   "paymentNotAuth": "Авторизация",
   "in-current-time": "По настоящее время",
   "start-date-pdf-label": "c",
-  "end-date-pdf-label": "по"
+  "end-date-pdf-label": "по",
+  "clear-photo-input":"Удалить фото"
 }

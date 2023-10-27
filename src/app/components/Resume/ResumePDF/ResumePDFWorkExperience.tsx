@@ -6,6 +6,7 @@ import {
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants";
+import { formatDateRange } from "lib/formatDateRange";
 import type { ResumeWorkExperience } from "lib/redux/types";
 
 export const ResumePDFWorkExperience = ({
@@ -24,7 +25,7 @@ export const ResumePDFWorkExperience = ({
 
   return (
     <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+      {workExperiences.map(({ company, jobTitle, start_date, end_date, descriptions }, idx) => {
         const hideCompanyName =
           idx > 0 && company === workExperiences[idx - 1].company;
 
@@ -35,7 +36,7 @@ export const ResumePDFWorkExperience = ({
                 <ResumePDFText bold={true}>{company}</ResumePDFText>
               )}
 
-              <ResumePDFText >{date ? `${date}` : ''}</ResumePDFText>
+              <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
             </View>
 
             <View

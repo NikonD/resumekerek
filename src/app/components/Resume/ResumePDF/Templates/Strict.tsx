@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "@react-pdf/renderer"
-import { Settings } from "lib/redux/settingsSlice"
+import { Settings, ShowForm } from "lib/redux/settingsSlice"
 import { spacing } from "../styles"
 import { THEME_RESUME } from "components/ResumeForm/ThemeForm/constants"
 import { Resume } from "lib/redux/types"
@@ -7,6 +7,7 @@ import { ResumePDFIcon } from "../common/ResumePDFIcon"
 import { useEffect, useRef, useState } from "react"
 import generateContactQRCode from "../QRGenerator"
 import { ResumePDFSkills } from "./StrictTemplates/ResumePDFSkills"
+import { $CombinedState } from "@reduxjs/toolkit"
 
 const styles = StyleSheet.create({
   page: {
@@ -97,7 +98,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
 export const Strict = ({
   resume,
   settings,
@@ -129,11 +129,11 @@ export const Strict = ({
   const qrCodeRef = useRef(null);
 
   const QRObjectProfile = {
-    name: profile.name,
-    title: profile.summary,
-    phone: profile.phone,
-    location: profile.location,
-    email: profile.email
+    name: profile.name || "",
+    title: profile.summary || "",
+    phone: profile.phone || "",
+    location: profile.location  || "",
+    email: profile.email || ""
   }
 
   useEffect(() => {
@@ -146,13 +146,18 @@ export const Strict = ({
       });
   }, [QRObjectProfile]);
 
-  const choosenThemeResume = THEME_RESUME.filter((el => el.name ===  settings.themeResume))[0]
+  const choosenThemeResume = THEME_RESUME.filter((el => el.name === settings.themeResume))[0]
 
+  
   return (
     <View>
-      <View style={{...styles.header, backgroundColor: themeColor}}>
-        <img style={styles.fakePhoto} src={profile.photo} />
-        <Image src={profile.photo} style={styles.photo} />
+      <View style={{ ...styles.header, backgroundColor: themeColor }}>
+        {profile.photo ?
+          <>
+            <img style={styles.fakePhoto} src={profile.photo} />
+            <Image src={profile.photo} style={styles.photo} />
+          </> : null
+        }
         <View style={styles.nameAndContacts}>
           <Text style={styles.name}>{name}</Text>
           <View style={styles.contactBlock}>

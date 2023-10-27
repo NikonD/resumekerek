@@ -9,6 +9,12 @@
 @font-face {font-family: "OpenSans"; src: url("/fonts/OpenSans-Bold.ttf"); font-weight: bold;}
 @font-face {font-family: "Raleway"; src: url("/fonts/Raleway-Regular.ttf");}
 @font-face {font-family: "Raleway"; src: url("/fonts/Raleway-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Ubuntu"; src: url("/fonts/Ubuntu-Rehular.ttf");}
+@font-face {font-family: "Ubuntu"; src: url("/fonts/Ubuntu-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "Play"; src: url("/fonts/Play-Rehular.ttf");}
+@font-face {font-family: "Play"; src: url("/fonts/Play-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "MontserratAlt"; src: url("/fonts/MontserratAlternates-Regular.ttf");}
+@font-face {font-family: "MontserratAlt"; src: url("/fonts/MontserratAlternates-Bold.ttf"); font-weight: bold;}
 
 @font-face {font-family: "RobotoSlab"; src: url("/fonts/RobotoSlab-Regular.ttf");}
 @font-face {font-family: "RobotoSlab"; src: url("/fonts/RobotoSlab-Bold.ttf"); font-weight: bold;}
@@ -20,3 +26,5 @@
 @font-face {font-family: "Lora"; src: url("/fonts/Lora-Bold.ttf"); font-weight: bold;}
 @font-face {font-family: "Caladea"; src: url("/fonts/Caladea-Regular.ttf");}
 @font-face {font-family: "Caladea"; src: url("/fonts/Caladea-Bold.ttf"); font-weight: bold;}
+@font-face {font-family: "AlegreyaSC"; src: url("/fonts/AlegreyaSC-Regular.ttf");}
+@font-face {font-family: "AlegreyaSC"; src: url("/fonts/AlegreyaSC-Bold.ttf"); font-weight: bold;}

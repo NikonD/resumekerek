@@ -35,11 +35,11 @@ export const ResumePDFProfile = ({
   const qrCodeRef = useRef(null);
 
   const QRObjectProfile = {
-    name: profile.name,
-    title: profile.summary,
-    phone: profile.phone,
-    location: profile.location,
-    email: profile.email
+    name: profile.name || "",
+    title: profile.summary || "",
+    phone: profile.phone || "",
+    location: profile.location || "",
+    email: profile.email || ""
   }
 
   useEffect(() => {
@@ -66,10 +66,13 @@ export const ResumePDFProfile = ({
       </ResumePDFText>
       {summary && <ResumePDFText >{summary}</ResumePDFText>}
       <View style={{ ...style }}>
-        <View style={{ display: "flex" }}>
-          {photo && (<Image style={styles.userPhoto} src={photo} />)}
-          {photo && <img style={styles.userPhotoFake} src={photo} />}
-        </View>
+        {
+          photo
+          && <View style={{ display: "flex" }}>
+            {photo && (<Image style={styles.userPhoto} src={photo} />)}
+            {photo && <img style={styles.userPhotoFake} src={photo} />}
+          </View>
+        }
         <View
           style={{
             ...styles.flexRowBetween,
@@ -159,7 +162,7 @@ export const ResumePDFProfile = ({
           })}
 
         </View>
-        <View style={{display:"flex"}}>
+        <View style={{ display: "flex" }}>
           {qrCodeBase64 && (
             <Image style={styles.image} src={qrCodeBase64} />
           )}

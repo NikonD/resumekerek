@@ -1,6 +1,7 @@
 import { ResumeEducation } from "lib/redux/types";
 import { ResumePDFBulletList, ResumePDFSection, ResumePDFText } from "../../common";
 import { StyleSheet, View } from "@react-pdf/renderer";
+import { formatDateRange } from "lib/formatDateRange";
 
 
 export const ResumePDFEducation = ({
@@ -38,12 +39,12 @@ export const ResumePDFEducation = ({
 
   return (
     <ResumePDFSection styleSection={{}} heading={heading}>
-      {education.map(({ date, school, degree, descriptions, gpa }, idx) => {
+      {education.map(({ start_date, end_date, school, degree, descriptions, gpa }, idx) => {
         return (
           <View style={{ ...styles.block }} key={idx}>
             <View style={{ ...styles.row }}>
               <ResumePDFText bold={true}>{school}</ResumePDFText>
-              <ResumePDFText bold={true}>{date}</ResumePDFText>
+              <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
             </View>
             <View style={{...styles.degree}}>
               <ResumePDFText bold={true}>{gpa}</ResumePDFText>

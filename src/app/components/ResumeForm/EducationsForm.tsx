@@ -111,7 +111,7 @@ export const EducationsForm = () => {
               />
               <div className="absolute left-[15.6rem] top-[0.07rem]">
                 <BulletListIconButton
-                  showBulletPoints={showBulletPoints}
+                  showBulletPoints={showBulletPoints||false}
                   onClick={handleShowBulletPoints}
                 />
               </div>

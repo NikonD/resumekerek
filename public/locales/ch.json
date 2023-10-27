@@ -129,5 +129,6 @@
   "paymentButton": "前往支付",
   "about": "关于我们",
   "service": "服务",
-  "in-current-time": "到目前为止"
+  "in-current-time": "到目前为止",
+  "clear-photo-input":"Удалить фото"
 }

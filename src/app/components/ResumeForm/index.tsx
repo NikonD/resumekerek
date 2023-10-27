@@ -16,6 +16,7 @@ import { CustomForm } from "components/ResumeForm/CustomForm";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
 import { useTranslation } from "react-i18next";
+import { AdditionalForm } from "components/ResumeForm/AdditionalForm";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -23,7 +24,12 @@ const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   projects: ProjectsForm,
   skills: SkillsForm,
   custom: CustomForm,
+  additional: AdditionalForm
 };
+
+const Additional = {
+  
+}
 
 export const ResumeForm = () => {
   useSetInitialStore();
@@ -46,8 +52,11 @@ export const ResumeForm = () => {
         <ProfileForm />
         {formsOrder.map((form) => {
           const Component = formTypeToComponent[form];
+          console.log(form)
           return <Component key={form} />;
         })}
+        {/* тут форма для Additional */}
+        <AdditionalForm/>
         <ThemeForm />
         <br />
       </section>

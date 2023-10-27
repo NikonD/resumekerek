@@ -1,6 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
 import type {
+  Additional,
+  AdditionalBlockExtended,
   FeaturedSkill,
   Resume,
   ResumeEducation,
@@ -10,6 +12,19 @@ import type {
   ResumeWorkExperience,
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
+
+export const initialBlock: AdditionalBlockExtended = {
+  title: "",
+  summary: "",
+  descriptions: [],
+  start_date: "",
+  end_date: "",
+}
+
+export const initialAdditional: Additional = {
+  heading: "",
+  blocks: [initialBlock]
+}
 
 export const initialProfile: ResumeProfile = {
   name: "",
@@ -64,6 +79,7 @@ export const initialResumeState: Resume = {
   projects: [initialProject],
   skills: initialSkills,
   custom: initialCustom,
+  additional: [initialAdditional]
 };
 
 // Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
@@ -83,7 +99,7 @@ export const resumeSlice = createSlice({
   reducers: {
     changeProfile: (
       draft,
-      action: PayloadAction<{ field: keyof ResumeProfile; value: string }>
+      action: PayloadAction<{ field: keyof ResumeProfile; value: string | undefined }>
     ) => {
       const { field, value } = action.payload;
       draft.profile[field] = value;
@@ -144,6 +160,20 @@ export const resumeSlice = createSlice({
       const { value } = action.payload;
       draft.custom.descriptions = value;
     },
+    changeAdditional: (
+      draft,
+      action: PayloadAction<CreateChangeActionWithDescriptions<Additional>>
+    ) => {
+      const { idx, field, value } = action.payload;
+      const additionalBlock = draft.additional[idx];
+
+      // В зависимости от типа поля выполнить соответствующие действия
+      if (field === "descriptions") {
+        additionalBlock.blocks[0].descriptions = value as string[];
+      } else {
+        additionalBlock[field] = value as any;
+      }
+    },
     addSectionInForm: (draft, action: PayloadAction<{ form: ShowForm }>) => {
       const { form } = action.payload;
       switch (form) {
@@ -190,7 +220,7 @@ export const resumeSlice = createSlice({
           draft[form][idx] = draft[form][idx + 1];
           draft[form][idx + 1] = section;
           console.log(draft[form][idx])
-          console.log(draft[form][idx+1])
+          console.log(draft[form][idx + 1])
         }
       }
     },
@@ -223,6 +253,7 @@ export const {
   changeProjects,
   changeSkills,
   changeCustom,
+  changeAdditional,
   addSectionInForm,
   moveSectionInForm,
   deleteSectionInFormByIdx,
@@ -232,11 +263,11 @@ export const {
 
 export const selectResume = (state: RootState) => state.resume;
 export const selectProfile = (state: RootState) => state.resume.profile;
-export const selectWorkExperiences = (state: RootState) =>
-  state.resume.workExperiences;
+export const selectWorkExperiences = (state: RootState) => state.resume.workExperiences;
 export const selectEducations = (state: RootState) => state.resume.educations;
 export const selectProjects = (state: RootState) => state.resume.projects;
 export const selectSkills = (state: RootState) => state.resume.skills;
 export const selectCustom = (state: RootState) => state.resume.custom;
+export const selectAdditional = (state: RootState) => state.resume.additional;
 
 export default resumeSlice.reducer;

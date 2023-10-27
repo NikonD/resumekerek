@@ -52,6 +52,7 @@ const FORM_TO_ICON: { [section in ShowForm]: typeof BuildingOfficeIcon } = {
   projects: LightBulbIcon,
   skills: WrenchIcon,
   custom: WrenchIcon,
+  additional: WrenchIcon
 };
 
 export const Form = ({
@@ -106,10 +107,10 @@ export const Form = ({
           {!isLastForm && (
             <MoveIconButton type="down" onClick={handleMoveClick} />
           )}
-          <ShowIconButton show={showForm} setShow={setShowForm} />
+          <ShowIconButton show={showForm||true} setShow={setShowForm} />
         </div>
       </div>
-      <ExpanderWithHeightTransition expanded={showForm}>
+      <ExpanderWithHeightTransition expanded={showForm||false}>
         {children}
       </ExpanderWithHeightTransition>
       {showForm && addButtonText && (

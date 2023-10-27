@@ -2,12 +2,13 @@ import React, { ChangeEvent, useState, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area, Point } from 'react-easy-crop/types';
 import { useTranslation } from 'react-i18next';
+import { INPUT_CLASS_NAME } from './InputGroup';
 
-interface PhotoUploadProps<K extends string, V extends string> {
+interface PhotoUploadProps<K extends string, V extends string | undefined> {
   src?: string,
   name: K,
   value?: V,
-  onChange: (name: K, value: V) => void
+  onChange: (name: K, value: V | undefined) => void
 }
 
 const PhotoUpload = <K extends string>({
@@ -130,6 +131,7 @@ const PhotoUpload = <K extends string>({
       <label htmlFor="photoInput" className="block font-medium text-gray-700 mb-2">
         {t("your-photo")}
       </label>
+      
       <div className='flex flex-row'>
         <div
           className="relative w-32 h-32 border-2 border-dashed border-gray-300 rounded cursor-pointer"
@@ -137,6 +139,7 @@ const PhotoUpload = <K extends string>({
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
+
           <input
             id="photoInput"
             name={name}
@@ -146,6 +149,7 @@ const PhotoUpload = <K extends string>({
             onChange={handleFileChange}
             ref={inputRef}
           />
+
           {previewUrl ? (
             <img src={previewUrl || src} alt="Preview" className="w-full h-full object-cover" />
           ) : (
@@ -154,6 +158,7 @@ const PhotoUpload = <K extends string>({
             </div>
           )}
         </div>
+
         <div
           className="relative w-32 h-32 border-2 border-dashed border-gray-300 rounded cursor-pointer">
           {selectedFile && (
@@ -169,7 +174,17 @@ const PhotoUpload = <K extends string>({
           )}
         </div>
       </div>
-
+      <button
+        className='btn btn-link align-left text-blue-600'
+        // className={INPUT_CLASS_NAME}
+        onClick={() => {
+          onChange(name, undefined)
+          setSelectedFile(null)
+          setPreviewUrl(null)
+        }}
+        style={{ position: "relative"}}>
+        {t('clear-photo-input')}
+      </button>
     </div>
   );
 };

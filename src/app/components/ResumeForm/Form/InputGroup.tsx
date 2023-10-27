@@ -124,27 +124,29 @@ export const InputDate = <K extends string>({
   return (
     <InputGroupWrapper label={label} className={labelClassName}>
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ zIndex: 2 }}>
-
-          <YearPicker />
-
-          <ReactDatePicker
-            name={name}
-            className={INPUT_CLASS_NAME}
-            selected={selectedDate}
-            value={value}
-            onChange={(date) => {
-              onChange(
-                name,
-                date? format(new Date(date), 'dd MMM yyyy', { locale: locale }): ""
-              )
-              setSelectedDate(date || undefined)
-            }}
-            dateFormat="dd MMM yyyy"
-            locale={locale}
-            isClearable
-          // clearButtonTitle="X"
-          />
+        <div className="flex flex-row" style={{ zIndex: 2 }}>
+          <div className="flex-col">
+            <YearPicker />
+            <ReactDatePicker
+              name={name}
+              className={INPUT_CLASS_NAME}
+              selected={selectedDate}
+              value={value}
+              onChange={(date) => {
+                onChange(
+                  name,
+                  date ? format(new Date(date), 'dd MMM yyyy', { locale: locale }) : ""
+                )
+                setSelectedDate(date || undefined)
+              }}
+              dateFormat="dd MMM yyyy"
+              locale={locale}
+            // clearButtonTitle="X"
+            />
+          </div>
+          <div>
+            <button onClick={()=>{onChange(name, "")}} className={INPUT_CLASS_NAME}>X</button>
+          </div>
         </div>
       </div>
     </InputGroupWrapper>

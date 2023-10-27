@@ -106,6 +106,7 @@ export const ResumePDF = ({
         showBulletPoints={showBulletPoints["custom"]}
       />
     ),
+    additional: ()=>(<></>)
   };
 
   let ProfileComponent = () => {

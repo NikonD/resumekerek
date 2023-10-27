@@ -1,11 +1,11 @@
 export interface ResumeProfile {
-  name: string;
-  email: string;
-  phone: string;
-  url: string;
-  summary: string;
-  location: string;
-  photo?: string;
+  name: string| undefined;
+  email: string| undefined;
+  phone: string| undefined;
+  url: string| undefined;
+  summary: string| undefined;
+  location: string| undefined;
+  photo?: string| undefined;
 }
 
 export interface ResumeWorkExperience {
@@ -46,6 +46,19 @@ export interface ResumeCustom {
   descriptions: string[];
 }
 
+export interface AdditionalBlockExtended  {
+  title: string,
+  descriptions: string[];
+  summary: string;
+  start_date: string;
+  end_date: string;
+}
+
+export interface Additional {
+  heading: string;
+  blocks: AdditionalBlockExtended[]
+}
+
 export interface Resume {
   profile: ResumeProfile;
   workExperiences: ResumeWorkExperience[];
@@ -53,6 +66,7 @@ export interface Resume {
   projects: ResumeProject[];
   skills: ResumeSkills;
   custom: ResumeCustom;
+  additional: [Additional];
 }
 
 export type ResumeKey = keyof Resume;

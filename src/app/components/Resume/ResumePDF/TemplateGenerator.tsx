@@ -47,17 +47,19 @@ export const TemplateGenerator = ({
           Profile={profile} />}
       {
         themeResumeName == "feature" &&
-          <Feature
-            isPDF={isPDF}
-            resume={resume}
-            settings={settings}/>
+        <Feature
+          isPDF={isPDF}
+          resume={resume}
+          showFormsOrder={showFormsOrder}
+          settings={settings} />
       }
       {
         themeResumeName == "metro" &&
-          <Metro
-            isPDF={isPDF}
-            resume={resume}
-            settings={settings}/>
+        <Metro
+          isPDF={isPDF}
+          resume={resume}
+          settings={settings}
+          showFormsOrder={showFormsOrder} />
       }
     </div>
   )

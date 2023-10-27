@@ -17,7 +17,7 @@ export const ProfileForm = () => {
 
   const { name, email, phone, url, summary, location, photo } = profile;
 
-  const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
+  const handleProfileChange = (field: keyof ResumeProfile, value: string | undefined) => {
     dispatch(changeProfile({ field, value }));
   };
   const {t} =  useTranslation()

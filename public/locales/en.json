@@ -129,5 +129,6 @@
   "paymentButton": "Proceed to Payment",
   "about": "About Us",
   "service": "Service",
-  "in-current-time": "Until now"
+  "in-current-time": "Until now",
+  "clear-photo-input":"Удалить фото"
 }

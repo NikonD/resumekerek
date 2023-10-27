@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "@react-pdf/renderer"
-import { Settings } from "lib/redux/settingsSlice"
+import { Settings, ShowForm } from "lib/redux/settingsSlice"
 import { Resume } from "lib/redux/types"
 import { ResumePDFLink, ResumePDFText } from "../common"
 import { spacing } from "../styles"
@@ -18,10 +18,12 @@ export const Metro = ({
   isPDF,
   resume,
   settings,
+  showFormsOrder
 }: {
   isPDF: boolean,
   resume: Resume,
-  settings: Settings
+  settings: Settings,
+  showFormsOrder: any
 }
 ) => {
   const {
@@ -37,11 +39,11 @@ export const Metro = ({
   const qrCodeRef = useRef(null);
 
   const QRObjectProfile = {
-    name: profile.name,
-    title: profile.summary,
-    phone: profile.phone,
-    location: profile.location,
-    email: profile.email
+    name: profile.name || "",
+    title: profile.summary || "",
+    phone: profile.phone || "",
+    location: profile.location || "",
+    email: profile.email || ""
   }
 
   useEffect(() => {
@@ -122,11 +124,53 @@ export const Metro = ({
       flexWrap: "wrap"
     },
     contactRow: {
-      
+
       width: "50%",
-      
+
     }
   })
+
+  const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
+    workExperiences: () => (
+      <ResumePDFWorkExperience
+        theme={settings.themeResume}
+        heading={formToHeading["workExperiences"]}
+        workExperiences={workExperiences}
+        themeColor={themeColor} />
+    ),
+    educations: () => (
+      <ResumePDFEducation
+        theme={settings.themeResume}
+        heading={formToHeading["educations"]}
+        educations={educations}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["educations"]} />
+    ),
+    projects: () => (
+      <ResumePDFProject
+        theme={settings.themeResume}
+        heading={formToHeading["projects"]}
+        projects={projects}
+        themeColor={themeColor} />
+    ),
+    skills: () => (
+      <ResumePDFSkills
+        theme={settings.themeResume}
+        heading={formToHeading["skills"]}
+        skills={skills}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["skills"]} />
+    ),
+    custom: () => (
+      <ResumePDFCustom
+        theme={settings.themeResume}
+        heading={formToHeading["custom"]}
+        custom={custom}
+        themeColor={themeColor}
+        showBulletPoints={showBulletPoints["custom"]}
+      />
+    ),
+  };
 
   return (
     <View style={{ ...styles.page }}>
@@ -145,111 +189,82 @@ export const Metro = ({
             <img style={{ ...styles.qrFake }} src={qrCodeBase64 || ""} />
           </View>
         </View>
-        <View style={{ ...styles.photoBlock }}>
-          <img style={{ ...styles.fakePhoto }} src={photo} />
-          <Image style={{ ...styles.photo }} src={photo} />
-        </View>
+        {
+          photo
+          && <View style={{ ...styles.photoBlock }}>
+            <img style={{ ...styles.fakePhoto }} src={photo} />
+            <Image style={{ ...styles.photo }} src={photo} />
+          </View>
+        }
       </View>
 
       <View style={{ ...styles.headBorder }} />
 
       <ResumePDFSection style={{}} styleSection={{}} heading="Персональные данные">
         <View style={{ ...styles.contact }}>
-        {Object.entries(iconProps).map(([key, value]) => {
-              if (!value) return null;
+          {Object.entries(iconProps).map(([key, value]) => {
+            if (!value) return null;
 
-              let iconType = key as IconType;
-              if (key === "url") {
-                if (value.includes("github")) {
-                  iconType = "url_github";
-                } else if (value.includes("linkedin")) {
-                  iconType = "url_linkedin";
+            let iconType = key as IconType;
+            if (key === "url") {
+              if (value.includes("github")) {
+                iconType = "url_github";
+              } else if (value.includes("linkedin")) {
+                iconType = "url_linkedin";
+              }
+            }
+
+            const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
+            const Wrapper = ({ children }: { children: React.ReactNode }) => {
+              if (!shouldUseLinkWrapper) return <>{children}</>;
+
+              let src = "";
+              switch (key) {
+                case "email": {
+                  src = `mailto:${value}`;
+                  break;
+                }
+                case "phone": {
+                  src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                  break;
+                }
+                default: {
+                  src = value.startsWith("http") ? value : `https://${value}`;
                 }
               }
 
-              const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
-              const Wrapper = ({ children }: { children: React.ReactNode }) => {
-                if (!shouldUseLinkWrapper) return <>{children}</>;
-
-                let src = "";
-                switch (key) {
-                  case "email": {
-                    src = `mailto:${value}`;
-                    break;
-                  }
-                  case "phone": {
-                    src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
-                    break;
-                  }
-                  default: {
-                    src = value.startsWith("http") ? value : `https://${value}`;
-                  }
-                }
-
-                return (
-                  <ResumePDFLink src={src} isPDF={isPDF}>
-                    {children}
-                  </ResumePDFLink>
-                );
-              };
-
               return (
-                <View
-                  key={key}
-                  style={{
-                    display:"flex",
-                    flexDirection:"row",
-                    width: "50%",
-                    alignItems: "center",
-                    gap: spacing["1"],
-                  }}
-                >
-                  <ResumePDFIcon type={iconType} isPDF={isPDF} _fill={themeColor} />
-                  <Wrapper>
-                    <ResumePDFText >{value}</ResumePDFText>
-                  </Wrapper>
-                </View>
+                <ResumePDFLink src={src} isPDF={isPDF}>
+                  {children}
+                </ResumePDFLink>
               );
-            })}
-          </View>
+            };
+
+            return (
+              <View
+                key={key}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "50%",
+                  alignItems: "center",
+                  gap: spacing["1"],
+                }}
+              >
+                <ResumePDFIcon type={iconType} isPDF={isPDF} _fill={themeColor} />
+                <Wrapper>
+                  <ResumePDFText >{value}</ResumePDFText>
+                </Wrapper>
+              </View>
+            );
+          })}
+        </View>
       </ResumePDFSection>
 
-      <ResumePDFEducation
-        heading={formToHeading['educations']}
-        educations={educations}
-        showBulletPoints={showBulletPoints['educations']}
-        theme={settings.themeResume}
-        themeColor={themeColor}
-      />
-
-      <ResumePDFWorkExperience
-        heading={formToHeading['workExperiences']}
-        workExperiences={workExperiences}
-        theme={settings.themeResume}
-        themeColor={themeColor}
-      />
-
-      <ResumePDFProject
-        heading={formToHeading['projects']}
-        projects={projects}
-        theme={settings.themeResume}
-        themeColor={themeColor}
-      />
-
-      <ResumePDFSkills
-        heading={formToHeading['skills']}
-        skills={skills}
-        themeColor={themeColor}
-        theme={settings.themeResume}
-        showBulletPoints={showBulletPoints['skills']} />
-
-      <ResumePDFCustom
-        heading={formToHeading['custom']}
-        custom={custom}
-        showBulletPoints={showBulletPoints['custom']}
-        theme={settings.themeResume}
-        themeColor={themeColor}
-      />
+      {showFormsOrder.map((form: ShowForm) => {
+        const Component = formTypeToComponent[form];
+        return <Component />;
+      })}
 
     </View>
   )

@@ -159,16 +159,13 @@ const ResumeControlBarComponent = ({
           reader.readAsDataURL(blobData);
         })
         .catch(error => console.error('Error:', error));
-    }
-    else {
-      if (user.islogin) {
+    } 
+    else if (!user.islogin) {
         payFile()
       }
-      else {
+    else {
         toast.error(t("not-logged-in-or-not-have-subscription"))
-      }
     }
-
   }
 
   // Hook to update pdf when document changes

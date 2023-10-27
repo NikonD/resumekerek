@@ -7,6 +7,7 @@ import {
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeEducation } from "lib/redux/types";
 import { ResumePDFSection } from "./ResumePDFSection";
+import { formatDateRange } from "lib/formatDateRange";
 
 export const ResumePDFEducation = ({
   theme,
@@ -46,7 +47,7 @@ export const ResumePDFEducation = ({
   return (
     <ResumePDFSection styleSection={{}} themeColor={themeColor} heading={heading}>
       {educations.map(
-        ({ school, degree, date, gpa, descriptions = [] }, idx) => {
+        ({ school, degree, start_date, end_date, gpa, descriptions = [] }, idx) => {
           // Hide school name if it is the same as the previous school
           const hideSchoolName =
             idx > 0 && school === educations[idx - 1].school;
@@ -58,7 +59,7 @@ export const ResumePDFEducation = ({
                 {!hideSchoolName && (
                   <ResumePDFText bold={true}>{school}</ResumePDFText>
                 )}
-                <ResumePDFText bold={true} >{date ? `${date}` : ''}</ResumePDFText>
+                <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
               </View>
 
               <View

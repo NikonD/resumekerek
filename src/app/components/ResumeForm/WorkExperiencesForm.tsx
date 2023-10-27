@@ -69,7 +69,7 @@ export const WorkExperiencesForm = () => {
               <div className="">
                 <InputDate
                   label={t("start-date")}
-                  labelClassName="col-span-full max-sm:col-span-full flex-1"
+                  labelClassName="col-span-full max-sm:col-span-full"
                   name="start_date"
                   placeholder=""
                   value={start_date}

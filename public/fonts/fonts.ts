@@ -17,6 +17,8 @@ export const SANS_SERI_FONT_FAMILIES = [
   "Montserrat",
   "OpenSans",
   "Raleway",
+  "Play",
+  "Ubuntu",
 ] as const;
 
 export const SERI_FONT_FAMILIES = [
@@ -24,7 +26,9 @@ export const SERI_FONT_FAMILIES = [
   "Lora",
   "RobotoSlab",
   "PlayfairDisplay",
+  "MontserratAlt",
   "Merriweather",
+  "AlegreyaSC"
 ] as const;
 
 export const FONT_FAMILIES = [
@@ -37,12 +41,16 @@ export type FontFamily = (typeof FONT_FAMILIES)[number];
 export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
   Roboto: 11,
   Lato: 11,
-  Montserrat: 10,
-  OpenSans: 10,
-  Raleway: 10,
+  Montserrat: 11,
+  OpenSans: 11,
+  Raleway: 11,
   Caladea: 11,
   Lora: 11,
-  RobotoSlab: 10,
-  PlayfairDisplay: 10,
-  Merriweather: 10,
+  RobotoSlab: 11,
+  PlayfairDisplay: 11,
+  Merriweather: 11,
+  Ubuntu: 11,
+  Play: 12,
+  MontserratAlt: 12,
+  AlegreyaSC: 12
 };
