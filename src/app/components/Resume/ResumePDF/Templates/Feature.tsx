@@ -215,6 +215,7 @@ const Feature = ({
         showBulletPoints={showBulletPoints["custom"]}
       />
     ),
+    additional: () => <></>
   };
 
   return (
@@ -319,7 +320,7 @@ const Feature = ({
           </View>
         </View>
 
-        {showFormsOrder.map((form: ShowForm) => {
+        {showFormsOrder.map((form: ShowForm, idx: number) => {
           if (
               (form=='workExperiences') ||
               (form=='educations') ||
@@ -327,7 +328,7 @@ const Feature = ({
               (form=='custom') 
             ) {
             const Component = formTypeToComponent[form];
-            return <Component />;
+            return <Component key={idx} />;
           }
         })}
 

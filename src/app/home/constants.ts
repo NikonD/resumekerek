@@ -21,7 +21,8 @@ export const END_HOME_RESUME: Resume = {
     {
       company: "ABC Company",
       jobTitle: "Software Engineer",
-      date: "May 2023 - Present",
+      start_date: "May 2023 - Present",
+      end_date: "May 2023 - Present",
       descriptions: [
         "Lead a cross-functional team of 5 engineers in developing a search bar, which enables thousands of daily active users to search content across the entire platform",
         "Create stunning home page product demo animations that drives up sign up rate by 20%",
@@ -31,7 +32,8 @@ export const END_HOME_RESUME: Resume = {
     {
       company: "DEF Organization",
       jobTitle: "Software Engineer Intern",
-      date: "Summer 2022",
+      start_date: "May 2023 - Present",
+      end_date: "May 2023 - Present",
       descriptions: [
         "Re-architected the existing content editor to be mobile responsive that led to a 10% increase in mobile user engagement",
         "Created a progress bar to help users track progress that drove up user retention by 15%",
@@ -41,7 +43,8 @@ export const END_HOME_RESUME: Resume = {
     {
       company: "XYZ University",
       jobTitle: "Research Assistant",
-      date: "Summer 2021",
+      start_date: "May 2023 - Present",
+      end_date: "May 2023 - Present",
       descriptions: [
         "Devised a new NLP algorithm in text classification that results in 10% accuracy increase",
         "Compiled and presented research findings to a group of 20+ faculty and students",
@@ -52,7 +55,8 @@ export const END_HOME_RESUME: Resume = {
     {
       school: "XYZ University",
       degree: "Bachelor of Science in Computer Science",
-      date: "Sep 2019 - May 2023",
+      start_date: "May 2023 - Present",
+      end_date: "May 2023 - Present",
       gpa: "3.8",
       descriptions: [
         "Won 1st place in 2022 Education Hackathon, 2nd place in 2023 Health Tech Competition",
@@ -64,7 +68,8 @@ export const END_HOME_RESUME: Resume = {
   projects: [
     {
       project: "OpenResume",
-      date: "Spring 2023",
+      start_date: "May 2023 - Present",
+      end_date: "May 2023 - Present",
       descriptions: [
         "Created and launched a free resume builder web app that allows thousands of users to create professional resume easily and land their dream jobs",
       ],
@@ -87,6 +92,9 @@ export const END_HOME_RESUME: Resume = {
   custom: {
     descriptions: [],
   },
+  additional: [
+    {blocks:[], heading:""}
+  ]
 };
 
 export const START_HOME_RESUME: Resume = {
@@ -106,4 +114,5 @@ export const START_HOME_RESUME: Resume = {
   custom: {
     descriptions: [],
   },
+  additional: [{blocks:[], heading:""}]
 };

@@ -53,7 +53,7 @@ export const SkillsForm = () => {
           />
           <div className="absolute left-[8.5rem] top-[0.07rem]">
             <BulletListIconButton
-              showBulletPoints={showBulletPoints}
+              showBulletPoints={showBulletPoints || true}
               onClick={handleShowBulletPoints}
             />
           </div>

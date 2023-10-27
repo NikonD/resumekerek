@@ -170,6 +170,7 @@ export const Metro = ({
         showBulletPoints={showBulletPoints["custom"]}
       />
     ),
+    additional: () => <></>
   };
 
   return (
@@ -261,9 +262,9 @@ export const Metro = ({
         </View>
       </ResumePDFSection>
 
-      {showFormsOrder.map((form: ShowForm) => {
+      {showFormsOrder.map((form: ShowForm, idx: number) => {
         const Component = formTypeToComponent[form];
-        return <Component />;
+        return <Component key={idx} />;
       })}
 
     </View>

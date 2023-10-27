@@ -34,7 +34,7 @@ const AdditionalBlockForm = ({ blocks, index }: { blocks: AdditionalBlockExtende
         
       {blocks.map((block, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <input type="text" name="title" value={block.title} />
           </div>
         )

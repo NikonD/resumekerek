@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { parseResumeFromPdf } from "lib/parse-resume-from-pdf";
+// import { parseResumeFromPdf } from "lib/parse-resume-from-pdf";
 import {
   getHasUsedAppBefore,
   saveStateToLocalStorage,
@@ -74,26 +74,27 @@ export const ResumeDropzone = ({
   };
 
   const onImportClick = async () => {
-    const resume = await parseResumeFromPdf(file.fileUrl);
+    // const resume = await parseResumeFromPdf(file.fileUrl);
     const settings = deepClone(initialSettings);
     const login = deepClone(initialLoginState)
 
     // Set formToShow settings based on uploaded resume if users have used the app before
     if (getHasUsedAppBefore()) {
       const sections = Object.keys(settings.formToShow) as ShowForm[];
-      const sectionToFormToShow: Record<ShowForm, boolean> = {
-        workExperiences: resume.workExperiences.length > 0,
-        educations: resume.educations.length > 0,
-        projects: resume.projects.length > 0,
-        skills: resume.skills.descriptions.length > 0,
-        custom: resume.custom.descriptions.length > 0,
-      };
-      for (const section of sections) {
-        settings.formToShow[section] = sectionToFormToShow[section];
-      }
+      // const sectionToFormToShow: Record<ShowForm, boolean> = {
+      //   workExperiences: resume.workExperiences.length > 0,
+      //   educations: resume.educations.length > 0,
+      //   projects: resume.projects.length > 0,
+      //   skills: resume.skills.descriptions.length > 0,
+      //   custom: resume.custom.descriptions.length > 0,
+      //   additional: false
+      // };
+      // for (const section of sections) {
+      //   settings.formToShow[section] = sectionToFormToShow[section];
+      // }
     }
 
-    saveStateToLocalStorage({ resume, settings, login });
+    // saveStateToLocalStorage({ resume, settings, login });
     router.push("/resume-builder");
   };
 
