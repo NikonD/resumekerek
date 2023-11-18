@@ -174,8 +174,8 @@ const ResumeControlBarComponent = ({
   }, [update, document]);
 
   return (
-    <div className="sticky lg:flex-row flex-col bottom-[20px] lg:bottom-0 left-0 right-0 flex  lg:py-[0px] h-[var(--resume-control-bar-height)] items-center bg-white justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
-      {/* <div className="flex items-center gap-2">
+    <div className="sticky lg:flex-row flex-col bottom-[20px] lg:bottom-0 left-0 right-0 flex  lg:py-[0px] h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between ">
+      <div className="flex items-center gap-2">
         <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
         <input
           type="range"
@@ -184,12 +184,12 @@ const ResumeControlBarComponent = ({
           step={0.01}
           value={scale}
           onChange={(e) => {
-            setScaleOnResize(true);
-            // setScale(Number(e.target.value));
+            setScaleOnResize(false);
+            setScale(Number(e.target.value));
           }}
         />
         <div className="w-10">{`${Math.round(scale * 100)}%`}</div>
-        <label className="hidden items-center gap-1">
+        <label className="hidden items-center gap-1 lg:flex">
           <input
             type="checkbox"
             className="mt-0.5 h-4 w-4"
@@ -198,7 +198,7 @@ const ResumeControlBarComponent = ({
           />
           <span className="select-none">{t("auto-scale")}</span>
         </label>
-      </div> */}
+      </div>
       <div className="flex flex-row gap-1">
 
         <button
