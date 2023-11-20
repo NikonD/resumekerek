@@ -180,7 +180,7 @@ export const Strict = ({
 
         <View style={styles.rightCol}>
           {showFormsOrder.map((form: any) => {
-            if ((form == "custom") || (form!=='additional')) {
+            if ((form == "custom") && (form!=='additional')) {
               console.log("ONE SKILL", form)
               const Component = formTypeToComponent[form];
               return <Component style={{ flexDirection: "column" }} key={form} />;

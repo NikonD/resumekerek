@@ -100,12 +100,12 @@ export const ThemeForm = () => {
           />
         </div>
         <div>
-          <InputGroupWrapper label={t("document-format")} />
-          <DocumentSizeSelections
+          {/* <InputGroupWrapper label={t("document-format")} /> */}
+          {/* <DocumentSizeSelections
             themeColor={themeColor}
             selectedDocumentSize={documentSize}
             handleSettingsChange={handleSettingsChange}
-          />
+          /> */}
         </div>
       </div>
     </BaseForm>

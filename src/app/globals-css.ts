@@ -1,5 +1,5 @@
 export const CSS_VARIABLES = {
-  "--": "3.5rem",
+  "--top-nav-bar-height": "3.5rem",
   "--resume-control-bar-height": "3rem",
   "--resume-padding": "1.5rem",
 } as const;

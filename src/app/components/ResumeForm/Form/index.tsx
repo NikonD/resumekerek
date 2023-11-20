@@ -110,7 +110,7 @@ export const Form = ({
           <ShowIconButton show={showForm} setShow={setShowForm} />
         </div>
       </div>
-      <ExpanderWithHeightTransition expanded={showForm||false}>
+      <ExpanderWithHeightTransition expanded={showForm}>
         {children}
       </ExpanderWithHeightTransition>
       {showForm && addButtonText && (

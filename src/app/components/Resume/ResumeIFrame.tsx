@@ -33,7 +33,7 @@ const IFRAME_INITIAL_CONTENT = `<!DOCTYPE html>
           ${IFRAME_INITIAL_CONTENT_FONT_FAMILIES_FONT_FACE}
         </style>
       </head>
-      <body style='overflow: hidden; width: ${LETTER_WIDTH_PT}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
+      <body style='overflow: hidden; width: margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
         <div></div>
       </body>
     </html>`;
@@ -57,8 +57,8 @@ const ResumeIFrameComponent = ({
   
 }) => {
   if (enablePDFViewer) {
-    return (
-      <DynamicPDFViewer className="h-full w-full">
+    return ( 
+      <DynamicPDFViewer className="h-full">
         {children as any}
       </DynamicPDFViewer>
     );

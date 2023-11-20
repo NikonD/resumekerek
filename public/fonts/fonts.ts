@@ -25,8 +25,8 @@ export const SERI_FONT_FAMILIES = [
   "Caladea",
   "Lora",
   "RobotoSlab",
-  // "PlayfairDisplay",
-  // "MontserratAlt",
+  "PlayfairDisplay",
+  "MontserratAlt",
   "Merriweather",
   "AlegreyaSC"
 ] as const;
@@ -47,10 +47,10 @@ export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
   Caladea: 11,
   Lora: 11,
   RobotoSlab: 11,
-  // PlayfairDisplay: 11,
+  PlayfairDisplay: 11,
   Merriweather: 11,
   Ubuntu: 11,
   Play: 12,
-  // MontserratAlt: 12,
+  MontserratAlt: 12,
   AlegreyaSC: 12
 };

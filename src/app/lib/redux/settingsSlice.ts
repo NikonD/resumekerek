@@ -50,15 +50,15 @@ export const initialSettings: Settings = {
   themeColor: DEFAULT_THEME_COLOR,
   fontFamily: DEFAULT_FONT_FAMILY,
   fontSize: DEFAULT_FONT_SIZE,
-  documentSize: "Letter",
+  documentSize: "A4",
   themeResume: THEME_RESUME[0].name,
   formToShow: {
     workExperiences: true,
     educations: true,
     projects: true,
     skills: true,
-    custom: false,
-    additional: false,
+    custom: true,
+    additional: true,
   },
   formToHeading: {
     workExperiences: "Опыт работы",
@@ -66,7 +66,7 @@ export const initialSettings: Settings = {
     projects: "Проекты",
     skills: "Навыки",
     custom: "Языки",
-    // additional: "Дополнительно"
+    additional: "Дополнительно"
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom", "additional"],
   showBulletPoints: {
@@ -74,7 +74,7 @@ export const initialSettings: Settings = {
     projects: true,
     skills: true,
     custom: true,
-    additional: false
+    additional: true
   },
 };
 

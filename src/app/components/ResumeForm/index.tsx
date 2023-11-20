@@ -53,9 +53,12 @@ export const ResumeForm = () => {
         <ProfileForm />
         {formsOrder.map((form) => {
           const Component = formTypeToComponent[form];
+          console.log(form)
           return <Component key={form} />;
         })}
+        <AdditionalForm/>
         <ThemeForm />
+
         <br />
       </section>
       <FlexboxSpacer maxWidth={50} className="hidden md:block" />
