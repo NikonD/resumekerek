@@ -36,7 +36,12 @@ export const ResumePDFWorkExperience = ({
                 <ResumePDFText bold={true}>{company}</ResumePDFText>
               )}
 
-              <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
+              <ResumePDFText bold={true}>
+            <div className=" mr-[200px]">
+                
+                {formatDateRange(start_date, end_date)}
+                </div>
+                </ResumePDFText>
             </View>
 
             <View

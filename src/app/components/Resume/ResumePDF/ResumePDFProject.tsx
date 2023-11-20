@@ -35,7 +35,11 @@ export const ResumePDFProject = ({
             }}
           >
             <ResumePDFText bold={true}>{project}</ResumePDFText>
-            <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
+            <ResumePDFText bold={true}>
+            <div className=" mr-[500px]">
+              {formatDateRange(start_date, end_date)}
+              </div>
+              </ResumePDFText>
           </View>
           <View style={{ ...styles.flexCol, marginTop: spacing["0.5"] }}>
             <ResumePDFBulletList items={descriptions} />

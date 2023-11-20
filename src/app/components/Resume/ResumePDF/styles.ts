@@ -80,7 +80,6 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-
   },
   flexCol: {
     display: "flex",
@@ -96,7 +95,9 @@ export const styles = StyleSheet.create({
   lefSideFlex: {
     display: 'flex',
     flexDirection: "column",
-    alignContent: "space-between"
+    alignContent: "space-between",
+    position: "absolute",
+    right: "60pt"
   },
   rightSide: {
     paddingLeft: "10px",

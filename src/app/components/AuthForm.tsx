@@ -146,7 +146,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setPage, onGoogleAuth }) => 
       <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="md:w-2/3">
-          <button onClick={onSubmit} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
+          <button onClick={onSubmit} className="shadow bg-[#722ED1] hover:bg-[#722ED1] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
             {t("signin-button")}
           </button>
         </div>
@@ -290,7 +290,7 @@ export const RegForm: React.FC<AuthFormProps> = ({ setPage }) => {
         <div className="md:w-2/3">
           <button
             onClick={handleSubmit}
-            className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 "
+            className="shadow bg-[#722ED1] hover:bg-[#722ED1] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 "
             type="button"
           >
             {t("signup-button")}
@@ -346,7 +346,7 @@ export const UserComponent: React.FC<UserProps> = ({ fullname, email, plan, acti
           </label>
         </div> : null}
       <div>
-        <button onClick={onLogout} className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
+        <button onClick={onLogout} className="shadow bg-[#722ED1] hover:bg-[#722ED1] focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 " type="button">
           {t("signout-button")}
         </button>
       </div>

@@ -42,7 +42,7 @@ export const MoveIconButton = ({
   size?: "small" | "medium";
   onClick: (type: MoveIconButtonType) => void;
 }) => {
-  const tooltipText = type === "up" ? "Move up" : "Move down";
+  const tooltipText = type === "up" ? "Переместить вверх" : "Переместить вниз";
   const sizeClassName = size === "medium" ? "h-6 w-6" : "h-4 w-4";
   const Icon = type === "up" ? ArrowSmallUpIcon : ArrowSmallDownIcon;
 

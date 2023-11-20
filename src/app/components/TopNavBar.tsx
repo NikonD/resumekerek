@@ -52,16 +52,15 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
         isHomePage && "bg-dot"
       )}
     >
-      <div className="flex h-10 w-full items-center justify-between">
+      <div className="flex w-full items-center justify-between">
         <Link className="flex flex-row gap-1 w-8" href="/">
-
-          <Image
+          {/* <Image
             src={logoSrc}
             alt="ResumeKerek Logo"
             className="h-8 w-full"
             priority
-          />
-          {/* <span className="">Resume Kerek</span> */}
+          /> */}
+          <span className="whitespace-nowrap text-2xl font-semibold">Resume Kerek</span>
         </Link>
         <nav
           aria-label="Site Nav Bar"
@@ -72,8 +71,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
             onMouseEnter={() => setLanguageMenuOpen(true)}
             onMouseLeave={() => setLanguageMenuOpen(false)}>
             <button
-
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4 text-lg"
             >
               {t('lang')}
             </button>
@@ -86,7 +84,6 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
                   Қазақша
                 </button>
               </li>
-
               <li>
                 <button
                   className="w-full text-left px-3 py-2 hover:bg-gray-100"
@@ -113,19 +110,16 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
               </li>
             </ul>)}
           </div>
-
-
-
           {[
             ["/payment", t("payment")],
-            ["/service", t("service")],
+            // ["/service", t("service")],
             ["/resume-builder", t("constructor")],
             ["/resume-profile", t("resumes")],
             // ["/login", "Войти"]
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-1.5 py-2 text-lg text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
               href={href}
             >
               {text}
@@ -217,14 +211,14 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className=" text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className=" text-white text-lg rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
               href={href}
             >
               {text}
             </Link>
           ))}
           <button key={"login"} onClick={() => { setOpen(!open); setMobileMenuOpen(false) }}
-            className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
+            className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 text-lg focus-visible:bg-gray-100 lg:px-4">
             {user.islogin ? t("profile") : t("signin-label")}
           </button>
         </div>

@@ -29,7 +29,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, isActive, isLogin, o
       {isLogin ?
         isActive ?
           <p className="text-lg">{t('subscription-is-active')}</p> :
-          <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          <button className="mt-4 px-4 py-2 bg-[#722ED1] text-white rounded-md hover:bg-[#722ED1]">
             {t('buy')}
           </button> :
         <p className="text-lg">{t('login-required')}</p>

@@ -1,0 +1,8 @@
+
+.ant-coll >.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon path {
+    fill: white;
+  }
+
+.ant-coll>.ant-collapse-item >.ant-collapse-header {
+    color: white !important;
+}

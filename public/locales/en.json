@@ -120,7 +120,7 @@
   "payment": "Payment",
   "private-policy": "Privacy Policy",
   "offer": "Offer Agreement",
-  "agreementOffer": "I have read and agree to the <a class='font-medium text-blue-600 dark:text-blue-500 hover:underline' target='_blank' href='https://api.resumekerek.com/pub/offer_en.pdf'>Offer Agreement</a>",
+  "agreementOffer": "I have read and agree to the <a class='font-medium text-[#722ED1] dark:text-[#722ED1] hover:underline' target='_blank' href='https://api.resumekerek.com/pub/offer_en.pdf'>Offer Agreement</a>",
   "platformText": "Unlock the full potential of our platform and create impressive, unlimited resumes that set you apart from the competition. Discover a world of new career opportunities with full access.",
   "paymentText": "After receiving payment, the product will be provided immediately with unlimited resumes. Refunds will be made after a thorough review and assessment of the situation within 7 business days.",
   "subscriptionDurationText": "Choose the subscription duration and currency for payment",

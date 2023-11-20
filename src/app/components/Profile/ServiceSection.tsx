@@ -97,7 +97,7 @@ const ServicesPage: React.FC = () => {
       <div className="flex justify-center">
         <div className="flex flex-col items-center">
           <button
-            className="text-blue-500 underline"
+            className="text-[#722ED1] underline"
             onClick={toggleExpand}
           >
             {isExpanded ? t('subscription-collapse-link') : t('subscription-moreinfo-link')}
