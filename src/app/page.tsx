@@ -22,7 +22,6 @@ export default function Home() {
         <main className="mx-auto max-w-screen bg-dot px-8 text-gray-900 lg:px-12 overflow-x-hidden">
           <TopNavBar />
           <Hero />
-          <Steps />
           {/* <Steps /> */}
           <Features />
           {/* <Testimonials /> */}

@@ -66,7 +66,7 @@ export const initialSettings: Settings = {
     projects: "Проекты",
     skills: "Навыки",
     custom: "Языки",
-    additional: "Дополнительно"
+    // additional: "Дополнительно"
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom", "additional"],
   showBulletPoints: {

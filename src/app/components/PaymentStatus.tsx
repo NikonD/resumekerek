@@ -90,7 +90,7 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ isSuccess }) => {
         )}
         <div className="mt-4 text-center">
           <Link href="/">
-            <a className="text-blue-500 hover:underline">{t('return-to-main')}</a>
+            <a className="text-[#722ED1] hover:underline">{t('return-to-main')}</a>
           </Link>
         </div>
       </div>

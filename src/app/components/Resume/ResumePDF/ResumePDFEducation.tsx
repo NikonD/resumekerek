@@ -35,11 +35,13 @@ export const ResumePDFEducation = ({
 
           return (
             <View key={idx} style={styleEdu.flow}>
-              <View style={styleEdu.company}>
+              <View style={styleEdu.company} >
                 {!hideSchoolName && (
                   <ResumePDFText bold={true}>{school}</ResumePDFText>
                 )}
-                <ResumePDFText bold={true}>{formatDateRange(start_date, end_date)}</ResumePDFText>
+                <ResumePDFText bold={true}>
+                  {formatDateRange(start_date, end_date)}
+                  </ResumePDFText>
               </View>
 
               <View

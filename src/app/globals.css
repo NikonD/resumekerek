@@ -50,7 +50,7 @@
   }
 
   .payment__tab-btn {
-    border: 1px solid gray;
+    border-bottom: 1px solid gray;
     width: 100%;
   }
 
@@ -63,7 +63,19 @@
   --theme-purple: #5d52d9;
   --theme-blue: #4fc5eb;
   /* Keep the below variable names in sync with CSS_VARIABLES in globals-css.ts */
-  --top-nav-bar-height: 3.5rem;
+  --top-nav-bar-height: 5rem;
   --resume-control-bar-height: 3rem;
   --resume-padding: 1.5rem;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../app/fonts/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Raleway';
+  font-variant-numeric: lining-nums;
 }

@@ -175,7 +175,7 @@ const PhotoUpload = <K extends string>({
         </div>
       </div>
       <button
-        className='btn btn-link align-left text-blue-600'
+        className='btn btn-link align-left text-[#722ED1]'
         // className={INPUT_CLASS_NAME}
         onClick={() => {
           onChange(name, undefined)

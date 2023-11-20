@@ -5,6 +5,7 @@ import config from '../../../config/config.json'
 import { useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/loginSlice';
 import { toast } from 'react-toastify';
+import { ConfigProvider, Tabs } from 'antd';
 
 type Plan = {
   type: string;
@@ -125,31 +126,60 @@ const PaymentFrame = ({openAuth}: {openAuth: (t: boolean)=>void}) => {
       });
   }
 
+  const onChange = (key: string) => {
+    setPlan(Number(key));
+  };
+
+  const items = [
+    {
+      key: '0',
+      label: `${t('monthly-subscription')}`,
+    },
+    {
+      key: '1',
+      label: `${t('half-year-subscription')}`,
+    },
+    {
+      key: '2',
+      label: `${t('yearly subscription')}`,
+    },
+  ];
 
   return (
     
     <div className="flex items-center justify-center  h500">
 
-      <div style={{ width: "450px" }} className='payment__block'>
-        <div className='mb-5 text-base sm:text-10pt'>
-          {/* <p>{t('platformText')}</p> */}
+      <div style={{ width: "550px" }} className='payment__block'>
+        <div className='mt-8 flex flex-col items-center'>
+          <span className=' font-semibold text-2xl'>{t('payment')}</span>
         </div>
-        <div className="flex flex-row justify-around payment__header">
-          <button
+        <div className="flex flex-row justify-around payment__header pt-4 mb-2">
+        <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#722ED1',
+        // colorBgContainer: '#f6ffed',
+      },
+    }}
+  >
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+   
+  </ConfigProvider>
+          {/* <button
             onClick={() => { setPlan(0) }}
-            className="payment__tab-btn hover:border-blue-500 focus:text-blue-500">
+            className="payment__tab-btn border-b hover:border-[#722ED1] focus:text-[#722ED1]">
             {t('monthly-subscription')}
           </button>
           <button
             onClick={() => { setPlan(1) }}
-            className="payment__tab-btn hover:border-blue-500 focus:text-blue-500">
+            className="payment__tab-btn hover:border-[#722ED1] focus:text-[#722ED1]">
             {t('half-year-subscription')}
           </button>
           <button
             onClick={() => { setPlan(2) }}
-            className="payment__tab-btn hover:border-blue-500 focus:text-blue-500">
+            className="payment__tab-btn hover:border-[#722ED1] focus:text-[#722ED1]">
             {t('yearly subscription')}
-          </button>
+          </button> */}
         </div>
         <div className='flex flex-col border gap-4 border-solid p-6'>
           <div className='flex flex-row justify-between'>
@@ -159,17 +189,17 @@ const PaymentFrame = ({openAuth}: {openAuth: (t: boolean)=>void}) => {
             <div className="flex gap-4 flex-row justify-around payment__header">
               <button
                 onClick={() => { setCyrrency(0) }}
-                className="hover:text-blue-500 focus:text-blue-500">
+                className="hover:text-[#722ED1] focus:text-[#722ED1]">
                 KZT
               </button>
               <button
                 onClick={() => { setCyrrency(1) }}
-                className="hover:text-blue-500 focus:text-blue-500">
+                className="hover:text-[#722ED1] focus:text-[#722ED1]">
                 CNY
               </button>
               <button
                 onClick={() => { setCyrrency(2) }}
-                className="hover:text-blue-500 focus:text-blue-500">
+                className="hover:text-[#722ED1] focus:text-[#722ED1]">
                 RUB
               </button>
             </div>
@@ -194,19 +224,19 @@ const PaymentFrame = ({openAuth}: {openAuth: (t: boolean)=>void}) => {
                 <input checked={ofert} type="checkbox" onChange={(e) => { isOfert(e.currentTarget.checked) }} />
                 <label dangerouslySetInnerHTML={{ __html: t('agreementOffer', { a: '<a href="#">' }) }}></label>
               </div>
-              <a className='font-medium text-blue-600 dark:text-blue-500 hover:underline' target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}>{t('private-policy')}</a>
+              <a className='font-medium text-[#722ED1] dark:text-[#722ED1] hover:underline' target="_blank" href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}>{t('private-policy')}</a>
             </div>
             {user.islogin? <button
               disabled={!ofert}
               onClick={() => {
                 onPay()
               }}
-              className={`${ofert ? ' hover:bg-blue-400 focus:shadow-outline focus:outline-none' : 'disabled:opacity-50 disabled:cursor-not-allowed'} shadow bg-blue-500 text-white font-bold py-2 px-4`} type="button">
+              className={`${ofert ? ' hover:bg-[#722ED1] focus:shadow-outline focus:outline-none' : 'disabled:opacity-50 disabled:cursor-not-allowed'} shadow bg-[#722ED1] text-white font-bold py-2 px-4`} type="button">
               {t('paymentButton')}
             </button> : <button onClick={() => {
                 // openAuth(true)
               }}
-              className='hover:bg-blue-400 focus:shadow-outline focus:outline-none shadow bg-blue-500 text-white font-bold py-2 px-4'>{t('login-required')}</button> }
+              className='hover:bg-[#722ED1] focus:shadow-outline focus:outline-none shadow bg-[#722ED1] text-white font-bold py-2 px-4'>{t('login-required')}</button> }
             
             <p>{t('paymentText')}</p>
           </div>

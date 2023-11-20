@@ -120,7 +120,7 @@
   "payment": "付款",
   "private-policy": "隐私政策",
   "offer": "要约协议",
-  "agreementOffer": "同意<a class='font-medium text-blue-600 dark:text-blue-500 hover:underline' target='_blank' href='https://api.resumekerek.com/pub/offer_ch.pdf'>并阅读协议</a>",
+  "agreementOffer": "同意<a class='font-medium text-[#722ED1] dark:text-[#722ED1] hover:underline' target='_blank' href='https://api.resumekerek.com/pub/offer_ch.pdf'>并阅读协议</a>",
   "platformText": "充分发挥我们平台的所有潜力，创建数量不受限制的令人印象深刻的简历，能够在竞争中脱颖而出。全面访问，探索新的职业发展机会。",
   "paymentText": "付款后，产品将立即提供，简历数量不受限制。经过仔细检查和评估，7个工作日内退款。",
   "subscriptionDurationText": "选择订阅时长和支付货币",

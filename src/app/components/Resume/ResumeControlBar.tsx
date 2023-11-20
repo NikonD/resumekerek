@@ -188,7 +188,7 @@ const ResumeControlBarComponent = ({
             setScale(Number(e.target.value));
           }}
         />
-        <div className="w-10">{`${Math.round(scale * 100)}%`}</div>
+        <div className="w-10">{`${Math.round((isNaN(scale) ? 1 : scale) * 100)}%`}</div>
         <label className="hidden items-center gap-1 lg:flex">
           <input
             type="checkbox"
@@ -202,13 +202,13 @@ const ResumeControlBarComponent = ({
       <div className="flex flex-row gap-1">
 
         <button
-          className="flex justify-center items-center lg:text-unset text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
+          className="flex justify-center items-center lg:text-unset text-[1.1rem] whitespace-nowrap gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-4"
           onClick={() => {
             dispath(clearResume(resume))
           }}>
           {t('reset')}
         </button>
-        <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8" >
+        <button onClick={downloadPDF} className=" flex justify-center items-center text-[1.1rem] flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-4" >
           <ArrowDownTrayIcon className="h-4 w-4" />
           <span className="whitespace-nowrap">{t("download-resume-button")}</span>
         </button>
