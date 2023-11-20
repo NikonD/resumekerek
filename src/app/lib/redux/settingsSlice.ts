@@ -14,7 +14,7 @@ export interface Settings {
     projects: boolean;
     skills: boolean;
     custom: boolean;
-    additional?: boolean;
+    additional: boolean;
   };
   formToHeading: {
     workExperiences: string;
@@ -22,7 +22,7 @@ export interface Settings {
     projects: string;
     skills: string;
     custom: string;
-    additional?: string;
+    additional: string;
   };
   formsOrder: ShowForm[];
   showBulletPoints: {
@@ -30,7 +30,7 @@ export interface Settings {
     projects: boolean;
     skills: boolean;
     custom: boolean;
-    additional?: boolean
+    additional: boolean
   };
 }
 

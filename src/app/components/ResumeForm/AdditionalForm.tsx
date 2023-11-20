@@ -7,15 +7,31 @@ import {
 import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { changeEducations, selectAdditional } from "lib/redux/resumeSlice";
+import { changeAdditional, changeEducations, selectAdditional } from "lib/redux/resumeSlice";
 import type { Additional, AdditionalBlockExtended, ResumeEducation } from "lib/redux/types";
 import {
   changeShowBulletPoints,
   selectShowBulletPoints,
 } from "lib/redux/settingsSlice";
 import { useTranslation } from "react-i18next";
+import { Button } from "components/Button";
 
-const AdditionalBlockForm = ({ blocks, index }: { blocks: AdditionalBlockExtended[], index: any }) => {
+interface InputProps<K extends string, V extends string | string[]> {
+  name: K;
+  value?: V;
+  onChange: (name: K, value: V) => void;
+  blocks: AdditionalBlockExtended[];
+  index: any ;
+}
+
+
+const AdditionalBlockForm = <K extends string>({ 
+  blocks, 
+  index,
+  name,
+  value,
+  onChange 
+} :InputProps<K, string>) => {
 
   // здесь можно рендерить и управлять каждым блоком
   const showMoveUp = index !== 0;
@@ -31,11 +47,11 @@ const AdditionalBlockForm = ({ blocks, index }: { blocks: AdditionalBlockExtende
       showMoveDown={showMoveDown}
       showDelete={showDelete}
       deleteButtonTooltipText={t("delete-a-not")}>
-        
+
       {blocks.map((block, idx) => {
         return (
           <div key={idx}>
-            <input type="text" name="title" value={block.title} />
+            <input onChange={(e) => {onChange(name, e.target.value)}} type="text" name={name} value={value} />
           </div>
         )
       })}
@@ -53,16 +69,34 @@ export const AdditionalForm = () => {
 
   const { t } = useTranslation()
   const additionalBlocks = useAppSelector(selectAdditional);
-  console.log("ADDDDD", additionalBlocks)
+
+
+
   return (
 
     <Form form={form}>
       <div>
         <h2>Additional Information</h2>
-        {additionalBlocks.map((additional, idx) => (
-          <AdditionalBlockForm blocks={additional.blocks} index={idx} key={idx} />
-        ))}
+        {additionalBlocks.map(({heading, blocks}, idx) => {
+          const chengeHeading = (...[
+            field,
+            value,
+          ]: CreateHandleChangeArgsWithDescriptions<Additional>) => {
+            dispatch(changeAdditional({idx, field, value} as any))
+          }
+          return (
+
+            <AdditionalBlockForm 
+              onChange={chengeHeading}
+              name={"heading"} 
+              value={heading} 
+              blocks={blocks} 
+              index={idx} 
+              key={idx} />
+          )
+        })}
       </div>
+
     </Form>
   );
 };

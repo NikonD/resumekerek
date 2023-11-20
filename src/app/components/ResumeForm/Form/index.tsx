@@ -107,7 +107,7 @@ export const Form = ({
           {!isLastForm && (
             <MoveIconButton type="down" onClick={handleMoveClick} />
           )}
-          <ShowIconButton show={showForm||true} setShow={setShowForm} />
+          <ShowIconButton show={showForm} setShow={setShowForm} />
         </div>
       </div>
       <ExpanderWithHeightTransition expanded={showForm||false}>
