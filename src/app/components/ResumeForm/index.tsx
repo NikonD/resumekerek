@@ -56,7 +56,7 @@ export const ResumeForm = () => {
           console.log(form)
           return <Component key={form} />;
         })}
-        <AdditionalForm/>
+        {/* <AdditionalForm/> */}
         <ThemeForm />
 
         <br />
