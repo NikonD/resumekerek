@@ -64,14 +64,14 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
         </Link>
         <nav
           aria-label="Site Nav Bar"
-          className="sm:flex sm:flex-row md:flex md:flex-row lg:flex lg:flex-row lg:items-center gap-2 text-sm font-medium hidden sm:block md:block"
+          className="sm:flex sm:flex-row md:flex md:flex-row lg:flex lg:flex-row lg:items-center gap-2 lg:text-lg text-sm font-medium hidden sm:block md:block"
         >
 
           <div className="relative"
             onMouseEnter={() => setLanguageMenuOpen(true)}
             onMouseLeave={() => setLanguageMenuOpen(false)}>
             <button
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4 text-lg"
+              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
             >
               {t('lang')}
             </button>
@@ -119,7 +119,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className="rounded-md px-1.5 py-2 text-lg text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
               href={href}
             >
               {text}
@@ -211,14 +211,14 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({isAuthOpen=false}) => {
           ].map(([href, text]) => (
             <Link
               key={text}
-              className=" text-white text-lg rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
+              className=" text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
               href={href}
             >
               {text}
             </Link>
           ))}
           <button key={"login"} onClick={() => { setOpen(!open); setMobileMenuOpen(false) }}
-            className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 text-lg focus-visible:bg-gray-100 lg:px-4">
+            className="text-white rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4">
             {user.islogin ? t("profile") : t("signin-label")}
           </button>
         </div>

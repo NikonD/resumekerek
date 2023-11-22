@@ -325,12 +325,18 @@ export const UserComponent: React.FC<UserProps> = ({ fullname, email, plan, acti
 
   return (
     <div className="w-full max-w-sm md:flex flex-col mb-6">
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col gap-1">
+        <span>
+          Имя
+        </span>
         <label className="block text-gray-500 font-bold   mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
           {fullname}
         </label>
       </div>
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col gap-1">
+      <span>
+          Email
+        </span>
         <label className="block text-gray-500 font-bold   mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
           {email}
         </label>

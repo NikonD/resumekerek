@@ -103,7 +103,7 @@ const EditUser = () => {
       isFormValid = false;
     }
 
-    if (profileData.language.trim() === "") {
+    if (profileData.language?.trim() === "") {
       newErrorMessages.language = t("languageRequired");
       isFormValid = false;
     }

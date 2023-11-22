@@ -31,16 +31,16 @@ export const Footer = () => {
         <p>&copy; 2023 Tamasha Trade Company</p>
       </div> */}
 
-<div className="flex flex-row justify-between w-full items-center py-3  border-y border-border">
+<div className="flex flex-col sm:flex sm:flex-row justify-between w-full items-center py-3  border-y border-border ">
 <div className="flex flex-col items-start">
 <span className="whitespace-nowrap text-2xl font-semibold  mb-2">Resume Kerek</span>
 
 
 </div>
 
-            <ul className="flex flex-row gap-3  ">
+            <ul className="sm:flex sm:flex-row flex flex-col gap-3  ">
               <li className="px-3 hover:text-[#722ED1]">
-                <Link href="/">Главная</Link>
+                <Link href="/">{t("footer-main")}</Link>
               </li>
               <li className="px-3 hover:text-[#722ED1]">
                 <Link href={`${config.API_URL}/pub/offer_${i18n.language}.pdf`}>{t('offer')}</Link>
@@ -58,12 +58,12 @@ export const Footer = () => {
           </div>
           </div>
           <div className="flex flex-col gap-3 max-w-2xl w-full justify-center items-center">
-          <div className="flex pt-6  flex-row gap-6 lg:items-start items-cente">
+          <div className="sm:flex pt-6 flex flex-col sm:flex-row gap-6 lg:items-start items-center">
           <p>Tamasha Trade Company</p>
-          <p>Tel: +7 776 875 4857</p>
-          <p>Email: tamashatradeco@gmail.com</p>
+          <p> +7 776 875 4857</p>
+          <p>tamashatradeco@gmail.com</p>
         </div>
-          <div className="flex  flex-row gap-3 items-center justify-center">            <span className="text-sm font-semibold">
+          <div className="sm:flex  sm:flex-row flex flex-col gap-3 items-center justify-center">            <span className="text-sm font-semibold">
               © 2023 Tamasha Trade Company
             </span>
             <a  href={`${config.API_URL}/pub/policy_${i18n.language}.pdf`}  className="hover:text-[#722ED1] text-sm text-primary_100">

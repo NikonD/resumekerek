@@ -20,15 +20,15 @@ export const Hero = () => {
         <div className="flex flex-col items-center gap-8 py-[5.875rem]">
 
     <div className="flex flex-col gap-2 items-center">
-        <h1 className="text-black uppercase font-bold leading-tight text-5xl">
+        <h1 className="text-black uppercase font-bold leading-tight lg:text-5xl text-center text-2xl sm:text-3xl">
          {t("h1-subtitle")}
          </h1>
-         <h1 className="text-[#722ED1] uppercase font-bold leading-tight text-5xl">
-         за 5 минут
+         <h1 className="text-[#722ED1] uppercase font-bold leading-tight lg:text-5xl text-center text-2xl sm:text-3xl">
+         {t("h1-subtitle-time")}
          </h1>
     </div>
             <div className="flex flex-col items-center">
-              <div className="grid grid-cols-3 gap-[5rem] pt-8">
+              <div className="lg:grid-cols-3 gap-[5rem] pt-8 mx-auto flex flex-col lg:grid ">
                 <div className="flex flex-col items-center gap-2">
                   <div className="bg-white rounded-full p-6 mb-8">
                     <Image
@@ -39,10 +39,10 @@ export const Hero = () => {
                     />
                   </div>
                   <h4 className="text-lg  text-black_100 font-semibold">
-                  Выберите шаблон
+                    {t("h4-step1")}
                   </h4>
                   <span className="text-grey text-sm text-center">
-                  10+ шаблонов
+                    {t("h4-step1-desc")}
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
@@ -55,10 +55,10 @@ export const Hero = () => {
                     />
                   </div>
                   <h4 className="text-lg text-black_100 font-semibold">
-                  Введите свои данные
+                    {t("h4-step2")}
                   </h4>
                   <span className="text-grey text-sm text-center">
-                  и сохраните изменения
+                    {t("h4-step2-desc")}
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
@@ -71,13 +71,16 @@ export const Hero = () => {
                     />
                   </div>
                   <h4 className="text-lg  text-black_100 font-semibold">
-                  Экспортируйте резюме                  </h4>
+                  {t("h4-step3")}
+
+                                   </h4>
                   <span className="text-grey text-sm text-center">
-                  нажмите Сохранить
+                  {t("h4-step3-desc")}
+                  
                   </span>
                 </div>
               </div>
-              <Link href="/resume-builder" className="mt-12 px-10 rounded-full text-xl py-2 text-white bg-[#722ED1] ">
+              <Link href="/resume-builder" className="mt-12 px-10 rounded-full text-xl py-2 text-white bg-[#722ED1]">
            {t("start")}
          </Link>
             </div>

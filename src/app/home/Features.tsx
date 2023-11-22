@@ -8,6 +8,7 @@ import Clock from 'public/assets/Clock.svg'
 import DetailsPage from 'public/assets/DetailsPage.svg'
 import File from 'public/assets/File.svg'
 import ApplicationModule from 'public/assets/ApplicationModule.svg'
+import { useTranslation } from "react-i18next";
 
 
 const FEATURES = [
@@ -28,7 +29,10 @@ const FEATURES = [
   },
 ];
 
+
 export const Features = () => {
+const { t } = useTranslation();
+
   return (
     <section className="py-16 lg:py-36">
       <div className="mx-auto lg:max-w-4xl">
@@ -50,46 +54,58 @@ export const Features = () => {
           ))} */}
         {/* </dl> */}
 
-        <div className="flex flex-col-2 gap-6 ">
+        <div className="lg:grid gap-6 lg:grid-cols-2 flex flex-col">
 <div className="flex flex-col gap-4">
-<h3 className=" text-2xl font-semibold">Преимущества</h3>
+<h3 className=" text-2xl font-semibold">
+{t("h3-features")}
+  
+  
+  
+  </h3>
 <span className=" text-base text-[rgba(0, 0, 0, 0.45)]">
-Сервис обеспечивает простоту и удобство в создании профессиональных резюме, предлагая шаблоны и инструменты для структурирования информации. 
-Сервисы  содержат подсказки и рекомендации по форматированию и содержанию, помогая Вам выделить свои навыки, образование и опыт работы наилучшим образом
+{t("h3-features-desc")}
 </span>
 </div>
 
-<div className="flex flex-row gap-8 items-start">
-<div  className="flex flex-col gap-2">
+<div className="sm:flex sm:flex-row flex flex-col gap-8 items-center sm:items-start justify-between">
+<div  className="flex flex-col gap-2 sm:items-start items-center">
 <div className=" h-20">
 <Image src={ApplicationModule} alt={""} width={80} height={80}/>
 </div>
 <span>
-Готовые шаблоны
+{t("h3-features-1")}
+
+
 </span>
 </div>
-<div className="flex flex-col gap-2">
+<div className="flex flex-col gap-2 sm:items-start items-center">
 <div className=" h-20">
 <Image src={DetailsPage} alt={""} width={80} height={80} />
 </div>
 <span>
-Простой интерфейс
+{t("h3-features-2")}
+
+
 </span>
 </div>
-<div className="flex flex-col gap-2">
+<div className="flex flex-col gap-2 sm:items-start items-center">
 <div className=" h-20">
 <Image src={Clock} alt={""} width={80} height={80} />
 </div>
 <span>
-Вечный доступ
+{t("h3-features-3")}
+
+
 </span>
 </div>
-<div className="flex flex-col gap-2">
+<div className="flex flex-col gap-2 sm:items-start items-center">
 <div className=" h-20">
 <Image src={File} alt={""} width={80} height={80} />
 </div>
 <span>
-PDF формат
+{t("h3-features-4")}
+
+
 </span>
 </div>
 

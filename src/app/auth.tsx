@@ -37,6 +37,7 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ open, setOpen, user }) =>
       </div>
 
       <div className="p-6">
+  
         {user.islogin ?
           <UserComponent
             fullname={user.fullname}
